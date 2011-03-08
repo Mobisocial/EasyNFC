@@ -173,7 +173,30 @@ public class Nfc {
 		}
 	}
 
+	/**
+	 * Returns the (mutable) set of active connection handover
+	 * responders.
+	 */
+	public Set<ConnectionHandover> getConnectionHandoverResponders() {
+		return mConnectionHandovers;
+	}
 	
+	
+	/**
+	 * Disallows connection handover requests.
+	 */
+	public void disableConnectionHandover() {
+		mConnectionHandoverEnabled = false;
+	}
+	
+	/**
+	 * Enables support for connection handover requests.
+	 */
+	public void enableConnectionHandover() {
+		mConnectionHandoverEnabled = true;
+	}
+	
+
 	/** 
 	 * Read an NdefMessage from an available tag or device. This method
 	 * presents a dialog to the user so the rest of your activity cannot be
