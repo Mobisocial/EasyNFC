@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>edu.stanford.mobisocial</groupId>
+  <artifactId>EasyNfc</artifactId>
+  <version>0.2-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>EasyNfc</name>
+  <description>An abstraction layer for Nfc on Android</description>
+  <dependencies>
+    <dependency>
+      <groupId>android</groupId>
+      <artifactId>android</artifactId>
+      <version>10</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+        <artifactId>maven-android-plugin</artifactId>
+        <version>2.8.4</version>
+        <configuration>
+          <sdk>
+            <path>/usr/share/android-sdk-linux_86</path>
+            <platform>9</platform>
+          </sdk>
+          <deleteConflictingFiles>true</deleteConflictingFiles>
+        </configuration>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <debug>true</debug>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <docletArtifact>
+            <groupId>com.google.doclava</groupId>
+            <artifactId>doclava</artifactId>
+            <version>1.0.3</version>
+          </docletArtifact>
+          <doclet>com.google.doclava.Doclava</doclet>
+          <!--
+            | bootclasspath required by Sun's JVM 
+          -->
+          <bootclasspath>${sun.boot.class.path}</bootclasspath>
+          <additionalparam>
+             -quiet
+             -federate Android http://developer.android.com/reference
+             -federationxml Android http://doclava.googlecode.com/svn/static/api/android-10.xml
+             -hdf project.name "${project.name}"
+             -d ${project.build.directory}/apidocs
+           </additionalparam>
+          <useStandardDocletOptions>false</useStandardDocletOptions>
+          <!--
+            | Apple's JVM sometimes requires more memory
+          -->
+          <additionalJOption>-J-Xmx1024m</additionalJOption>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
