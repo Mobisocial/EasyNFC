@@ -203,6 +203,16 @@ public class Nfc {
 		return mConnectionHandoverEnabled;
 	}
 	
+	/**
+	 * Returns true if the given Ndef message contains a connection
+	 * handover request.
+	 */
+	public static boolean isHandoverRequest(NdefMessage ndef) {
+		NdefRecord[] records = (ndef).getRecords();
+		return (records.length >= 3 
+			&& records[0].getTnf() == NdefRecord.TNF_WELL_KNOWN
+			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST));
+	}
 
 	/** 
 	 * Read an NdefMessage from an available tag or device. This method
@@ -336,21 +346,17 @@ public class Nfc {
 			return true;
 		}
 		
-		boolean handoverRequested = false;
-		NdefRecord[] records = ((NdefMessage)rawMsgs[0]).getRecords();
-		if (records[0].getTnf() == NdefRecord.TNF_WELL_KNOWN
-			&& records.length >= 3 
-			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST)) {
-			handoverRequested = true;
-		}
+		NdefMessage[] ndefMessages = (NdefMessage[])rawMsgs;
+		boolean handoverRequested = isHandoverRequest(ndefMessages[0]);
 		
 		if (!mConnectionHandoverEnabled || handoverRequested == false) {
 			if (mOnTagReadListener != null) {
-				mOnTagReadListener.onTagRead((NdefMessage)rawMsgs[0]);
+				mOnTagReadListener.onTagRead(ndefMessages[0]);
 			}
 			return true;
 		}
 		
+		NdefRecord[] records = ndefMessages[0].getRecords();
 		for (int i = 2; i < records.length; i++) {
 			Iterator<ConnectionHandover> handovers = mConnectionHandovers.iterator();
 			while (handovers.hasNext()) {
