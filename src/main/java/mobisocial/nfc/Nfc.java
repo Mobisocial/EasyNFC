@@ -196,6 +196,13 @@ public class Nfc {
 		mConnectionHandoverEnabled = true;
 	}
 	
+	/**
+	 * Returns true if connection handovers are currently supported.
+	 */
+	public boolean isConnectionHandoverEnabled() {
+		return mConnectionHandoverEnabled;
+	}
+	
 
 	/** 
 	 * Read an NdefMessage from an available tag or device. This method
