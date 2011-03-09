@@ -346,17 +346,17 @@ public class Nfc {
 			return true;
 		}
 		
-		NdefMessage[] ndefMessages = (NdefMessage[])rawMsgs;
-		boolean handoverRequested = isHandoverRequest(ndefMessages[0]);
+		NdefMessage ndefMessage = (NdefMessage)(rawMsgs[0]);
+		boolean handoverRequested = isHandoverRequest(ndefMessage);
 		
-		if (!mConnectionHandoverEnabled || handoverRequested == false) {
+		if (!mConnectionHandoverEnabled || !handoverRequested) {
 			if (mOnTagReadListener != null) {
-				mOnTagReadListener.onTagRead(ndefMessages[0]);
+				mOnTagReadListener.onTagRead(ndefMessage);
 			}
 			return true;
 		}
 		
-		NdefRecord[] records = ndefMessages[0].getRecords();
+		NdefRecord[] records = ndefMessage.getRecords();
 		for (int i = 2; i < records.length; i++) {
 			Iterator<ConnectionHandover> handovers = mConnectionHandovers.iterator();
 			while (handovers.hasNext()) {
