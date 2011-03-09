@@ -54,18 +54,18 @@ import android.widget.Toast;
  * class MyActivity extends Activity {
  *   onResume() {
  *     super.onResume();
- *     mNfc.resume(this);
+ *     mNfc.onResume(this);
  *     // your activity's onResume code
  *   }
  *
  *  onPause() {
  *    super.onPause();
- *    mNfc.pause(this);
+ *    mNfc.onPause(this);
  *    // your activity's onPause code
  *  }
  *  
  *  onNewIntent(Intent intent) {
- *    if (mNfc.handleNewIntent(this, intent)) {
+ *    if (mNfc.onNewIntent(this, intent)) {
  *      return;
  *    }
  *    // your activity's onNewIntent code
@@ -269,7 +269,7 @@ public class Nfc {
 	/**
 	 * Call this method in your Activity's onResume() method body.
 	 */
-	public void resume(Activity activity) {
+	public void onResume(Activity activity) {
 		if (mNfcAdapter == null) {
 			return;
 		}
@@ -294,7 +294,7 @@ public class Nfc {
 	/**
 	 * Call this method in your Activity's onPause() method body.
 	 */
-	public void pause(Activity activity) {
+	public void onPause(Activity activity) {
 		if (mNfcAdapter == null) {
 			return;
 		}
@@ -319,7 +319,7 @@ public class Nfc {
 	/**
 	 * Call this method in your activity's onNewIntent(Intent) method body.
 	 */
-	public boolean handleNewIntent(Activity activity, Intent intent) {
+	public boolean onNewIntent(Activity activity, Intent intent) {
 		// refresh mActivity
 		mActivity = activity;
 
