@@ -73,7 +73,11 @@ import android.widget.Toast;
  * }
  * </pre>
  *
- * <p>Obtain an instance of this class by using the static {@link #getInstance} method.
+ * <p>Obtain an instance of this class by using the static {@link #getInstance}
+ * method. Your application must hold the {@code android.permission.NFC}
+ * permission to use this interface.
+ * </p>
+ * <p>
  * To interact with the Nfc device, see:
  * <ul>
  *   <li>{@link #share(NdefMessage)} and similar, to share messages with other Nfc devices.
@@ -486,9 +490,13 @@ public class Nfc {
     }
 	
 	/**
-	 * Implements an Ndef push handover request in which a tag represents
+	 * <p>Implements an Ndef push handover request in which a tag represents
 	 * an Ndef reader device listening on a TCP socket.
-	 *
+	 * </p>
+	 * <p>
+	 * Your application must hold the {@code android.permission.INTERNET}
+	 * permission to support TCP handovers.
+	 * </p>
 	 */
 	public class NdefTcpPushHandover implements ConnectionHandover {
 		private static final int DEFAULT_TCP_HANDOVER_PORT = 7924;
@@ -532,9 +540,13 @@ public class Nfc {
 	}
 		
 	/**
-	 * Implements an Ndef push handover request in which a tag represents
+	 * <p>Implements an Ndef push handover request in which a tag represents
 	 * an Ndef reader device listening on a Bluetooth socket.
-	 *
+	 * </p>
+	 * <p>
+	 * Your application must hold the {@code android.permission.BLUETOOTH}
+	 * permission to support Bluetooth handovers.
+	 * </p>
 	 */
 	public class NdefBluetoothPushHandover implements ConnectionHandover {
 		@Override
