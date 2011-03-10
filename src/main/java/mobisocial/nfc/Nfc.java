@@ -48,24 +48,24 @@ import android.util.Log;
  *
  * class MyActivity extends Activity {
  * 
- *   onCreate() {
- *     super.onCreate();
+ *   public void onCreate(Bundle savedInstanceState) {
+ *     super.onCreate(savedInstanceState);
  *     mNfc = new Nfc(this);
  *   }
  * 
- *   onResume() {
+ *   public void onResume() {
  *     super.onResume();
  *     mNfc.onResume(this);
  *     // your activity's onResume code
  *   }
  *
- *  onPause() {
+ *  public void onPause() {
  *    super.onPause();
  *    mNfc.onPause(this);
  *    // your activity's onPause code
  *  }
  *  
- *  onNewIntent(Intent intent) {
+ *  public void onNewIntent(Intent intent) {
  *    if (mNfc.onNewIntent(this, intent)) {
  *      return;
  *    }
