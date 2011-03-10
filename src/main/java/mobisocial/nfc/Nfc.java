@@ -7,10 +7,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -78,10 +76,12 @@ import android.widget.Toast;
  * permission to use this interface.
  * </p>
  * <p>
- * To interact with the Nfc device, see:
+ * The Nfc interface can be in one of two modes: {@link #MODE_WRITE}, for writing
+ * to a passive NFC tag, and {@link #MODE_EXCHANGE}, in which the interface can
+ * read data from passive tags and exchange data with another active Nfc device.
  * <ul>
  *   <li>{@link #share(NdefMessage)} and similar, to share messages with other Nfc devices.
- *   <li>{@link #setOnTagReadListener}, for reacting to scanned tags without blocking.
+ *   <li>{@link #setOnTagReadListener}, for reacting to incoming data without blocking.
  *   <li>{@link #waitForRead}, to block the UI while waiting for a tag to be read.
  *   <li>{@link #waitForWrite}, to block the UI while waiting to write to a tag.
  * </ul>
@@ -89,27 +89,40 @@ import android.widget.Toast;
  */
 public class Nfc {
 	private static final String TAG = "easynfc";
-	private static final Map<String, Nfc> sNfcs = new HashMap<String, Nfc>();
-	
+	private static Nfc sNfc;
+
 	private final Set<ConnectionHandover> mConnectionHandovers;
 	private Activity mActivity;
 	private NfcAdapter mNfcAdapter;
 	private NdefMessage mForegroundMessage = null;
+	private NdefMessage mWriteMessage = null;
 	private boolean mConnectionHandoverEnabled = true;
 	private Intent mLastTagDiscoveredIntent = null;
 	private OnTagReadListener mOnTagReadListener = null;
 	
 	private int mState = STATE_PAUSED;
-	private int mTagAction = ACTION_NONE;
+	private int mInterfaceMode = MODE_NONE;
 	
 	private static final int STATE_PAUSED = 0;
 	private static final int STATE_PAUSING = 1;
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
 	
-	private static final int ACTION_NONE = 0;
-	private static final int ACTION_READ = 1;
-	private static final int ACTION_WRITE = 2;
+	
+	public static final int MODE_NONE = 0;
+	
+	/**
+	 * Nfc interface mode for reading data from a passive tag
+	 * or exchanging information with another active device. 
+	 * See {@link #setOnTagReadListener(OnTagReadListener)} and
+	 * {@link #share(NdefMessage)} for handling the actual data. 
+	 */
+	public static final int MODE_EXCHANGE = 1;
+	
+	/**
+	 * Nfc interface mode for writing data to a passive tag.
+	 */
+	public static final int MODE_WRITE = 2;
 	
 	private Dialog mWriteTagDialog;
 	private Dialog mReadTagDialog;
@@ -127,19 +140,19 @@ public class Nfc {
 	}
 	
 	/**
-	 * Returns a new Nfc object bound to the given
-	 * activity's package.
+	 * Returns the singleton {@link Nfc} object bound to the given
+	 * activity's context.
 	 */
 	public static Nfc getInstance(Activity activity) {
-		String key = activity.getPackageName();
-		if (!sNfcs.containsKey(key)) {
-			sNfcs.put(key, new Nfc(activity));
+		if (sNfc == null) {
+			sNfc = new Nfc(activity);
 		}
-		return sNfcs.get(key);
+		return sNfc;
 	}
 	
 	/**
 	 * Makes an ndef message available to any interested reader.
+	 * @see NdefFactory
 	 */
 	public void share(NdefMessage ndefMessage) {
 		mForegroundMessage = ndefMessage;
@@ -252,8 +265,25 @@ public class Nfc {
 		public void onTagRead(NdefMessage ndef);
 	}
 	
+	/**
+	 * Puts the interface in mode {@link #MODE_WRITE}.
+	 * @param ndef The NdefMessage to write to a discovered tag.
+	 */
+	public void enableTagWriteMode(NdefMessage ndef) {
+		if (ndef == null) {
+			disableTagWriteMode();
+			return;
+		}
+		mWriteMessage = ndef;
+		mInterfaceMode = MODE_WRITE;
+	}
+	
+	public void disableTagWriteMode() {
+		mInterfaceMode = MODE_EXCHANGE;
+	}
+	
 	/** 
-	 * Writes an NdefMessage to an available tag.
+	 * Writes an NdefMessage to the next discovered tag.
 	 * This method presents a dialog to the user so the
 	 * rest of your activity cannot be used until a write
 	 * completes or the user cancels the action.
@@ -318,6 +348,7 @@ public class Nfc {
 	
 	/**
 	 * Call this method in your activity's onNewIntent(Intent) method body.
+	 * @return true if this call consumed the intent.
 	 */
 	public boolean onNewIntent(Activity activity, Intent intent) {
 		// refresh mActivity
@@ -329,21 +360,38 @@ public class Nfc {
 			return false;
 		}
 		
+		// Check to see if we are writing to a tag
+		if (mInterfaceMode == MODE_WRITE) {
+			final Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+			final NdefMessage ndef = mWriteMessage;
+			if (tag != null && ndef != null) {
+				new Thread() {
+					public void run() {
+						writeTag(tag, ndef);
+						// TODO, get result code and hit callback
+						// if (mWriteListener != null)
+						// mWriteListener.onWrite(int status)
+					};
+				}.start();
+			}
+			return true;
+		}
+		
 		Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 		if (rawMsgs == null || rawMsgs.length == 0) {
-			return false;
+			return true;
 		}
 		
 		// TODO: With full NPP implementation, READ should respect Connection Handover.
 		// Move C.H. logic up. Should write overwrite connection handover?
-		if (mTagAction == ACTION_READ && mOnTagReadListener != null) {
+		if (mInterfaceMode == MODE_EXCHANGE && mOnTagReadListener != null) {
 			mOnTagReadListener.onTagRead((NdefMessage)rawMsgs[0]);
 		}
 		
 		// Are we blocking for nfc read or write?
-		if (mTagAction != ACTION_NONE) {
+		if (mInterfaceMode != MODE_NONE) {
 			synchronized(Nfc.this) {
-				mTagAction = ACTION_NONE;
+				mInterfaceMode = MODE_NONE;
 				mLastTagDiscoveredIntent = intent;
 				Nfc.this.notifyAll();
 			}
@@ -723,13 +771,13 @@ public class Nfc {
 		private final Dialog mmDialog;
 		
 		public ReadTagTask() {
-			if (mReadTagDialog == null) {
+			if (mReadTagDialog != null) {
+				mmDialog = mReadTagDialog;
+			} else {
 				ProgressDialog dialog = new ProgressDialog(mActivity);
 				dialog.setTitle("Scan tag now...");
 				dialog.setIndeterminate(true);
 				mmDialog = dialog;
-			} else {
-				mmDialog = mReadTagDialog;
 			}
 		}
 		
@@ -742,7 +790,7 @@ public class Nfc {
 		protected Void doInBackground(Void... params) {
 			try {
 				synchronized (Nfc.this) {
-					mTagAction = ACTION_READ;
+					mInterfaceMode = MODE_EXCHANGE;
 					while (mLastTagDiscoveredIntent == null) {
 						Nfc.this.wait();
 					}
@@ -771,7 +819,7 @@ public class Nfc {
 		private final Dialog mmDialog;
 		
 		public WriteTagTask() {
-			if (mWriteTagDialog == null) {
+			if (mWriteTagDialog != null) {
 				mmDialog = mWriteTagDialog;
 			} else {
 				ProgressDialog dialog = new ProgressDialog(mActivity);
@@ -792,7 +840,7 @@ public class Nfc {
 			Tag tag = null;
 			try {
 				synchronized (Nfc.this) {
-					mTagAction = ACTION_WRITE;
+					mInterfaceMode = MODE_WRITE;
 					while (mLastTagDiscoveredIntent == null) {
 						Nfc.this.wait();
 					}
@@ -818,6 +866,10 @@ public class Nfc {
 		}
 	}
 	
+	/**
+	 * A utility class for generating NdefMessages.
+	 *
+	 */
 	public static class NdefFactory {
 		public static NdefMessage fromUri(Uri uri) {
 			try {
@@ -845,6 +897,17 @@ public class Nfc {
 			try {
 				NdefRecord record = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
 						mimeType.getBytes(), new byte[0], data);
+				NdefRecord[] records = new NdefRecord[] { record };
+				return new NdefMessage(records);
+			} catch (NoClassDefFoundError e) {
+				return null;
+			}
+		}
+		
+		public static NdefMessage fromText(String text) {
+			try {
+				NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+						NdefRecord.RTD_TEXT, new byte[0], text.getBytes());
 				NdefRecord[] records = new NdefRecord[] { record };
 				return new NdefMessage(records);
 			} catch (NoClassDefFoundError e) {
