@@ -99,17 +99,20 @@ public class Nfc {
 	private boolean mConnectionHandoverEnabled = true;
 	private Intent mLastTagDiscoveredIntent = null;
 	private OnTagReadListener mOnTagReadListener = null;
+	private OnTagWriteListener mOnTagWriteListener = null;
 	
 	private int mState = STATE_PAUSED;
-	private int mInterfaceMode = MODE_NONE;
+	private int mInterfaceMode = MODE_PASSTHROUGH;
 	
 	private static final int STATE_PAUSED = 0;
 	private static final int STATE_PAUSING = 1;
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
 	
-	
-	public static final int MODE_NONE = 0;
+	/**
+	 * Nfc interface mode in which Nfc interaction is disabled for this class.
+	 */
+	public static final int MODE_PASSTHROUGH = 0;
 	
 	/**
 	 * Nfc interface mode for reading data from a passive tag
@@ -249,20 +252,45 @@ public class Nfc {
 		ReadTagTask task = new ReadTagTask();
 		task.execute();
 	}
-	
-        /**
-         * Sets a callback to call when an Nfc tag is scanned.
-         */
-	public void setOnTagReadListener(OnTagReadListener listener) {
-		mOnTagReadListener = listener;
+
+	/**
+	 * Sets a callback to call when an Nfc tag is written.
+	 */
+	public void setOnTagWriteListener(OnTagWriteListener listener) {
+		mOnTagWriteListener = listener;
 	}
 	
 	/**
- 	 * Interface definition for a callback called when
-         * an Nfc tag is read.
-         */
+	 * Sets a callback to call when an Nfc tag is scanned.
+	 */
+	public void setOnTagReadListener(OnTagReadListener listener) {
+		mOnTagReadListener = listener;
+	}
+
+	/**
+	 * Interface definition for a callback called when an Nfc tag is read.
+	 */
 	public interface OnTagReadListener {
 		public void onTagRead(NdefMessage ndef);
+	}
+	
+	/**
+	 * Interface definition for a callback called after an attempt to write
+	 * an Nfc tag.
+	 */
+	public interface OnTagWriteListener {
+		public static final int WRITE_OK = 0;
+		public static final int WRITE_ERROR_READ_ONLY = 1;
+		public static final int WRITE_ERROR_CAPACITY = 2;
+		public static final int WRITE_ERROR_BAD_FORMAT = 3;
+		public static final int WRITE_ERROR_IO_EXCEPTION = 4;
+		
+		/**
+		 * Callback issued after an attempt to write an NFC tag.
+		 * This method is executed off the main thread, so be careful when
+		 * updating UI elements as a result of this callback.
+		 */
+		public void onTagWrite(int status);
 	}
 	
 	/**
@@ -271,15 +299,37 @@ public class Nfc {
 	 */
 	public void enableTagWriteMode(NdefMessage ndef) {
 		if (ndef == null) {
-			disableTagWriteMode();
+			enableExchangeMode();
 			return;
 		}
+
 		mWriteMessage = ndef;
 		mInterfaceMode = MODE_WRITE;
+
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (mState == STATE_RESUMED && mInterfaceMode == MODE_WRITE) {
+					installNfcHandler();
+				}
+			}
+		});
 	}
 	
-	public void disableTagWriteMode() {
-		mInterfaceMode = MODE_EXCHANGE;
+	/**
+	 * Puts the interface in mode {@link #MODE_EXCHANGE},
+	 * the default mode of operation for this Nfc interface.
+	 */
+	public void enableExchangeMode() {
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (mState == STATE_RESUMED) {
+					installNfcHandler();
+					enableNdefPush();
+				}
+			}
+		});
 	}
 	
 	/** 
@@ -306,16 +356,11 @@ public class Nfc {
 		
 		// refresh mActivity
 		mActivity = activity;
-		
 		mState = STATE_RESUMING;
-		synchronized(this) {
-			try {
-				if (mState == STATE_RESUMING) {
-					installNfcHandler();
-					enableNdefPush();
-				}
-			} catch (IllegalStateException e) {
-				Toast.makeText(mActivity, "failed to enable ndef push", Toast.LENGTH_SHORT).show();
+		if (mInterfaceMode != MODE_PASSTHROUGH) {
+			installNfcHandler();
+			if (mInterfaceMode == MODE_EXCHANGE) {
+				enableNdefPush();
 			}
 		}
 		mState = STATE_RESUMED;
@@ -331,18 +376,9 @@ public class Nfc {
 		
 		// refresh mActivity
 		mActivity = activity;
-		
 		mState = STATE_PAUSING;
-		synchronized(this) {
-			try {
-				if (mState == STATE_PAUSING) {
-					uninstallNfcHandler();
-					disableNdefPush();
-				}
-			} catch (IllegalStateException e) {
-				Toast.makeText(mActivity, "failed to enable ndef push", Toast.LENGTH_SHORT).show();
-			}
-		}
+		mNfcAdapter.disableForegroundDispatch(mActivity);
+		mNfcAdapter.disableForegroundNdefPush(mActivity);
 		mState = STATE_PAUSED;
 	}
 	
@@ -353,6 +389,10 @@ public class Nfc {
 	public boolean onNewIntent(Activity activity, Intent intent) {
 		// refresh mActivity
 		mActivity = activity;
+
+		if (mInterfaceMode == MODE_PASSTHROUGH) {
+			return false;
+		}
 
 		// Check to see if the intent is ours to handle:
 		if (!(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())
@@ -367,16 +407,18 @@ public class Nfc {
 			if (tag != null && ndef != null) {
 				new Thread() {
 					public void run() {
-						writeTag(tag, ndef);
-						// TODO, get result code and hit callback
-						// if (mWriteListener != null)
-						// mWriteListener.onWrite(int status)
+						OnTagWriteListener listener = mOnTagWriteListener;
+						int status = writeTag(tag, ndef);
+						if (listener != null) {
+							listener.onTagWrite(status);
+						}
 					};
 				}.start();
 			}
 			return true;
 		}
 		
+		// In "exchange" mode.
 		Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 		if (rawMsgs == null || rawMsgs.length == 0) {
 			return true;
@@ -389,9 +431,9 @@ public class Nfc {
 		}
 		
 		// Are we blocking for nfc read or write?
-		if (mInterfaceMode != MODE_NONE) {
+		if (mInterfaceMode != MODE_PASSTHROUGH) {
 			synchronized(Nfc.this) {
-				mInterfaceMode = MODE_NONE;
+				mInterfaceMode = MODE_PASSTHROUGH;
 				mLastTagDiscoveredIntent = intent;
 				Nfc.this.notifyAll();
 			}
@@ -428,11 +470,27 @@ public class Nfc {
 		return true;
 	}
 	
+	/**
+	 * Puts the interface in mode {@link #MODE_PASSTHROUGH}.
+	 */
 	public void disable() {
-		mForegroundMessage = null;
-		if (mState == STATE_RESUMED) {
-			disableNdefPush();
-		}
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized(Nfc.this) {
+					try {
+						if (mState < STATE_RESUMING) {
+							return;
+						}
+						mNfcAdapter.disableForegroundDispatch(mActivity);
+						mNfcAdapter.disableForegroundNdefPush(mActivity);
+						mInterfaceMode = MODE_PASSTHROUGH;
+					} catch (IllegalStateException e) {
+
+					}
+				}
+			}
+		});
 	}
 	
 	/**
@@ -461,22 +519,7 @@ public class Nfc {
 			}
 		});
 	}
-	
-	private void disableNdefPush() {
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				synchronized (Nfc.this) {
-					if (mState < STATE_PAUSING) {
-						Log.w(TAG, "Bad state while disabling ndef push.");
-						return;
-					}
-					mNfcAdapter.disableForegroundNdefPush(mActivity);
-				}
-			}
-		});
-	}
-	
+
 	/**
 	 * Requests any foreground NFC activity. This method must be called from
 	 * the main thread.
@@ -489,15 +532,11 @@ public class Nfc {
 		mNfcAdapter.enableForegroundDispatch(mActivity, intent, null, null);
 	}
 	
-	private void uninstallNfcHandler() {
-		mNfcAdapter.disableForegroundDispatch(mActivity);
-	}
-
 	/**
 	 * Credit: AOSP, via Android Tag application.
 	 * http://android.git.kernel.org/?p=platform/packages/apps/Tag.git;a=summary
 	 */
-	private boolean writeTag(Tag tag, NdefMessage message) {
+	private int writeTag(Tag tag, NdefMessage message) {
         try {
         	int size = message.toByteArray().length;
             Ndef ndef = Ndef.get(tag);
@@ -505,36 +544,35 @@ public class Nfc {
                 ndef.connect();
                 if (!ndef.isWritable()) {
                 	Log.w(TAG, "Tag is read-only.");
-                    return false;
+                    return OnTagWriteListener.WRITE_ERROR_READ_ONLY;
                 }
                 if (ndef.getMaxSize() < size) {
                     Log.d(TAG, "Tag capacity is " + ndef.getMaxSize() + " bytes, message is " +
                             size + " bytes.");
-                    return false;
+                    return OnTagWriteListener.WRITE_ERROR_CAPACITY;
                 }
 
                 ndef.writeNdefMessage(message);
-                return true;
+                return OnTagWriteListener.WRITE_OK;
             } else {
                 NdefFormatable format = NdefFormatable.get(tag);
                 if (format != null) {
                     try {
                         format.connect();
                         format.format(message);
-                        return true;
+                        return OnTagWriteListener.WRITE_OK;
                     } catch (IOException e) {
-                        return false;
+                        return OnTagWriteListener.WRITE_ERROR_IO_EXCEPTION;
                     }
                 } else {
-                    return false;
+                    return OnTagWriteListener.WRITE_ERROR_BAD_FORMAT;
                 }
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to write tag", e);
         }
 
-        Log.w(TAG, "Failed to write tag");
-        return false;
+        return OnTagWriteListener.WRITE_ERROR_IO_EXCEPTION;
     }
 	
 	/**
@@ -850,7 +888,7 @@ public class Nfc {
 				}
 				
 				NdefMessage ndef = params[0];
-				result = writeTag(tag, ndef);
+				result = OnTagWriteListener.WRITE_OK == writeTag(tag, ndef);
 			} catch (Exception e) {}
 			return result;
 		}
@@ -867,8 +905,8 @@ public class Nfc {
 	}
 	
 	/**
-	 * A utility class for generating NdefMessages.
-	 *
+	 * A utility class for generating NDEF messages.
+	 * @see NdefMessage
 	 */
 	public static class NdefFactory {
 		public static NdefMessage fromUri(Uri uri) {
