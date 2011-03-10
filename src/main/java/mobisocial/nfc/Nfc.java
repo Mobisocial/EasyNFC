@@ -143,6 +143,18 @@ public class Nfc {
 	}
 	
 	/**
+	 * Removes any message from being shared with an interested reader.
+	 */
+	public void clearSharing() {
+		mForegroundMessage = null;
+		synchronized(this) {
+			if (mState == STATE_RESUMED) {
+				enableNdefPush();
+			}
+		}
+	}
+	
+	/**
 	 * Makes an ndef message available to any interested reader.
 	 * @see NdefFactory
 	 */
@@ -318,14 +330,16 @@ public class Nfc {
 
 		// refresh mActivity
 		mActivity = activity;
-		mState = STATE_RESUMING;
-		if (mInterfaceMode != MODE_PASSTHROUGH) {
-			installNfcHandler();
-			if (mInterfaceMode == MODE_EXCHANGE) {
-				enableNdefPush();
+		synchronized(this) {
+			mState = STATE_RESUMING;
+			if (mInterfaceMode != MODE_PASSTHROUGH) {
+				installNfcHandler();
+				if (mInterfaceMode == MODE_EXCHANGE) {
+					enableNdefPush();
+				}
 			}
+			mState = STATE_RESUMED;
 		}
-		mState = STATE_RESUMED;
 	}
 	
 	/**
@@ -338,10 +352,12 @@ public class Nfc {
 
 		// refresh mActivity
 		mActivity = activity;
-		mState = STATE_PAUSING;
-		mNfcAdapter.disableForegroundDispatch(mActivity);
-		mNfcAdapter.disableForegroundNdefPush(mActivity);
-		mState = STATE_PAUSED;
+		synchronized(this) {
+			mState = STATE_PAUSING;
+			mNfcAdapter.disableForegroundDispatch(mActivity);
+			mNfcAdapter.disableForegroundNdefPush(mActivity);
+			mState = STATE_PAUSED;
+		}
 	}
 	
 	/**
@@ -458,6 +474,17 @@ public class Nfc {
 
 		final NdefMessage ndef = mForegroundMessage;
 		if (ndef == null) {
+			mActivity.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					synchronized (Nfc.this) {
+						if (mState < STATE_RESUMING) {
+							return;
+						}
+						mNfcAdapter.disableForegroundNdefPush(mActivity);
+					}
+				}
+			});
 			return;
 		}
 		
