@@ -296,11 +296,11 @@ public class Nfc {
 	/**
 	 * Puts the interface in mode {@link #MODE_WRITE}.
 	 * @param ndef The NdefMessage to write to a discovered tag.
+	 * @throws NullPointerException if ndef is null.
 	 */
 	public void enableTagWriteMode(NdefMessage ndef) {
 		if (ndef == null) {
-			enableExchangeMode();
-			return;
+			throw new NullPointerException("Cannot write null NDEF message.");
 		}
 
 		mWriteMessage = ndef;
@@ -321,6 +321,7 @@ public class Nfc {
 	 * the default mode of operation for this Nfc interface.
 	 */
 	public void enableExchangeMode() {
+		mInterfaceMode = MODE_EXCHANGE;
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -353,7 +354,7 @@ public class Nfc {
 		if (mNfcAdapter == null) {
 			return;
 		}
-		
+		Log.d(TAG, "resuming to state " + mInterfaceMode);
 		// refresh mActivity
 		mActivity = activity;
 		mState = STATE_RESUMING;
@@ -373,7 +374,7 @@ public class Nfc {
 		if (mNfcAdapter == null) {
 			return;
 		}
-		
+		Log.d(TAG, "pausing from state " + mInterfaceMode);
 		// refresh mActivity
 		mActivity = activity;
 		mState = STATE_PAUSING;
@@ -428,18 +429,10 @@ public class Nfc {
 		// Move C.H. logic up. Should write overwrite connection handover?
 		if (mInterfaceMode == MODE_EXCHANGE && mOnTagReadListener != null) {
 			mOnTagReadListener.onTagRead((NdefMessage)rawMsgs[0]);
-		}
-		
-		// Are we blocking for nfc read or write?
-		if (mInterfaceMode != MODE_PASSTHROUGH) {
-			synchronized(Nfc.this) {
-				mInterfaceMode = MODE_PASSTHROUGH;
-				mLastTagDiscoveredIntent = intent;
-				Nfc.this.notifyAll();
-			}
 			return true;
 		}
-		
+
+
 		NdefMessage ndefMessage = (NdefMessage)(rawMsgs[0]);
 		boolean handoverRequested = isHandoverRequest(ndefMessage);
 		
@@ -474,6 +467,7 @@ public class Nfc {
 	 * Puts the interface in mode {@link #MODE_PASSTHROUGH}.
 	 */
 	public void disable() {
+		mInterfaceMode = MODE_PASSTHROUGH;
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -484,7 +478,6 @@ public class Nfc {
 						}
 						mNfcAdapter.disableForegroundDispatch(mActivity);
 						mNfcAdapter.disableForegroundNdefPush(mActivity);
-						mInterfaceMode = MODE_PASSTHROUGH;
 					} catch (IllegalStateException e) {
 
 					}
@@ -942,10 +935,41 @@ public class Nfc {
 			}
 		}
 		
+		/**
+		 * Creates an NDEF message with a single text record, with language
+		 * code "en" and the given text, encoded using UTF-8.
+		 */
 		public static NdefMessage fromText(String text) {
 			try {
+				byte[] textBytes = text.getBytes();
+				byte[] textPayload = new byte[textBytes.length + 3];
+				textPayload[0] = 0x02; // Status byte; UTF-8 and "en" encoding.
+				textPayload[1] = 'e';
+				textPayload[2] = 'n';
+				System.arraycopy(textBytes, 0, textPayload, 3, textBytes.length);
 				NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
-						NdefRecord.RTD_TEXT, new byte[0], text.getBytes());
+						NdefRecord.RTD_TEXT, new byte[0], textPayload);
+				NdefRecord[] records = new NdefRecord[] { record };
+				return new NdefMessage(records);
+			} catch (NoClassDefFoundError e) {
+				return null;
+			}
+		}
+		
+		/**
+		 * Creates an NDEF message with a single text record, with the given
+		 * text content (UTF-8 encoded) and language code. 
+		 */
+		public static NdefMessage fromText(String text, String languageCode) {
+			try {
+				int languageCodeLength = languageCode.length();
+				int textLength = text.length();
+				byte[] textPayload = new byte[textLength + 1 + languageCodeLength];
+				textPayload[0] = (byte)(0x3F & languageCodeLength); // UTF-8 with the given language code length.
+				System.arraycopy(languageCode.getBytes(), 0, textPayload, 1, languageCodeLength);
+				System.arraycopy(text.getBytes(), 0, textPayload, 1 + languageCodeLength, textLength);
+				NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+						NdefRecord.RTD_TEXT, new byte[0], textPayload);
 				NdefRecord[] records = new NdefRecord[] { record };
 				return new NdefMessage(records);
 			} catch (NoClassDefFoundError e) {
