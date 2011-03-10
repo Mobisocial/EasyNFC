@@ -35,6 +35,7 @@ import android.util.Log;
  * <ul>
  * <li>Provide compatibility for Nfc across platforms.
  * <li>Degrade gracefully on platforms and devices lacking Nfc support.
+ * <li>Extend the capabilities of Nfc by following Connection Handover Requests.
  * <li>Simplify the Nfc experience for developers.
  * </ul>
  * </p>
@@ -74,12 +75,14 @@ import android.util.Log;
  * </pre>
  * <p>
  * Your application must hold the {@code android.permission.NFC}
- * permission to use this interface.
+ * permission to use this class. However, this class will degrade gracefully
+ * on devices lacking Nfc capabilities.
  * </p>
  * <p>
- * The Nfc interface can be in one of two modes: {@link #MODE_WRITE}, for writing
+ * The Nfc interface can be in one of three modes: {@link #MODE_WRITE}, for writing
  * to a passive NFC tag, and {@link #MODE_EXCHANGE}, in which the interface can
- * read data from passive tags and exchange data with another active Nfc device.
+ * read data from passive tags and exchange data with another active Nfc device, or
+ * {@link #MODE_PASSTHROUGH} which disables this interface.
  * <ul>
  *   <li>{@link #share(NdefMessage)} and similar, to share messages with other Nfc devices.
  *   <li>{@link #setOnTagReadListener}, for reacting to incoming data without blocking.
@@ -131,6 +134,8 @@ public class Nfc {
 			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity); 
 		} catch (NoClassDefFoundError e) {
 			Log.i(TAG, "Nfc not available.");
+			mConnectionHandovers = null;
+			return;
 		}
 		mConnectionHandovers =	new LinkedHashSet<ConnectionHandover>();
 		mConnectionHandovers.add(new NdefBluetoothPushHandover());
@@ -264,6 +269,10 @@ public class Nfc {
 	 * @throws NullPointerException if ndef is null.
 	 */
 	public void enableTagWriteMode(NdefMessage ndef) {
+		if (mNfcAdapter == null) {
+			return;
+		}
+
 		if (ndef == null) {
 			throw new NullPointerException("Cannot write null NDEF message.");
 		}
@@ -668,7 +677,7 @@ public class Nfc {
 	
 	/**
 	 * An interface for classes supporting communications established using
-         * Nfc but with an out-of-band data transfer protocol.
+         * Nfc but with an out-of-band data transfer.
 	 */
 	public interface ConnectionHandover {
 		public void doConnectionHandover(NdefRecord handoverRequest) throws IOException;
