@@ -14,9 +14,7 @@ import java.util.UUID;
 
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -28,10 +26,8 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
-import android.os.AsyncTask;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * <p>This class acts as an abstraction layer for Android's Nfc stack.
@@ -50,6 +46,12 @@ import android.widget.Toast;
  * <pre class="prettyprint">
  *
  * class MyActivity extends Activity {
+ * 
+ *   onCreate() {
+ *     super.onCreate();
+ *     mNfc = new Nfc(this);
+ *   }
+ * 
  *   onResume() {
  *     super.onResume();
  *     mNfc.onResume(this);
@@ -70,9 +72,8 @@ import android.widget.Toast;
  *  }
  * }
  * </pre>
- *
- * <p>Obtain an instance of this class by using the static {@link #getInstance}
- * method. Your application must hold the {@code android.permission.NFC}
+ * <p>
+ * Your application must hold the {@code android.permission.NFC}
  * permission to use this interface.
  * </p>
  * <p>
@@ -82,14 +83,12 @@ import android.widget.Toast;
  * <ul>
  *   <li>{@link #share(NdefMessage)} and similar, to share messages with other Nfc devices.
  *   <li>{@link #setOnTagReadListener}, for reacting to incoming data without blocking.
- *   <li>{@link #waitForRead}, to block the UI while waiting for a tag to be read.
- *   <li>{@link #waitForWrite}, to block the UI while waiting to write to a tag.
+ *   <li>{@link #enableTagWriteMode(NdefMessage)}, to write to physical Nfc tags.
  * </ul>
  * </p>
  */
 public class Nfc {
 	private static final String TAG = "easynfc";
-	private static Nfc sNfc;
 
 	private final Set<ConnectionHandover> mConnectionHandovers;
 	private Activity mActivity;
@@ -97,12 +96,11 @@ public class Nfc {
 	private NdefMessage mForegroundMessage = null;
 	private NdefMessage mWriteMessage = null;
 	private boolean mConnectionHandoverEnabled = true;
-	private Intent mLastTagDiscoveredIntent = null;
 	private OnTagReadListener mOnTagReadListener = null;
 	private OnTagWriteListener mOnTagWriteListener = null;
 	
 	private int mState = STATE_PAUSED;
-	private int mInterfaceMode = MODE_PASSTHROUGH;
+	private int mInterfaceMode = MODE_EXCHANGE;
 	
 	private static final int STATE_PAUSED = 0;
 	private static final int STATE_PAUSING = 1;
@@ -127,10 +125,7 @@ public class Nfc {
 	 */
 	public static final int MODE_WRITE = 2;
 	
-	private Dialog mWriteTagDialog;
-	private Dialog mReadTagDialog;
-	
-	private Nfc(Activity activity) {
+	public Nfc(Activity activity) {
 		mActivity = activity;
 		try {
 			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity); 
@@ -140,17 +135,6 @@ public class Nfc {
 		mConnectionHandovers =	new LinkedHashSet<ConnectionHandover>();
 		mConnectionHandovers.add(new NdefBluetoothPushHandover());
 		mConnectionHandovers.add(new NdefTcpPushHandover());
-	}
-	
-	/**
-	 * Returns the singleton {@link Nfc} object bound to the given
-	 * activity's context.
-	 */
-	public static Nfc getInstance(Activity activity) {
-		if (sNfc == null) {
-			sNfc = new Nfc(activity);
-		}
-		return sNfc;
 	}
 	
 	/**
@@ -234,25 +218,6 @@ public class Nfc {
 			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST));
 	}
 
-	/** 
-	 * Read an NdefMessage from an available tag or device. This method
-	 * presents a dialog to the user so the rest of your activity cannot be
-	 * used until a read completes or the user cancels the action. This method
-	 * must be called from the main thread of your activity.
-	 * 
-	 * The results of scanning a tag are handled with
-	 * a callback. Set it with {@link #setOnTagReadListener}.
-	 * 
-	 * Note that you may use this callback without calling
-	 * {@code waitForRead()}, resulting in a non-blocking read.
-         *
-         * {@see #setOnTagReadListener}
-	 */
-	public void waitForRead() {
-		ReadTagTask task = new ReadTagTask();
-		task.execute();
-	}
-
 	/**
 	 * Sets a callback to call when an Nfc tag is written.
 	 */
@@ -332,21 +297,8 @@ public class Nfc {
 			}
 		});
 	}
-	
-	/** 
-	 * Writes an NdefMessage to the next discovered tag.
-	 * This method presents a dialog to the user so the
-	 * rest of your activity cannot be used until a write
-	 * completes or the user cancels the action.
-	 */
-	public void waitForWrite(NdefMessage ndef) {
-		new WriteTagTask().execute(ndef);
-	}
-	
-	public void waitForWrite(Uri uri) {
-		new WriteTagTask().execute(NdefFactory.fromUri(uri));
-	}
-	
+
+
 	/**
 	 * Call this method in your Activity's onResume() method body.
 	 */
@@ -354,7 +306,7 @@ public class Nfc {
 		if (mNfcAdapter == null) {
 			return;
 		}
-		Log.d(TAG, "resuming to state " + mInterfaceMode);
+
 		// refresh mActivity
 		mActivity = activity;
 		mState = STATE_RESUMING;
@@ -374,7 +326,7 @@ public class Nfc {
 		if (mNfcAdapter == null) {
 			return;
 		}
-		Log.d(TAG, "pausing from state " + mInterfaceMode);
+
 		// refresh mActivity
 		mActivity = activity;
 		mState = STATE_PAUSING;
@@ -789,114 +741,8 @@ public class Nfc {
 			mSocket.close();
 		}
 	}
-	
-	/**
-	 * Sets the dialog to display when blocking for
-	 * a tag read to complete.
-	 */
-	public void setReadTagDialog(Dialog dialog) {
-		mReadTagDialog = dialog;
-	}
-	
-	private class ReadTagTask extends AsyncTask<Void, Void, Void> {
-		private final Dialog mmDialog;
-		
-		public ReadTagTask() {
-			if (mReadTagDialog != null) {
-				mmDialog = mReadTagDialog;
-			} else {
-				ProgressDialog dialog = new ProgressDialog(mActivity);
-				dialog.setTitle("Scan tag now...");
-				dialog.setIndeterminate(true);
-				mmDialog = dialog;
-			}
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			mmDialog.show();
-		}
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			try {
-				synchronized (Nfc.this) {
-					mInterfaceMode = MODE_EXCHANGE;
-					while (mLastTagDiscoveredIntent == null) {
-						Nfc.this.wait();
-					}
-					mLastTagDiscoveredIntent = null;
-				}
-			} catch (Exception e) {}
-			return null;
-		}
-		
-		@Override
-		protected void onPostExecute(Void result) {
-			mmDialog.hide();
-		}
-	}
-	
-	/**
-	 * Sets the dialog to display when blocking to
-	 * write a tag.
-	 */
-	
-	public void setWriteTagDialog(Dialog dialog) {
-		mWriteTagDialog = dialog;
-	}
-	
-	private class WriteTagTask extends AsyncTask<NdefMessage, Void, Boolean> {
-		private final Dialog mmDialog;
-		
-		public WriteTagTask() {
-			if (mWriteTagDialog != null) {
-				mmDialog = mWriteTagDialog;
-			} else {
-				ProgressDialog dialog = new ProgressDialog(mActivity);
-				dialog.setTitle("Touch tag to write...");
-				dialog.setIndeterminate(true);
-				mmDialog = dialog;
-			}
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			mmDialog.show();
-		}
-		
-		@Override
-		protected Boolean doInBackground(NdefMessage... params) {
-			Boolean result = null;
-			Tag tag = null;
-			try {
-				synchronized (Nfc.this) {
-					mInterfaceMode = MODE_WRITE;
-					while (mLastTagDiscoveredIntent == null) {
-						Nfc.this.wait();
-					}
 
-					tag = mLastTagDiscoveredIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-					mLastTagDiscoveredIntent = null;
-				}
-				
-				NdefMessage ndef = params[0];
-				result = OnTagWriteListener.WRITE_OK == writeTag(tag, ndef);
-			} catch (Exception e) {}
-			return result;
-		}
-		
-		@Override
-		protected void onPostExecute(Boolean result) {
-			mmDialog.hide();
-			if (result) {
-				Toast.makeText(mActivity, "Wrote tag successfully.", Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(mActivity, "Error writing tag.", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-	
+
 	/**
 	 * A utility class for generating NDEF messages.
 	 * @see NdefMessage
