@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -799,6 +800,17 @@ public class Nfc {
 	 */
 	public static class NdefFactory {
 		public static NdefMessage fromUri(Uri uri) {
+			try {
+				NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, 
+						new byte[0], uri.toString().getBytes());
+				NdefRecord[] records = new NdefRecord[] { record };
+				return new NdefMessage(records);
+			} catch (NoClassDefFoundError e) {
+				return null;
+			}
+		}
+		
+		public static NdefMessage fromUri(URI uri) {
 			try {
 				NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, 
 						new byte[0], uri.toString().getBytes());
