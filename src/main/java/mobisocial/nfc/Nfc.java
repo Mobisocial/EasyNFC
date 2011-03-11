@@ -253,6 +253,12 @@ public class Nfc {
 	 * Interface definition for a callback called when an Nfc tag is read.
 	 */
 	public interface OnTagReadListener {
+		/**
+		 * Callback issued after an NFC tag is read, or an NDEF message is
+		 * received from a remote device. This method is executed off the main
+		 * thread, so be careful when updating UI elements as a result of this
+		 * callback.
+		 */
 		public void onTagRead(NdefMessage ndef);
 	}
 	
@@ -378,66 +384,74 @@ public class Nfc {
 			return false;
 		}
 		
-		// Check to see if we are writing to a tag
-		if (mInterfaceMode == MODE_WRITE) {
-			final Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-			final NdefMessage ndef = mWriteMessage;
-			if (tag != null && ndef != null) {
-				new Thread() {
-					public void run() {
-						OnTagWriteListener listener = mOnTagWriteListener;
-						int status = writeTag(tag, ndef);
-						if (listener != null) {
-							listener.onTagWrite(status);
+		new TagHandlerThread(mInterfaceMode, intent).start();
+		return true;
+	}
+	
+	private class TagHandlerThread extends Thread {
+		final int mmMode;
+		final Intent mmIntent;
+		
+		TagHandlerThread(int mode, Intent intent) {
+			mmMode = mode;
+			mmIntent = intent;
+		}
+		
+		@Override
+		public void run() {
+			// Check to see if we are writing to a tag
+			if (mmMode == MODE_WRITE) {
+				final Tag tag = mmIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+				final NdefMessage ndef = mWriteMessage;
+				if (tag != null && ndef != null) {
+					OnTagWriteListener listener = mOnTagWriteListener;
+					int status = writeTag(tag, ndef);
+					if (listener != null) {
+						listener.onTagWrite(status);
+					}
+				}
+				return;
+			}
+
+			// In "exchange" mode.
+			Parcelable[] rawMsgs = mmIntent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+			if (rawMsgs == null || rawMsgs.length == 0) {
+				return;
+			}
+
+			NdefMessage ndefMessage = (NdefMessage)(rawMsgs[0]);
+			boolean handoverRequested = isHandoverRequest(ndefMessage);
+			
+			if (!mConnectionHandoverEnabled || !handoverRequested) {
+				if (mOnTagReadListener != null) {
+					mOnTagReadListener.onTagRead(ndefMessage);
+				}
+				return;
+			}
+			
+			// TODO: With full NPP implementation, READ should respect Connection Handover.
+			/*if (mInterfaceMode == MODE_EXCHANGE && mOnTagReadListener != null) {
+				mOnTagReadListener.onTagRead((NdefMessage)rawMsgs[0]);
+				return true;
+			}*/
+			
+			NdefRecord[] records = ndefMessage.getRecords();
+			for (int i = 2; i < records.length; i++) {
+				Iterator<ConnectionHandover> handovers = mConnectionHandovers.iterator();
+				while (handovers.hasNext()) {
+					ConnectionHandover handover = handovers.next();
+					if (handover.supportsRequest(records[i])) {
+						try {
+							handover.doConnectionHandover(records[i]);
+							return;
+						} catch (IOException e) {
+							// try the next one.
 						}
-					};
-				}.start();
-			}
-			return true;
-		}
-		
-		// In "exchange" mode.
-		Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-		if (rawMsgs == null || rawMsgs.length == 0) {
-			return true;
-		}
-		
-		// TODO: With full NPP implementation, READ should respect Connection Handover.
-		// Move C.H. logic up. Should write overwrite connection handover?
-		if (mInterfaceMode == MODE_EXCHANGE && mOnTagReadListener != null) {
-			mOnTagReadListener.onTagRead((NdefMessage)rawMsgs[0]);
-			return true;
-		}
-
-
-		NdefMessage ndefMessage = (NdefMessage)(rawMsgs[0]);
-		boolean handoverRequested = isHandoverRequest(ndefMessage);
-		
-		if (!mConnectionHandoverEnabled || !handoverRequested) {
-			if (mOnTagReadListener != null) {
-				mOnTagReadListener.onTagRead(ndefMessage);
-			}
-			return true;
-		}
-		
-		NdefRecord[] records = ndefMessage.getRecords();
-		for (int i = 2; i < records.length; i++) {
-			Iterator<ConnectionHandover> handovers = mConnectionHandovers.iterator();
-			while (handovers.hasNext()) {
-				ConnectionHandover handover = handovers.next();
-				if (handover.supportsRequest(records[i])) {
-					try {
-						handover.doConnectionHandover(records[i]);
-						return true;
-					} catch (IOException e) {
-						// try the next one.
 					}
 				}
 			}
+			Log.w(TAG, "Found connection handover request, but failed to handle.");
 		}
-
-		Log.w(TAG, "Found connection handover request, but failed to handle.");
-		return true;
 	}
 	
 	/**
@@ -655,7 +669,7 @@ public class Nfc {
 	 * Runs a thread during a connection handover with a remote device over a
 	 * {@see DuplexSocket}, transmitting the given Ndef message.
 	 */
-	private class HandoverConnectedThread extends Thread {
+	private static class HandoverConnectedThread extends Thread {
 		private final DuplexSocket mmSocket;
 		@SuppressWarnings("unused")
 		private final InputStream mmInStream;
@@ -721,7 +735,7 @@ public class Nfc {
 		public void connect() throws IOException;
 	}
 	
-	class BluetoothDuplexSocket implements DuplexSocket {
+	static class BluetoothDuplexSocket implements DuplexSocket {
 		final BluetoothSocket mSocket;
 
 		public BluetoothDuplexSocket(String mac, UUID serviceUuid) throws IOException {
@@ -750,7 +764,7 @@ public class Nfc {
 		}
 	}
 	
-	private class TcpDuplexSocket implements DuplexSocket {
+	static class TcpDuplexSocket implements DuplexSocket {
 		final Socket mSocket;
 
 		public TcpDuplexSocket(String host, int port) throws IOException {
