@@ -581,7 +581,7 @@ public class Nfc {
 	 * permission to support TCP handovers.
 	 * </p>
 	 */
-	public class NdefTcpPushHandover implements ConnectionHandover {
+	public static class NdefTcpPushHandover implements ConnectionHandover {
 		private static final int DEFAULT_TCP_HANDOVER_PORT = 7924;
 		
 		@Override
@@ -630,7 +630,7 @@ public class Nfc {
 	 * permission to support Bluetooth handovers.
 	 * </p>
 	 */
-	public class NdefBluetoothPushHandover implements ConnectionHandover {
+	public static class NdefBluetoothPushHandover implements ConnectionHandover {
 		final BluetoothAdapter mmBluetoothAdapter;
 		
 		public NdefBluetoothPushHandover() {
