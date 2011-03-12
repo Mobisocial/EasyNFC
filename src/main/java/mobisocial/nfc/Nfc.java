@@ -399,6 +399,7 @@ public class Nfc {
 		
 		@Override
 		public void run() {
+			NdefMessage outboundNdef = mForegroundMessage;
 			// Check to see if we are writing to a tag
 			if (mmMode == MODE_WRITE) {
 				final Tag tag = mmIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -442,7 +443,7 @@ public class Nfc {
 					ConnectionHandover handover = handovers.next();
 					if (handover.supportsRequest(records[i])) {
 						try {
-							handover.doConnectionHandover(records[i]);
+							handover.doConnectionHandover(records[i], outboundNdef);
 							return;
 						} catch (IOException e) {
 							Log.w(TAG, "Handover failed.", e);
@@ -599,8 +600,7 @@ public class Nfc {
 		}
 		
 		@Override
-		public void doConnectionHandover(NdefRecord handoverRequest) throws IOException {
-			NdefMessage outboundNdef = mForegroundMessage;
+		public void doConnectionHandover(NdefRecord handoverRequest, NdefMessage outboundNdef) throws IOException {
 			if (outboundNdef == null) return;
 			
 			String uriString = new String(handoverRequest.getPayload());
@@ -653,8 +653,7 @@ public class Nfc {
 		}
 		
 		@Override
-		public void doConnectionHandover(NdefRecord handoverRequest) throws IOException {
-			NdefMessage outboundNdef = mForegroundMessage;
+		public void doConnectionHandover(NdefRecord handoverRequest, NdefMessage outboundNdef) throws IOException {
 			if (outboundNdef == null) return;
 			
 			String uriString = new String(handoverRequest.getPayload());
@@ -727,7 +726,13 @@ public class Nfc {
          * Nfc but with an out-of-band data transfer.
 	 */
 	public interface ConnectionHandover {
-		public void doConnectionHandover(NdefRecord handoverRequest) throws IOException;
+		/**
+		 * Issues a connection handover of the given type.
+		 * @param handoverRequest The connection handover request record.
+		 * @param outboundNdef The ndef message to send from this device. May be null.
+		 * @throws IOException
+		 */
+		public void doConnectionHandover(NdefRecord handoverRequest, NdefMessage outboundNdef) throws IOException;
 		public boolean supportsRequest(NdefRecord record);
 	}
 	
