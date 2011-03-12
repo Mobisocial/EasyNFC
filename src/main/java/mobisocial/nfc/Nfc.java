@@ -374,7 +374,6 @@ public class Nfc {
 	public boolean onNewIntent(Activity activity, Intent intent) {
 		// refresh mActivity
 		mActivity = activity;
-
 		if (mInterfaceMode == MODE_PASSTHROUGH) {
 			return false;
 		}
@@ -384,7 +383,7 @@ public class Nfc {
 				|| NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()))) {
 			return false;
 		}
-		
+
 		new TagHandlerThread(mInterfaceMode, intent).start();
 		return true;
 	}
@@ -446,6 +445,7 @@ public class Nfc {
 							handover.doConnectionHandover(records[i]);
 							return;
 						} catch (IOException e) {
+							Log.w(TAG, "Handover failed.", e);
 							// try the next one.
 						}
 					}
@@ -631,6 +631,12 @@ public class Nfc {
 	 * </p>
 	 */
 	public class NdefBluetoothPushHandover implements ConnectionHandover {
+		final BluetoothAdapter mmBluetoothAdapter;
+		
+		public NdefBluetoothPushHandover() {
+			mmBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		}
+		
 		@Override
 		public boolean supportsRequest(NdefRecord handoverRequest) {
 			if (handoverRequest.getTnf() != NdefRecord.TNF_ABSOLUTE_URI
@@ -659,7 +665,7 @@ public class Nfc {
 		private void sendNdefOverBt(Uri target, NdefMessage ndef) throws IOException {
 			String mac = target.getAuthority();
 			UUID uuid = UUID.fromString(target.getPath().substring(1));
-			DuplexSocket socket = new BluetoothDuplexSocket(mac, uuid);
+			DuplexSocket socket = new BluetoothDuplexSocket(mmBluetoothAdapter, mac, uuid);
 			HandoverConnectedThread connected = new HandoverConnectedThread(socket, ndef);
 			connected.start();
 		}
@@ -701,6 +707,7 @@ public class Nfc {
 					byte[] ndefBytes = mmOutboundMessage.toByteArray();
 					mmOutStream.write(ndefBytes);
 				}
+				mmOutStream.close();
 			} catch (Exception e) {
 				Log.e(TAG, "Error writing to socket", e);
 			}
@@ -711,9 +718,7 @@ public class Nfc {
 		public void cancel() {
 			try {
 				mmSocket.close();
-			} catch (IOException e) {
-				Log.e(TAG, "close() of connect socket failed", e);
-			}
+			} catch (IOException e) {}
 		}
 	}
 	
@@ -737,31 +742,37 @@ public class Nfc {
 	}
 	
 	static class BluetoothDuplexSocket implements DuplexSocket {
-		final BluetoothSocket mSocket;
+		final String mmMac;
+		final UUID mmServiceUuid;
+		final BluetoothAdapter mmBluetoothAdapter;
+		BluetoothSocket mmSocket;
 
-		public BluetoothDuplexSocket(String mac, UUID serviceUuid) throws IOException {
-			BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(mac);
-			mSocket = device.createInsecureRfcommSocketToServiceRecord(serviceUuid);
+		public BluetoothDuplexSocket(BluetoothAdapter adapter, String mac, UUID serviceUuid) throws IOException {
+			mmBluetoothAdapter = adapter;
+			mmMac = mac;
+			mmServiceUuid = serviceUuid;
 		}
 		
 		@Override
 		public void connect() throws IOException {
-			mSocket.connect();
+			BluetoothDevice device = mmBluetoothAdapter.getRemoteDevice(mmMac);
+			mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
+			mmSocket.connect();
 		}
 		
 		@Override
 		public InputStream getInputStream() throws IOException {
-			return mSocket.getInputStream();
+			return mmSocket.getInputStream();
 		}
 		
 		@Override
 		public OutputStream getOutputStream() throws IOException {
-			return mSocket.getOutputStream();
+			return mmSocket.getOutputStream();
 		}
 		
 		@Override
 		public void close() throws IOException {
-			mSocket.close();
+			mmSocket.close();
 		}
 	}
 	
