@@ -1,6 +1,8 @@
 package mobisocial.nfc;
 
 import java.io.Closeable;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -110,6 +112,12 @@ public class Nfc {
 	private static final int STATE_PAUSING = 1;
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
+	
+	/**
+	 * A broadcasted intent used to set an NDEF message for use in a Connection
+	 * Handover, for devices that do not have an active NFC radio.
+	 */
+	public static final String ACTION_SET_NDEF = "mobisocial.intent.action.SET_NDEF";
 	
 	/**
 	 * Nfc interface mode in which Nfc interaction is disabled for this class.
@@ -332,6 +340,7 @@ public class Nfc {
 	 */
 	public void onResume(Activity activity) {
 		if (mNfcAdapter == null) {
+			enableNdefPush();
 			return;
 		}
 
@@ -354,6 +363,7 @@ public class Nfc {
 	 */
 	public void onPause(Activity activity) {
 		if (mNfcAdapter == null) {
+			setNdefHandover(null);
 			return;
 		}
 
@@ -399,7 +409,9 @@ public class Nfc {
 		
 		@Override
 		public void run() {
-			NdefMessage outboundNdef = mForegroundMessage;
+			final NdefMessage outboundNdef = mForegroundMessage;
+			final OnTagReadListener tagReadListener = mOnTagReadListener;
+			
 			// Check to see if we are writing to a tag
 			if (mmMode == MODE_WRITE) {
 				final Tag tag = mmIntent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -424,17 +436,25 @@ public class Nfc {
 			boolean handoverRequested = isHandoverRequest(ndefMessage);
 			
 			if (!mConnectionHandoverEnabled || !handoverRequested) {
-				if (mOnTagReadListener != null) {
-					mOnTagReadListener.onTagRead(ndefMessage);
+				if (tagReadListener != null) {
+					tagReadListener.onTagRead(ndefMessage);
 				}
 				return;
 			}
 			
-			// TODO: With full NPP implementation, READ should respect Connection Handover.
-			/*if (mInterfaceMode == MODE_EXCHANGE && mOnTagReadListener != null) {
-				mOnTagReadListener.onTagRead((NdefMessage)rawMsgs[0]);
-				return true;
-			}*/
+			NdefProxy ndefProxy = new NdefProxy() {
+				@Override
+				public void handleNdef(NdefMessage ndef) {
+					if (tagReadListener != null) {
+						tagReadListener.onTagRead(ndef);
+					}
+				}
+				
+				@Override
+				public NdefMessage getForegroundNdefMessage() {
+					return outboundNdef;
+				}
+			};
 			
 			NdefRecord[] records = ndefMessage.getRecords();
 			for (int i = 2; i < records.length; i++) {
@@ -443,7 +463,7 @@ public class Nfc {
 					ConnectionHandover handover = handovers.next();
 					if (handover.supportsRequest(records[i])) {
 						try {
-							handover.doConnectionHandover(records[i], outboundNdef);
+							handover.doConnectionHandover(records[i], ndefProxy);
 							return;
 						} catch (IOException e) {
 							Log.w(TAG, "Handover failed.", e);
@@ -484,11 +504,12 @@ public class Nfc {
 	 * This method may be called off the main thread.
 	 */
 	private void enableNdefPush() {
+		final NdefMessage ndef = mForegroundMessage;
 		if (mNfcAdapter == null) {
+			setNdefHandover(ndef);
 			return;
 		}
 
-		final NdefMessage ndef = mForegroundMessage;
 		if (ndef == null) {
 			mActivity.runOnUiThread(new Runnable() {
 				@Override
@@ -517,6 +538,16 @@ public class Nfc {
 		});
 	}
 
+	private void setNdefHandover(NdefMessage ndef) {
+		Intent intent = new Intent(ACTION_SET_NDEF);
+		if (ndef != null) {
+			NdefMessage[] ndefMessages = new NdefMessage[] { ndef };
+			intent.putExtra(NfcAdapter.EXTRA_NDEF_MESSAGES, ndefMessages);
+		}
+		
+		mActivity.sendBroadcast(intent);
+	}
+	
 	/**
 	 * Requests any foreground NFC activity. This method must be called from
 	 * the main thread.
@@ -600,15 +631,16 @@ public class Nfc {
 		}
 		
 		@Override
-		public void doConnectionHandover(NdefRecord handoverRequest, NdefMessage outboundNdef) throws IOException {
+		public void doConnectionHandover(NdefRecord handoverRequest, NdefProxy ndefProxy) throws IOException {
+			NdefMessage outboundNdef = ndefProxy.getForegroundNdefMessage();
 			if (outboundNdef == null) return;
 			
 			String uriString = new String(handoverRequest.getPayload());
 			Uri uri = Uri.parse(uriString);
-			sendNdefOverTcp(uri, outboundNdef);
+			sendNdefOverTcp(uri, ndefProxy);
 		}
 		
-		private void sendNdefOverTcp(Uri target, NdefMessage ndef) throws IOException {
+		private void sendNdefOverTcp(Uri target, NdefProxy ndefProxy) throws IOException {
 			String host = target.getHost();
 			int port = target.getPort();
 			if (port == -1) {
@@ -616,8 +648,7 @@ public class Nfc {
 			}
 			
 			DuplexSocket socket = new TcpDuplexSocket(host, port);
-			HandoverConnectedThread connected = new HandoverConnectedThread(socket, ndef);
-			connected.start();
+			new HandoverConnectedThread(socket, ndefProxy).start();
 		}
 	}
 		
@@ -653,37 +684,34 @@ public class Nfc {
 		}
 		
 		@Override
-		public void doConnectionHandover(NdefRecord handoverRequest, NdefMessage outboundNdef) throws IOException {
-			if (outboundNdef == null) return;
-			
+		public void doConnectionHandover(NdefRecord handoverRequest, NdefProxy ndefProxy) throws IOException {
 			String uriString = new String(handoverRequest.getPayload());
-			Uri uri = Uri.parse(uriString);
-			sendNdefOverBt(uri, outboundNdef);
-		}
-		
-		private void sendNdefOverBt(Uri target, NdefMessage ndef) throws IOException {
+			Uri target = Uri.parse(uriString);
+			
 			String mac = target.getAuthority();
 			UUID uuid = UUID.fromString(target.getPath().substring(1));
 			DuplexSocket socket = new BluetoothDuplexSocket(mmBluetoothAdapter, mac, uuid);
-			HandoverConnectedThread connected = new HandoverConnectedThread(socket, ndef);
-			connected.start();
+			new HandoverConnectedThread(socket, ndefProxy).start();
 		}
 	}
-		
-	
+
+
 	/**
 	 * Runs a thread during a connection handover with a remote device over a
 	 * {@see DuplexSocket}, transmitting the given Ndef message.
 	 */
 	private static class HandoverConnectedThread extends Thread {
+		public static final byte HANDOVER_VERSION = 0x19;
 		private final DuplexSocket mmSocket;
-		@SuppressWarnings("unused")
 		private final InputStream mmInStream;
 		private final OutputStream mmOutStream;
-		private final NdefMessage mmOutboundMessage;
+		private final NdefProxy mmNdefProxy;
 		
-		public HandoverConnectedThread(DuplexSocket socket, NdefMessage ndef) {
-			mmOutboundMessage = ndef;
+		private boolean mmIsWriteDone = false;
+		private boolean mmIsReadDone = false;
+		
+		public HandoverConnectedThread(DuplexSocket socket, NdefProxy ndefProxy) {
+			mmNdefProxy = ndefProxy;
 			mmSocket = socket;
 			InputStream tmpIn = null;
 			OutputStream tmpOut = null;
@@ -702,22 +730,81 @@ public class Nfc {
 
 		public void run() {
 			try {
-				if (mmOutboundMessage != null) {
-					byte[] ndefBytes = mmOutboundMessage.toByteArray();
-					mmOutStream.write(ndefBytes);
+				if (mmInStream == null || mmOutStream == null) {
+					return;
 				}
-				mmOutStream.close();
+
+				// Read on this thread, write on a new one.
+				new SendNdefThread().start();
+				
+				DataInputStream dataIn = new DataInputStream(mmInStream);
+				Log.d(TAG, "ABOUT TO READ VERSION");
+				byte version = (byte) dataIn.readByte();
+				Log.d(TAG, "GOT VERSION " + version);
+				if (version != HANDOVER_VERSION) {
+					throw new Exception("Bad handover protocol version.");
+				}
+				int length = dataIn.readInt();
+				if (length > 0) {
+					byte[] ndefBytes = new byte[length];
+					int read = 0;
+					while (read < length) {
+						read += dataIn.read(ndefBytes, read, (length - read));
+					}
+					NdefMessage ndef = new NdefMessage(ndefBytes);
+					mmNdefProxy.handleNdef(ndef);
+				}
 			} catch (Exception e) {
-				Log.e(TAG, "Error writing to socket", e);
+				Log.e(TAG, "Failed to issue handover.", e);
+			} finally {
+				synchronized(HandoverConnectedThread.this) {
+					mmIsReadDone = true;
+					if (mmIsWriteDone) {
+						Log.d(TAG, "STOPPING FROM READ THREAD");
+						cancel();
+					}
+				}
 			}
-			// No longer listening.
-			cancel();
 		}
 
 		public void cancel() {
 			try {
 				mmSocket.close();
 			} catch (IOException e) {}
+		}
+		
+		
+		private class SendNdefThread extends Thread {
+			@Override
+			public void run() {
+				try {
+					Log.d(TAG, "SENDING DATA OUT");
+					NdefMessage outbound = mmNdefProxy.getForegroundNdefMessage();
+					DataOutputStream dataOut = new DataOutputStream(mmOutStream);
+					dataOut.writeByte(HANDOVER_VERSION);
+					if (outbound != null) {
+						byte[] ndefBytes = outbound.toByteArray();
+						dataOut.writeInt(ndefBytes.length);
+						dataOut.write(ndefBytes);
+					} else {
+						dataOut.writeInt(0);
+					}
+					dataOut.flush();
+					dataOut.close();
+					mmOutStream.close();
+					Log.d(TAG, "DONE SENDING DATA");
+				} catch (IOException e) {
+					Log.e(TAG, "Error writing to socket", e);
+				} finally {
+					synchronized(HandoverConnectedThread.this) {
+						mmIsWriteDone = true;
+						if (mmIsReadDone) {
+							Log.d(TAG, "ABOUT TO STOP FROM WRITE THREAD");
+							cancel();
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -732,8 +819,14 @@ public class Nfc {
 		 * @param outboundNdef The ndef message to send from this device. May be null.
 		 * @throws IOException
 		 */
-		public void doConnectionHandover(NdefRecord handoverRequest, NdefMessage outboundNdef) throws IOException;
+		public void doConnectionHandover(NdefRecord handoverRequest, NdefProxy ndefProxy) throws IOException;
 		public boolean supportsRequest(NdefRecord record);
+	}
+	
+	
+	public interface NdefProxy {
+		public void handleNdef(NdefMessage ndef);
+		public NdefMessage getForegroundNdefMessage();
 	}
 	
 	/**
