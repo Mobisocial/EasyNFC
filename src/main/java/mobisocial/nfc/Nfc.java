@@ -738,9 +738,7 @@ public class Nfc {
 				new SendNdefThread().start();
 				
 				DataInputStream dataIn = new DataInputStream(mmInStream);
-				Log.d(TAG, "ABOUT TO READ VERSION");
 				byte version = (byte) dataIn.readByte();
-				Log.d(TAG, "GOT VERSION " + version);
 				if (version != HANDOVER_VERSION) {
 					throw new Exception("Bad handover protocol version.");
 				}
@@ -760,7 +758,6 @@ public class Nfc {
 				synchronized(HandoverConnectedThread.this) {
 					mmIsReadDone = true;
 					if (mmIsWriteDone) {
-						Log.d(TAG, "STOPPING FROM READ THREAD");
 						cancel();
 					}
 				}
@@ -778,7 +775,6 @@ public class Nfc {
 			@Override
 			public void run() {
 				try {
-					Log.d(TAG, "SENDING DATA OUT");
 					NdefMessage outbound = mmNdefProxy.getForegroundNdefMessage();
 					DataOutputStream dataOut = new DataOutputStream(mmOutStream);
 					dataOut.writeByte(HANDOVER_VERSION);
@@ -790,16 +786,12 @@ public class Nfc {
 						dataOut.writeInt(0);
 					}
 					dataOut.flush();
-					dataOut.close();
-					mmOutStream.close();
-					Log.d(TAG, "DONE SENDING DATA");
 				} catch (IOException e) {
 					Log.e(TAG, "Error writing to socket", e);
 				} finally {
 					synchronized(HandoverConnectedThread.this) {
 						mmIsWriteDone = true;
 						if (mmIsReadDone) {
-							Log.d(TAG, "ABOUT TO STOP FROM WRITE THREAD");
 							cancel();
 						}
 					}
