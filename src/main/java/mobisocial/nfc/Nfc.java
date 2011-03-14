@@ -777,7 +777,9 @@ public class Nfc {
 		
 		@Override
 		public void close() throws IOException {
-			mmSocket.close();
+			if (mmSocket != null) {
+				mmSocket.close();
+			}
 		}
 	}
 	
