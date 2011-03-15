@@ -126,7 +126,7 @@ public class Nfc {
 	 * The action of an ordered broadcast intent for applications to handle a
 	 * received NDEF messages. Such intents are broadcast from connection
 	 * handover services. This library sets the result code to
-	 * {@link Activity.RESULT_CANCELED}, indicating the foreground application has
+	 * {@code Activity.RESULT_CANCELED}, indicating the foreground application has
 	 * consumed the intent.
 	 */
 	protected static final String ACTION_HANDLE_NDEF = "mobisocial.intent.action.HANDLE_NDEF";
@@ -840,7 +840,7 @@ public class Nfc {
 		/**
 		 * Issues a connection handover of the given type.
 		 * @param handoverRequest The connection handover request record.
-		 * @param outboundNdef The ndef message to send from this device. May be null.
+		 * @param ndefProxy The ndef proxy for sending and receiving ndef messages.
 		 * @throws IOException
 		 */
 		public void doConnectionHandover(NdefRecord handoverRequest, NdefProxy ndefProxy) throws IOException;
