@@ -21,7 +21,10 @@ import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -117,7 +120,16 @@ public class Nfc {
 	 * A broadcasted intent used to set an NDEF message for use in a Connection
 	 * Handover, for devices that do not have an active NFC radio.
 	 */
-	public static final String ACTION_SET_NDEF = "mobisocial.intent.action.SET_NDEF";
+	protected static final String ACTION_SET_NDEF = "mobisocial.intent.action.SET_NDEF";
+	
+	/**
+	 * The action of an ordered broadcast intent for applications to handle a
+	 * received NDEF messages. Such intents are broadcast from connection
+	 * handover services. This library sets the result code to
+	 * {@link Activity.RESULT_CANCELED}, indicating the foreground application has
+	 * consumed the intent.
+	 */
+	protected static final String ACTION_HANDLE_NDEF = "mobisocial.intent.action.HANDLE_NDEF";
 	
 	/**
 	 * Nfc interface mode in which Nfc interaction is disabled for this class.
@@ -340,6 +352,7 @@ public class Nfc {
 	 */
 	public void onResume(Activity activity) {
 		if (mNfcAdapter == null) {
+			installNfcHandoverHandler();
 			enableNdefPush();
 			return;
 		}
@@ -363,6 +376,7 @@ public class Nfc {
 	 */
 	public void onPause(Activity activity) {
 		if (mNfcAdapter == null) {
+			uninstallNfcHandoverHandler();
 			setNdefHandover(null);
 			return;
 		}
@@ -558,6 +572,24 @@ public class Nfc {
 		
 		PendingIntent intent = PendingIntent.getActivity(mActivity, 0, activityIntent, 0);
 		mNfcAdapter.enableForegroundDispatch(mActivity, intent, null, null);
+	}
+	
+	private BroadcastReceiver mHandoverReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			new TagHandlerThread(mInterfaceMode, intent).start();
+			setResultCode(Activity.RESULT_CANCELED);
+		}
+	};
+	
+	private void installNfcHandoverHandler() {
+		IntentFilter handoverFilter = new IntentFilter();
+		handoverFilter.addAction(ACTION_HANDLE_NDEF);
+		mActivity.registerReceiver(mHandoverReceiver, handoverFilter);
+	}
+	
+	private void uninstallNfcHandoverHandler() {
+		mActivity.unregisterReceiver(mHandoverReceiver);
 	}
 	
 	/**
