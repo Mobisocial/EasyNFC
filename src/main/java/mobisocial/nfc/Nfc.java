@@ -155,12 +155,8 @@ public class Nfc {
 	public Nfc(Activity activity) {
 		mActivity = activity;
 		try {
-			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity); 
-		} catch (NoSuchMethodError e) {
-			Log.i(TAG, "Nfc requires Android SDK 10 and beyond.");
-			mConnectionHandovers = null;
-			return;
-		} catch (NoClassDefFoundError e) {
+			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
+		} catch (Exception e) {
 			Log.i(TAG, "Nfc not available.");
 			mConnectionHandovers = null;
 			return;
