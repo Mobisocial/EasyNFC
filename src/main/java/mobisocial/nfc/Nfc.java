@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -156,6 +157,10 @@ public class Nfc {
 		mActivity = activity;
 		try {
 			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity); 
+		} catch (NoSuchMethodError e) {
+			Log.i(TAG, "Nfc requires Android SDK 10 and beyond.");
+			mConnectionHandovers = null;
+			return;
 		} catch (NoClassDefFoundError e) {
 			Log.i(TAG, "Nfc not available.");
 			mConnectionHandovers = null;
@@ -476,7 +481,10 @@ public class Nfc {
 				return;
 			}
 
-			final NdefMessage[] ndefMessages = (NdefMessage[])rawMsgs;
+			final NdefMessage[] ndefMessages = new NdefMessage[rawMsgs.length];
+			for (int i = 0; i < rawMsgs.length; i++) {
+				ndefMessages[i] = (NdefMessage)rawMsgs[i];
+			}
 			boolean handoverRequested = isHandoverRequest(ndefMessages[0]);
 			
 			if (!mConnectionHandoverEnabled || !handoverRequested) {
