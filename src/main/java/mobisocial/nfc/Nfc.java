@@ -92,7 +92,7 @@ import android.util.Log;
  * {@link #MODE_PASSTHROUGH} which disables this interface.
  * <ul>
  *   <li>{@link #share(NdefMessage)} and similar, to share messages with other Nfc devices.
- *   <li>{@link #setOnTagReadListener}, for reacting to incoming data without blocking.
+ *   <li>{@link #addNdefHandler(NdefHandler)}, for acting on received messages.
  *   <li>{@link #enableTagWriteMode(NdefMessage)}, to write to physical Nfc tags.
  * </ul>
  * </p>
@@ -140,7 +140,7 @@ public class Nfc {
 	/**
 	 * Nfc interface mode for reading data from a passive tag
 	 * or exchanging information with another active device. 
-	 * See {@link #setOnTagReadListener(OnTagReadListener)} and
+	 * See {@link #addNdefHandler(NdefHandler)} and
 	 * {@link #share(NdefMessage)} for handling the actual data. 
 	 */
 	public static final int MODE_EXCHANGE = 1;
