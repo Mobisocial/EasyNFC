@@ -159,7 +159,7 @@ public class Nfc {
 			mConnectionHandovers = null;
 			return;
 		}
-		mConnectionHandovers =	new LinkedHashSet<ConnectionHandover>();
+		mConnectionHandovers = new LinkedHashSet<ConnectionHandover>();
 		mConnectionHandovers.add(new NdefBluetoothPushHandover());
 		mConnectionHandovers.add(new NdefTcpPushHandover());
 	}
@@ -282,7 +282,7 @@ public class Nfc {
 	/**
 	 * A callback issued when an Nfc tag is read.
 	 */
-	public abstract class NdefHandler implements Comparable<NdefHandler> {
+	public static abstract class NdefHandler implements Comparable<NdefHandler> {
 		public static final int NDEF_CONSUMED = 0;
 		public static final int NDEF_PROPAGATE = 1;
 		
