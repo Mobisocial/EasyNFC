@@ -10,10 +10,12 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.TreeMap;
 import java.util.UUID;
 
 
@@ -106,7 +108,7 @@ public class Nfc {
 	private NdefMessage mForegroundMessage = null;
 	private NdefMessage mWriteMessage = null;
 	private boolean mConnectionHandoverEnabled = true;
-	private final Set<NdefHandler> mNdefHandlers = new TreeSet<NdefHandler>();
+	private final Map<Integer, Set<NdefHandler>> mNdefHandlers = new TreeMap<Integer, Set<NdefHandler>>();
 	private OnTagWriteListener mOnTagWriteListener = null;
 	
 	private int mState = STATE_PAUSED;
@@ -260,65 +262,54 @@ public class Nfc {
 	/**
 	 * Sets a callback to call when an Nfc tag is written.
 	 */
-	public void setOnTagWriteListener(OnTagWriteListener listener) {
-		mOnTagWriteListener = listener;
+	public void addNdefHandler(NdefHandler handler) {
+		addNdefHandler(NdefHandler.DEFAULT_PRIORITY, handler);
 	}
 	
-	/**
-	 * Sets a callback to call when an Nfc tag is scanned.
-	 */
-	public synchronized void addNdefHandler(NdefHandler handler) {
-		mNdefHandlers.add(handler);
+	public synchronized void addNdefHandler(Integer priority, NdefHandler handler) {
+		if (!mNdefHandlers.containsKey(priority)) {
+			mNdefHandlers.put(priority, new HashSet<NdefHandler>());
+		}
+		Set<NdefHandler> handlers = mNdefHandlers.get(priority);
+		handlers.add(handler);
 	}
 	
 	public synchronized void clearNdefHandlers() {
 		mNdefHandlers.clear();
 	}
-	
-	public synchronized boolean removeNdefHandler(NdefHandler handler) {
-		return mNdefHandlers.remove(handler);
-	}
+
 
 	/**
 	 * A callback issued when an Nfc tag is read.
 	 */
-	public static abstract class NdefHandler implements Comparable<NdefHandler> {
+	public interface NdefHandler {
 		public static final int NDEF_PROPAGATE = 0;
 		public static final int NDEF_CONSUME = 1;
-		
+		public static final int DEFAULT_PRIORITY = 50;
+
 		/**
-		 * Callback issued after an NFC tag is read or an NDEF message is
-		 * received from a remote device. This method is executed off the main
-		 * thread, so be careful when updating UI elements as a result of this
-		 * callback.
+		 * Callback issued after an NFC tag is read or an NDEF message is received
+		 * from a remote device. This method is executed off the main thread, so be
+		 * careful when updating UI elements as a result of this callback.
 		 * 
-		 * @return {@link #NDEF_CONSUME} to indicate this handler has consumed
-		 * the given message, or {@link #NDEF_PROPAGATE} to pass on to the next
-		 * handler.
+		 * @return {@link #NDEF_CONSUME} to indicate this handler has consumed the
+		 *         given message, or {@link #NDEF_PROPAGATE} to pass on to the next
+		 *         handler.
 		 */
 		public abstract int handleNdef(NdefMessage[] ndefMessages);
-		
-		/**
-		 * A priority value used to determine the order in which ndef handlers
-		 * are issued. Lower priority handlers are issued first. The default
-		 * priority is 50.
-		 */
-		public Integer getPriority() {
-			return 50;
-		}
-		
-		@Override
-		public int compareTo(NdefHandler other) {
-			return getPriority().compareTo(other.getPriority());
-		}
 	}
+
 	
 	private synchronized void doHandleNdef(NdefMessage[] ndefMessages) {
-		Iterator<NdefHandler> handlers = mNdefHandlers.iterator();
-		while (handlers.hasNext()) {
-			NdefHandler handler = handlers.next();
-			if (handler.handleNdef(ndefMessages) == NdefHandler.NDEF_CONSUME) {
-				return;
+		Iterator<Integer> bins = mNdefHandlers.keySet().iterator();
+		while (bins.hasNext()) {
+			Integer priority = bins.next();
+			Iterator<NdefHandler> handlers = mNdefHandlers.get(priority).iterator();
+			while (handlers.hasNext()) {
+				NdefHandler handler = handlers.next();
+				if (handler.handleNdef(ndefMessages) == NdefHandler.NDEF_CONSUME) {
+					return;
+				}
 			}
 		}
 	}
