@@ -283,8 +283,8 @@ public class Nfc {
 	 * A callback issued when an Nfc tag is read.
 	 */
 	public static abstract class NdefHandler implements Comparable<NdefHandler> {
-		public static final int NDEF_CONSUMED = 0;
-		public static final int NDEF_PROPAGATE = 1;
+		public static final int NDEF_PROPAGATE = 0;
+		public static final int NDEF_CONSUME = 1;
 		
 		/**
 		 * Callback issued after an NFC tag is read or an NDEF message is
@@ -292,7 +292,7 @@ public class Nfc {
 		 * thread, so be careful when updating UI elements as a result of this
 		 * callback.
 		 * 
-		 * @return {@link #NDEF_CONSUMED} to indicate this handler has consumed
+		 * @return {@link #NDEF_CONSUME} to indicate this handler has consumed
 		 * the given message, or {@link #NDEF_PROPAGATE} to pass on to the next
 		 * handler.
 		 */
@@ -317,7 +317,7 @@ public class Nfc {
 		Iterator<NdefHandler> handlers = mNdefHandlers.iterator();
 		while (handlers.hasNext()) {
 			NdefHandler handler = handlers.next();
-			if (handler.handleNdef(ndefMessages) == NdefHandler.NDEF_CONSUMED) {
+			if (handler.handleNdef(ndefMessages) == NdefHandler.NDEF_CONSUME) {
 				return;
 			}
 		}
