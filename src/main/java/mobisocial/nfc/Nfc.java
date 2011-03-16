@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -221,6 +220,13 @@ public class Nfc {
 				enableNdefPush();
 			}
 		}
+	}
+
+	/**
+	 * Sets a callback to call when an Nfc tag is written.
+	 */
+	public void setOnTagWriteListener(OnTagWriteListener listener) {
+		mOnTagWriteListener = listener;
 	}
 
 	/**
