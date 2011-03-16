@@ -154,7 +154,6 @@
       <ul>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html">Nfc.NdefProxy</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagReadListener.html">Nfc.OnTagReadListener</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a></li>
       </ul>
     </li>
@@ -164,6 +163,7 @@
           <li class="selected api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefBluetoothPushHandover.html">Nfc.NdefBluetoothPushHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html">Nfc.NdefFactory</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></li>
       </ul>
     </li>
@@ -372,7 +372,7 @@ Summary:
  <code><a href="../../mobisocial/nfc/Nfc.html#MODE_PASSTHROUGH">MODE_PASSTHROUGH</a></code> which disables this interface.
  <ul>
    <li><code><a href="../../mobisocial/nfc/Nfc.html#share(android.nfc.NdefMessage)">share(NdefMessage)</a></code> and similar, to share messages with other Nfc devices.
-   <li><code><a href="../../mobisocial/nfc/Nfc.html#setOnTagReadListener(mobisocial.nfc.Nfc.OnTagReadListener)">setOnTagReadListener(Nfc.OnTagReadListener)</a></code>, for reacting to incoming data without blocking.
+   <li><code><a href="../../mobisocial/nfc/Nfc.html#addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">addNdefHandler(NdefHandler)</a></code>, for acting on received messages.
    <li><code><a href="../../mobisocial/nfc/Nfc.html#enableTagWriteMode(android.nfc.NdefMessage)">enableTagWriteMode(NdefMessage)</a></code>, to write to physical Nfc tags.
  </ul>
  </p>
@@ -455,9 +455,9 @@ Summary:
          
          
         
-        interface</nobr></td>
-      <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html">Nfc.NdefProxy</a></td>
-      <td class="jd-descrcol" width="100%">&nbsp;</td>
+        class</nobr></td>
+      <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></td>
+      <td class="jd-descrcol" width="100%">A callback issued when an Nfc tag is read.&nbsp;</td>
     </tr>
     
     
@@ -467,10 +467,9 @@ Summary:
          
          
         
-        class</nobr></td>
-      <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></td>
-      <td class="jd-descrcol" width="100%"><p>Implements an Ndef push handover request in which a tag represents
- an Ndef reader device listening on a TCP socket.&nbsp;</td>
+        interface</nobr></td>
+      <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html">Nfc.NdefProxy</a></td>
+      <td class="jd-descrcol" width="100%">&nbsp;</td>
     </tr>
     
     
@@ -480,9 +479,10 @@ Summary:
          
          
         
-        interface</nobr></td>
-      <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.OnTagReadListener.html">Nfc.OnTagReadListener</a></td>
-      <td class="jd-descrcol" width="100%">Interface definition for a callback called when an Nfc tag is read.&nbsp;</td>
+        class</nobr></td>
+      <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></td>
+      <td class="jd-descrcol" width="100%"><p>Implements an Ndef push handover request in which a tag represents
+ an Ndef reader device listening on a TCP socket.&nbsp;</td>
     </tr>
     
     
@@ -601,6 +601,40 @@ Summary:
 <!-- ========== METHOD SUMMARY =========== -->
 <table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
 
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            synchronized
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">addNdefHandler</a></span>(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</nobr>
+        
+        <div class="jd-descrdiv">Sets a callback to call when an Nfc tag is scanned.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            synchronized
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#clearNdefHandlers()">clearNdefHandlers</a></span>()</nobr>
+        
+  </td></tr>
 
 
 	 
@@ -826,17 +860,15 @@ Summary:
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
+            synchronized
             
             
             
-            
-            void</nobr>
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#setOnTagReadListener(mobisocial.nfc.Nfc.OnTagReadListener)">setOnTagReadListener</a></span>(<a href="../../mobisocial/nfc/Nfc.OnTagReadListener.html">Nfc.OnTagReadListener</a> listener)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#removeNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">removeNdefHandler</a></span>(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</nobr>
         
-        <div class="jd-descrdiv">Sets a callback to call when an Nfc tag is scanned.</div>
-  
   </td></tr>
 
 
@@ -1278,7 +1310,7 @@ From class
       
   <div class="jd-tagdata jd-tagdescr"><p>Nfc interface mode for reading data from a passive tag
  or exchanging information with another active device. 
- See <code><a href="../../mobisocial/nfc/Nfc.html#setOnTagReadListener(mobisocial.nfc.Nfc.OnTagReadListener)">setOnTagReadListener(OnTagReadListener)</a></code> and
+ See <code><a href="../../mobisocial/nfc/Nfc.html#addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">addNdefHandler(NdefHandler)</a></code> and
  <code><a href="../../mobisocial/nfc/Nfc.html#share(android.nfc.NdefMessage)">share(NdefMessage)</a></code> for handling the actual data. 
 </p></div>
 
@@ -1436,6 +1468,69 @@ From class
 
 <h2>Public Methods</h2>
 
+
+
+<A NAME="addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+        synchronized 
+        void
+      </span>
+      <span class="sympad">addNdefHandler</span>
+      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets a callback to call when an Nfc tag is scanned.
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="clearNdefHandlers()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+        synchronized 
+        void
+      </span>
+      <span class="sympad">clearNdefHandlers</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
 
 
 <A NAME="clearSharing()"></A>
@@ -1847,7 +1942,7 @@ From class
 </div>
 
 
-<A NAME="setOnTagReadListener(mobisocial.nfc.Nfc.OnTagReadListener)"></A>
+<A NAME="removeNdefHandler(mobisocial.nfc.Nfc.NdefHandler)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1856,11 +1951,11 @@ From class
          
          
          
-         
-        void
+        synchronized 
+        boolean
       </span>
-      <span class="sympad">setOnTagReadListener</span>
-      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.OnTagReadListener.html">Nfc.OnTagReadListener</a> listener)</span>
+      <span class="sympad">removeNdefHandler</span>
+      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1872,8 +1967,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets a callback to call when an Nfc tag is scanned.
-</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
