@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 
@@ -105,7 +106,7 @@ public class Nfc {
 	private NdefMessage mForegroundMessage = null;
 	private NdefMessage mWriteMessage = null;
 	private boolean mConnectionHandoverEnabled = true;
-	private OnTagReadListener mOnTagReadListener = null;
+	private final Set<NdefHandler> mNdefHandlers = new TreeSet<NdefHandler>();
 	private OnTagWriteListener mOnTagWriteListener = null;
 	
 	private int mState = STATE_PAUSED;
@@ -266,21 +267,60 @@ public class Nfc {
 	/**
 	 * Sets a callback to call when an Nfc tag is scanned.
 	 */
-	public void setOnTagReadListener(OnTagReadListener listener) {
-		mOnTagReadListener = listener;
+	public synchronized void addNdefHandler(NdefHandler handler) {
+		mNdefHandlers.add(handler);
+	}
+	
+	public synchronized void clearNdefHandlers() {
+		mNdefHandlers.clear();
+	}
+	
+	public synchronized boolean removeNdefHandler(NdefHandler handler) {
+		return mNdefHandlers.remove(handler);
 	}
 
 	/**
-	 * Interface definition for a callback called when an Nfc tag is read.
+	 * A callback issued when an Nfc tag is read.
 	 */
-	public interface OnTagReadListener {
+	public abstract class NdefHandler implements Comparable<NdefHandler> {
+		public static final int NDEF_CONSUMED = 0;
+		public static final int NDEF_PROPAGATE = 1;
+		
 		/**
-		 * Callback issued after an NFC tag is read, or an NDEF message is
+		 * Callback issued after an NFC tag is read or an NDEF message is
 		 * received from a remote device. This method is executed off the main
 		 * thread, so be careful when updating UI elements as a result of this
 		 * callback.
+		 * 
+		 * @return {@link #NDEF_CONSUMED} to indicate this handler has consumed
+		 * the given message, or {@link #NDEF_PROPAGATE} to pass on to the next
+		 * handler.
 		 */
-		public void onTagRead(NdefMessage ndef);
+		public abstract int handleNdef(NdefMessage[] ndefMessages);
+		
+		/**
+		 * A priority value used to determine the order in which ndef handlers
+		 * are issued. Lower priority handlers are issued first. The default
+		 * priority is 50.
+		 */
+		public Integer getPriority() {
+			return 50;
+		}
+		
+		@Override
+		public int compareTo(NdefHandler other) {
+			return getPriority().compareTo(other.getPriority());
+		}
+	}
+	
+	private synchronized void doHandleNdef(NdefMessage[] ndefMessages) {
+		Iterator<NdefHandler> handlers = mNdefHandlers.iterator();
+		while (handlers.hasNext()) {
+			NdefHandler handler = handlers.next();
+			if (handler.handleNdef(ndefMessages) == NdefHandler.NDEF_CONSUMED) {
+				return;
+			}
+		}
 	}
 	
 	/**
@@ -424,7 +464,6 @@ public class Nfc {
 		@Override
 		public void run() {
 			final NdefMessage outboundNdef = mForegroundMessage;
-			final OnTagReadListener tagReadListener = mOnTagReadListener;
 			
 			// Check to see if we are writing to a tag
 			if (mmMode == MODE_WRITE) {
@@ -446,22 +485,18 @@ public class Nfc {
 				return;
 			}
 
-			NdefMessage ndefMessage = (NdefMessage)(rawMsgs[0]);
-			boolean handoverRequested = isHandoverRequest(ndefMessage);
+			final NdefMessage[] ndefMessages = (NdefMessage[])rawMsgs;
+			boolean handoverRequested = isHandoverRequest(ndefMessages[0]);
 			
 			if (!mConnectionHandoverEnabled || !handoverRequested) {
-				if (tagReadListener != null) {
-					tagReadListener.onTagRead(ndefMessage);
-				}
+				doHandleNdef(ndefMessages);
 				return;
 			}
 			
 			NdefProxy ndefProxy = new NdefProxy() {
 				@Override
 				public void handleNdef(NdefMessage ndef) {
-					if (tagReadListener != null) {
-						tagReadListener.onTagRead(ndef);
-					}
+					doHandleNdef(ndefMessages);
 				}
 				
 				@Override
@@ -470,7 +505,7 @@ public class Nfc {
 				}
 			};
 			
-			NdefRecord[] records = ndefMessage.getRecords();
+			NdefRecord[] records = ndefMessages[0].getRecords();
 			for (int i = 2; i < records.length; i++) {
 				Iterator<ConnectionHandover> handovers = mConnectionHandovers.iterator();
 				while (handovers.hasNext()) {
