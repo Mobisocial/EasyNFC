@@ -153,6 +153,7 @@
     <li><h2>Interfaces</h2>
       <ul>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html">Nfc.NdefProxy</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a></li>
       </ul>
@@ -163,7 +164,6 @@
           <li class="selected api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefBluetoothPushHandover.html">Nfc.NdefBluetoothPushHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html">Nfc.NdefFactory</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></li>
       </ul>
     </li>
@@ -455,7 +455,7 @@ Summary:
          
          
         
-        class</nobr></td>
+        interface</nobr></td>
       <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></td>
       <td class="jd-descrcol" width="100%">A callback issued when an Nfc tag is read.&nbsp;</td>
     </tr>
@@ -614,15 +614,31 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">addNdefHandler</a></span>(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#addNdefHandler(java.lang.Integer, mobisocial.nfc.Nfc.NdefHandler)">addNdefHandler</a></span>(<a href="http://developer.android.com/reference/java/lang/Integer.html">Integer</a> priority, <a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</nobr>
         
-        <div class="jd-descrdiv">Sets a callback to call when an Nfc tag is scanned.</div>
-  
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">addNdefHandler</a></span>(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</nobr>
+        
+        <div class="jd-descrdiv">Sets a callback to call when an Nfc tag is written.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             synchronized
@@ -638,7 +654,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -656,7 +672,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -674,7 +690,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -692,7 +708,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -710,7 +726,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -729,7 +745,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -747,7 +763,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -766,7 +782,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -784,7 +800,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -803,7 +819,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -821,7 +837,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -839,7 +855,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -857,41 +873,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            synchronized
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#removeNdefHandler(mobisocial.nfc.Nfc.NdefHandler)">removeNdefHandler</a></span>(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#setOnTagWriteListener(mobisocial.nfc.Nfc.OnTagWriteListener)">setOnTagWriteListener</a></span>(<a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a> listener)</nobr>
-        
-        <div class="jd-descrdiv">Sets a callback to call when an Nfc tag is written.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -907,7 +889,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -925,7 +907,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -941,7 +923,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1470,7 +1452,7 @@ From class
 
 
 
-<A NAME="addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)"></A>
+<A NAME="addNdefHandler(java.lang.Integer, mobisocial.nfc.Nfc.NdefHandler)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1480,6 +1462,37 @@ From class
          
          
         synchronized 
+        void
+      </span>
+      <span class="sympad">addNdefHandler</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/Integer.html">Integer</a> priority, <a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="addNdefHandler(mobisocial.nfc.Nfc.NdefHandler)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
         void
       </span>
       <span class="sympad">addNdefHandler</span>
@@ -1495,7 +1508,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets a callback to call when an Nfc tag is scanned.
+  <div class="jd-tagdata jd-tagdescr"><p>Sets a callback to call when an Nfc tag is written.
 </p></div>
 
     </div>
@@ -1936,69 +1949,6 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Call this method in your Activity's onResume() method body.
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="removeNdefHandler(mobisocial.nfc.Nfc.NdefHandler)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-        synchronized 
-        boolean
-      </span>
-      <span class="sympad">removeNdefHandler</span>
-      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> handler)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="setOnTagWriteListener(mobisocial.nfc.Nfc.OnTagWriteListener)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setOnTagWriteListener</span>
-      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a> listener)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets a callback to call when an Nfc tag is written.
 </p></div>
 
     </div>

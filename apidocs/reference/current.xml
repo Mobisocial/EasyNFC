@@ -29,6 +29,21 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="priority" type="java.lang.Integer">
+</parameter>
+<parameter name="handler" type="mobisocial.nfc.Nfc.NdefHandler">
+</parameter>
+</method>
+<method name="addNdefHandler"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 <parameter name="handler" type="mobisocial.nfc.Nfc.NdefHandler">
 </parameter>
 </method>
@@ -185,32 +200,6 @@
  visibility="public"
 >
 <parameter name="activity" type="android.app.Activity">
-</parameter>
-</method>
-<method name="removeNdefHandler"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="true"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handler" type="mobisocial.nfc.Nfc.NdefHandler">
-</parameter>
-</method>
-<method name="setOnTagWriteListener"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="listener" type="mobisocial.nfc.Nfc.OnTagWriteListener">
 </parameter>
 </method>
 <method name="share"
@@ -509,46 +498,13 @@
 </parameter>
 </method>
 </class>
-<class name="Nfc.NdefHandler"
- extends="java.lang.Object"
+<interface name="Nfc.NdefHandler"
  abstract="true"
- static="false"
+ static="true"
  final="false"
  deprecated="not deprecated"
  visibility="public"
 >
-<constructor name="Nfc.NdefHandler"
- type="mobisocial.nfc.Nfc.NdefHandler"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="compareTo"
- return="int"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="other" type="mobisocial.nfc.Nfc.NdefHandler">
-</parameter>
-</method>
-<method name="getPriority"
- return="java.lang.Integer"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
 <method name="handleNdef"
  return="int"
  abstract="true"
@@ -562,18 +518,18 @@
 <parameter name="ndefMessages" type="android.nfc.NdefMessage[]">
 </parameter>
 </method>
-<field name="NDEF_CONSUMED"
+<field name="DEFAULT_PRIORITY"
  type="int"
  transient="false"
  volatile="false"
- value="0"
+ value="50"
  static="true"
  final="true"
  deprecated="not deprecated"
  visibility="public"
 >
 </field>
-<field name="NDEF_PROPAGATE"
+<field name="NDEF_CONSUME"
  type="int"
  transient="false"
  volatile="false"
@@ -584,7 +540,18 @@
  visibility="public"
 >
 </field>
-</class>
+<field name="NDEF_PROPAGATE"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</interface>
 <interface name="Nfc.NdefProxy"
  abstract="true"
  static="true"
