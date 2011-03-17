@@ -492,15 +492,16 @@ public class Nfc {
 	public interface ConnectionHandover {
 		/**
 		 * Issues a connection handover of the given type.
-		 * @param handoverRequest The connection handover request record.
-		 * @param ndefProxy The ndef proxy for sending and receiving ndef messages.
+		 * @param handoverRequest The connection handover request message.
+		 * @param recordNumber The index of the handover record entry being attempted.
+		 * @param nfcInterface The Nfc interface for sending and receiving ndef messages.
 		 * @throws IOException
 		 */
-		public void doConnectionHandover(NdefRecord handoverRequest, NfcInterface ndefProxy) throws IOException;
+		public void doConnectionHandover(NdefMessage handoverRequest, int recordNumber, NfcInterface nfcInterface) throws IOException;
 		public boolean supportsRequest(NdefRecord record);
 	}
 	
-	class ConnectionHandoverManager implements NdefHandler {
+	public class ConnectionHandoverManager implements NdefHandler {
 		public static final int HANDOVER_PRIORITY = 5;
 		private final Set<ConnectionHandover> mmConnectionHandovers = new LinkedHashSet<ConnectionHandover>();
 		private boolean mmConnectionHandoverEnabled = true;
@@ -508,6 +509,18 @@ public class Nfc {
 		public ConnectionHandoverManager() {
 			mmConnectionHandovers.add(new NdefBluetoothPushHandover());
 			mmConnectionHandovers.add(new NdefTcpPushHandover());
+		}
+		
+		public void addConnectionHandover(ConnectionHandover handover) {
+			mmConnectionHandovers.add(handover);
+		}
+		
+		public void clearConnectionHandovers() {
+			mmConnectionHandovers.clear();
+		}
+		
+		public boolean removeConnectionHandover(ConnectionHandover handover) {
+			return mmConnectionHandovers.remove(handover);
 		}
 		
 		/**
@@ -563,7 +576,7 @@ public class Nfc {
 					ConnectionHandover handover = handovers.next();
 					if (handover.supportsRequest(records[i])) {
 						try {
-							handover.doConnectionHandover(records[i], nfcInterface);
+							handover.doConnectionHandover(ndefMessages[0], i, nfcInterface);
 							return NDEF_CONSUME;
 						} catch (IOException e) {
 							Log.w(TAG, "Handover failed.", e);
@@ -575,6 +588,10 @@ public class Nfc {
 
 			return NDEF_PROPAGATE;
 		}
+	}
+	
+	public ConnectionHandoverManager getConnectionHandoverManager() {
+		return mConnectionHandoverManager;
 	}
 	
 	/**
@@ -723,8 +740,8 @@ public class Nfc {
     }
 	
 	/**
-	 * <p>Implements an Ndef push handover request in which a tag represents
-	 * an Ndef reader device listening on a TCP socket.
+	 * <p>Implements an Ndef push handover request in which a static tag
+	 * represents an Ndef reader device listening on a TCP socket.
 	 * </p>
 	 * <p>
 	 * Your application must hold the {@code android.permission.INTERNET}
@@ -750,13 +767,14 @@ public class Nfc {
 		}
 		
 		@Override
-		public void doConnectionHandover(NdefRecord handoverRequest, NfcInterface ndefProxy) throws IOException {
-			NdefMessage outboundNdef = ndefProxy.getForegroundNdefMessage();
+		public void doConnectionHandover(NdefMessage handoverMessage, int record, NfcInterface nfcInterface) throws IOException {
+			NdefRecord handoverRequest = handoverMessage.getRecords()[record];
+			NdefMessage outboundNdef = nfcInterface.getForegroundNdefMessage();
 			if (outboundNdef == null) return;
 			
 			String uriString = new String(handoverRequest.getPayload());
 			Uri uri = Uri.parse(uriString);
-			sendNdefOverTcp(uri, ndefProxy);
+			sendNdefOverTcp(uri, nfcInterface);
 		}
 		
 		private void sendNdefOverTcp(Uri target, NfcInterface ndefProxy) throws IOException {
@@ -772,8 +790,8 @@ public class Nfc {
 	}
 		
 	/**
-	 * <p>Implements an Ndef push handover request in which a tag represents
-	 * an Ndef reader device listening on a Bluetooth socket.
+	 * <p>Implements an Ndef push handover request in which a static tag
+	 * represents an Ndef reader device listening on a Bluetooth socket.
 	 * </p>
 	 * <p>
 	 * Your application must hold the {@code android.permission.BLUETOOTH}
@@ -803,7 +821,8 @@ public class Nfc {
 		}
 		
 		@Override
-		public void doConnectionHandover(NdefRecord handoverRequest, NfcInterface nfcInterface) throws IOException {
+		public void doConnectionHandover(NdefMessage handoverMessage, int record, NfcInterface nfcInterface) throws IOException {
+			NdefRecord handoverRequest = handoverMessage.getRecords()[record];
 			String uriString = new String(handoverRequest.getPayload());
 			Uri target = Uri.parse(uriString);
 			
