@@ -37,6 +37,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * <p>This class acts as an abstraction layer for Android's Nfc stack.
@@ -107,7 +108,7 @@ public class Nfc {
 	private NdefMessage mForegroundMessage = null;
 	private NdefMessage mWriteMessage = null;
 	private final Map<Integer, Set<NdefHandler>> mNdefHandlers = new TreeMap<Integer, Set<NdefHandler>>();
-	private final ConnectionHandoverManager mConnectionHandoverManager;
+	private final ConnectionHandoverManager mConnectionHandoverManager = new ConnectionHandoverManager();
 	private OnTagWriteListener mOnTagWriteListener = null;
 	
 	private int mState = STATE_PAUSED;
@@ -157,10 +158,8 @@ public class Nfc {
 			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
 		} catch (Exception e) {
 			Log.i(TAG, "Nfc not available.");
-			mConnectionHandoverManager = null;
 			return;
 		}
-		mConnectionHandoverManager = new ConnectionHandoverManager();
 		addNdefHandler(ConnectionHandoverManager.HANDOVER_PRIORITY, mConnectionHandoverManager);
 	}
 	
@@ -552,7 +551,7 @@ public class Nfc {
 		@Override
 		public final int handleNdef(NdefMessage[] ndefMessages) {
 			final NdefMessage outboundNdef = mForegroundMessage;
-			
+
 			if (!isHandoverRequest(ndefMessages[0]) || !mmConnectionHandoverEnabled) {
 				return NDEF_PROPAGATE;
 			}
@@ -571,6 +570,7 @@ public class Nfc {
 
 			NdefRecord[] records = ndefMessages[0].getRecords();
 			for (int i = 2; i < records.length; i++) {
+				String ho = new String(records[i].getPayload());
 				Iterator<ConnectionHandover> handovers = mmConnectionHandovers.iterator();
 				while (handovers.hasNext()) {
 					ConnectionHandover handover = handovers.next();
