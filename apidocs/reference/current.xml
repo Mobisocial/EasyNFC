@@ -126,8 +126,8 @@
 <parameter name="ndef" type="android.nfc.NdefMessage">
 </parameter>
 </method>
-<method name="getConnectionHandoverResponders"
- return="java.util.Set&lt;mobisocial.nfc.Nfc.ConnectionHandover&gt;"
+<method name="getConnectionHandoverManager"
+ return="mobisocial.nfc.Nfc.ConnectionHandoverManager"
  abstract="false"
  native="false"
  synchronized="false"
@@ -200,6 +200,19 @@
  visibility="public"
 >
 <parameter name="activity" type="android.app.Activity">
+</parameter>
+</method>
+<method name="setOnTagWriteListener"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="listener" type="mobisocial.nfc.Nfc.OnTagWriteListener">
 </parameter>
 </method>
 <method name="share"
@@ -329,9 +342,11 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
+<parameter name="handoverRequest" type="android.nfc.NdefMessage">
 </parameter>
-<parameter name="ndefProxy" type="mobisocial.nfc.Nfc.NdefProxy">
+<parameter name="recordNumber" type="int">
+</parameter>
+<parameter name="nfcInterface" type="mobisocial.nfc.Nfc.NfcInterface">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -350,6 +365,130 @@
 </parameter>
 </method>
 </interface>
+<class name="Nfc.ConnectionHandoverManager"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.nfc.Nfc.NdefHandler">
+</implements>
+<constructor name="Nfc.ConnectionHandoverManager"
+ type="mobisocial.nfc.Nfc.ConnectionHandoverManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="addConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handover" type="mobisocial.nfc.Nfc.ConnectionHandover">
+</parameter>
+</method>
+<method name="clearConnectionHandovers"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="disableConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="enableConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getConnectionHandoverResponders"
+ return="java.util.Set&lt;mobisocial.nfc.Nfc.ConnectionHandover&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="handleNdef"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefMessages" type="android.nfc.NdefMessage[]">
+</parameter>
+</method>
+<method name="isConnectionHandoverEnabled"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="removeConnectionHandover"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handover" type="mobisocial.nfc.Nfc.ConnectionHandover">
+</parameter>
+</method>
+<field name="HANDOVER_PRIORITY"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="5"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
 <class name="Nfc.NdefBluetoothPushHandover"
  extends="java.lang.Object"
  abstract="false"
@@ -378,9 +517,11 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
+<parameter name="handoverMessage" type="android.nfc.NdefMessage">
 </parameter>
-<parameter name="ndefProxy" type="mobisocial.nfc.Nfc.NdefProxy">
+<parameter name="record" type="int">
+</parameter>
+<parameter name="nfcInterface" type="mobisocial.nfc.Nfc.NfcInterface">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -552,7 +693,58 @@
 >
 </field>
 </interface>
-<interface name="Nfc.NdefProxy"
+<class name="Nfc.NdefTcpPushHandover"
+ extends="java.lang.Object"
+ abstract="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.nfc.Nfc.ConnectionHandover">
+</implements>
+<constructor name="Nfc.NdefTcpPushHandover"
+ type="mobisocial.nfc.Nfc.NdefTcpPushHandover"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="doConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverMessage" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="record" type="int">
+</parameter>
+<parameter name="nfcInterface" type="mobisocial.nfc.Nfc.NfcInterface">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="supportsRequest"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefRecord">
+</parameter>
+</method>
+</class>
+<interface name="Nfc.NfcInterface"
  abstract="true"
  static="true"
  final="false"
@@ -584,55 +776,6 @@
 </parameter>
 </method>
 </interface>
-<class name="Nfc.NdefTcpPushHandover"
- extends="java.lang.Object"
- abstract="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.nfc.Nfc.ConnectionHandover">
-</implements>
-<constructor name="Nfc.NdefTcpPushHandover"
- type="mobisocial.nfc.Nfc.NdefTcpPushHandover"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="doConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
-</parameter>
-<parameter name="ndefProxy" type="mobisocial.nfc.Nfc.NdefProxy">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="supportsRequest"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
-</parameter>
-</method>
-</class>
 <interface name="Nfc.OnTagWriteListener"
  abstract="true"
  static="true"
@@ -708,6 +851,64 @@
  visibility="public"
 >
 </field>
+</interface>
+</package>
+<package name="mobisocial.nfc.addon"
+>
+<class name="BluetoothConnector"
+ extends="java.lang.Object"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="BluetoothConnector"
+ type="mobisocial.nfc.addon.BluetoothConnector"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="prepare"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="nfc" type="mobisocial.nfc.Nfc">
+</parameter>
+<parameter name="conn" type="mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener">
+</parameter>
+</method>
+</class>
+<interface name="BluetoothConnector.OnConnectedListener"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="onConnectionEstablished"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="socket" type="android.bluetooth.BluetoothSocket">
+</parameter>
+<parameter name="isServer" type="boolean">
+</parameter>
+</method>
 </interface>
 </package>
 </api>

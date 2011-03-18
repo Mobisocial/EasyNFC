@@ -55,7 +55,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  Nfc.NdefFactory
+  Nfc.ConnectionHandoverManager
 
 
 | EasyNfc
@@ -164,9 +164,9 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html">Nfc.ConnectionHandoverManager</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html">Nfc.ConnectionHandoverManager</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefBluetoothPushHandover.html">Nfc.NdefBluetoothPushHandover</a></li>
-          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html">Nfc.NdefFactory</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html">Nfc.NdefFactory</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></li>
       </ul>
     </li>
@@ -218,6 +218,15 @@
   
   
 
+  
+   
+  
+  
+   
+  
+  
+  
+
 
 <div class="sum-details-links">
 
@@ -227,11 +236,17 @@ Summary:
 
 
 
+  <a href="#constants">Constants</a>
+  
+
+
+  &#124; <a href="#inhconstants">Inherited Constants</a>
+  
 
 
 
 
-  <a href="#pubctors">Ctors</a>
+  &#124; <a href="#pubctors">Ctors</a>
   
 
 
@@ -261,11 +276,11 @@ Summary:
 
 <div id="jd-header">
     public
-    static 
+     
      
     
     class
-<h1>Nfc.NdefFactory</h1>
+<h1>Nfc.ConnectionHandoverManager</h1>
 
 
 
@@ -276,6 +291,11 @@ Summary:
   
 
   
+  
+      implements 
+      
+        <a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a> 
+      
   
   
 
@@ -298,7 +318,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.Nfc.NdefFactory</td>
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.Nfc.ConnectionHandoverManager</td>
     </tr>
     
 
@@ -313,16 +333,8 @@ Summary:
 <div class="jd-descr">
 
 
-<h2>Class Overview</h2>
-<p>A utility class for generating NDEF messages.</p>
 
 
-
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li>NdefMessage</li>
-      </ul>
-  </div>
 
 
 </div><!-- jd-descr -->
@@ -359,7 +371,78 @@ Summary:
 
 
 
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
 
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#HANDOVER_PRIORITY">HANDOVER_PRIORITY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+
+</table>
+
+
+
+
+
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="inhconstants" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Constants</div></th></tr>
+
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-mobisocial.nfc.Nfc.NdefHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-mobisocial.nfc.Nfc.NdefHandler-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+<a href="../../mobisocial/nfc/Nfc.NdefHandler.html">mobisocial.nfc.Nfc.NdefHandler</a>
+<div id="inherited-constants-mobisocial.nfc.Nfc.NdefHandler">
+  <div id="inherited-constants-mobisocial.nfc.Nfc.NdefHandler-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-mobisocial.nfc.Nfc.NdefHandler-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html#DEFAULT_PRIORITY">DEFAULT_PRIORITY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html#NDEF_CONSUME">NDEF_CONSUME</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html#NDEF_PROPAGATE">NDEF_PROPAGATE</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
 
 
 
@@ -385,7 +468,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#Nfc.NdefFactory()">Nfc.NdefFactory</a></span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#Nfc.ConnectionHandoverManager()">Nfc.ConnectionHandoverManager</a></span>()</nobr>
         
   </td></tr>
 
@@ -409,12 +492,12 @@ Summary:
             
             
             
-            static
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromMime(java.lang.String, byte[])">fromMime</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#addConnectionHandover(mobisocial.nfc.Nfc.ConnectionHandover)">addConnectionHandover</a></span>(<a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a> handover)</nobr>
         
   </td></tr>
 
@@ -425,50 +508,12 @@ Summary:
             
             
             
-            static
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromText(java.lang.String)">fromText</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text)</nobr>
-        
-        <div class="jd-descrdiv">Creates an NDEF message with a single text record, with language
- code "en" and the given text, encoded using UTF-8.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromText(java.lang.String, java.lang.String)">fromText</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text, <a href="http://developer.android.com/reference/java/lang/String.html">String</a> languageCode)</nobr>
-        
-        <div class="jd-descrdiv">Creates an NDEF message with a single text record, with the given
- text content (UTF-8 encoded) and language code.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUri(android.net.Uri)">fromUri</a></span>(<a href="http://developer.android.com/reference/android/net/Uri.html">Uri</a> uri)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#clearConnectionHandovers()">clearConnectionHandovers</a></span>()</nobr>
         
   </td></tr>
 
@@ -479,12 +524,86 @@ Summary:
             
             
             
-            static
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUri(java.net.URI)">fromUri</a></span>(<a href="http://developer.android.com/reference/java/net/URI.html">URI</a> uri)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#disableConnectionHandover()">disableConnectionHandover</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Disallows connection handover requests.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#enableConnectionHandover()">enableConnectionHandover</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Enables support for connection handover requests.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="http://developer.android.com/reference/java/util/Set.html">Set</a>&lt;<a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#getConnectionHandoverResponders()">getConnectionHandoverResponders</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the (mutable) set of active connection handover
+ responders.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#handleNdef(android.nfc.NdefMessage[])">handleNdef</a></span>(<a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage[]</a> ndefMessages)</nobr>
+        
+        <div class="jd-descrdiv">Callback issued after an NFC tag is read or an NDEF message is received
+ from a remote device.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#isConnectionHandoverEnabled()">isConnectionHandoverEnabled</a></span>()</nobr>
         
   </td></tr>
 
@@ -495,12 +614,12 @@ Summary:
             
             
             
-            static
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUrl(java.net.URL)">fromUrl</a></span>(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html#removeConnectionHandover(mobisocial.nfc.Nfc.ConnectionHandover)">removeConnectionHandover</a></span>(<a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a> handover)</nobr>
         
   </td></tr>
 
@@ -721,6 +840,51 @@ From class
 </td></tr>
 
 
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.nfc.Nfc.NdefHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.nfc.Nfc.NdefHandler-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../mobisocial/nfc/Nfc.NdefHandler.html">mobisocial.nfc.Nfc.NdefHandler</a>
+
+<div id="inherited-methods-mobisocial.nfc.Nfc.NdefHandler">
+  <div id="inherited-methods-mobisocial.nfc.Nfc.NdefHandler-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-mobisocial.nfc.Nfc.NdefHandler-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html#handleNdef(android.nfc.NdefMessage[])">handleNdef</a></span>(<a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage[]</a> ndefMessages)</nobr>
+        
+        <div class="jd-descrdiv">Callback issued after an NFC tag is read or an NDEF message is received
+ from a remote device.</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
 </table>
 
 
@@ -744,6 +908,53 @@ From class
 <!-- Constants -->
 
 
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Constants</h2>
+
+
+
+
+<A NAME="HANDOVER_PRIORITY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        int
+      </span>
+        HANDOVER_PRIORITY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                5
+                (0x00000005)
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+
 <!-- Fields -->
 
 
@@ -755,7 +966,7 @@ From class
 
 
 
-<A NAME="Nfc.NdefFactory()"></A>
+<A NAME="Nfc.ConnectionHandoverManager()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -767,7 +978,7 @@ From class
          
         
       </span>
-      <span class="sympad">Nfc.NdefFactory</span>
+      <span class="sympad">Nfc.ConnectionHandoverManager</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -801,20 +1012,20 @@ From class
 
 
 
-<A NAME="fromMime(java.lang.String, byte[])"></A>
+<A NAME="addConnectionHandover(mobisocial.nfc.Nfc.ConnectionHandover)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+         
+        void
       </span>
-      <span class="sympad">fromMime</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</span>
+      <span class="sympad">addConnectionHandover</span>
+      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a> handover)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -832,20 +1043,20 @@ From class
 </div>
 
 
-<A NAME="fromText(java.lang.String)"></A>
+<A NAME="clearConnectionHandovers()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+         
+        void
       </span>
-      <span class="sympad">fromText</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text)</span>
+      <span class="sympad">clearConnectionHandovers</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -857,28 +1068,58 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates an NDEF message with a single text record, with language
- code "en" and the given text, encoded using UTF-8.
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="disableConnectionHandover()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">disableConnectionHandover</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Disallows connection handover requests.
 </p></div>
 
     </div>
 </div>
 
 
-<A NAME="fromText(java.lang.String, java.lang.String)"></A>
+<A NAME="enableConnectionHandover()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+         
+        void
       </span>
-      <span class="sympad">fromText</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text, <a href="http://developer.android.com/reference/java/lang/String.html">String</a> languageCode)</span>
+      <span class="sympad">enableConnectionHandover</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -890,28 +1131,100 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates an NDEF message with a single text record, with the given
- text content (UTF-8 encoded) and language code. 
+  <div class="jd-tagdata jd-tagdescr"><p>Enables support for connection handover requests.
 </p></div>
 
     </div>
 </div>
 
 
-<A NAME="fromUri(android.net.Uri)"></A>
+<A NAME="getConnectionHandoverResponders()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+         
+        <a href="http://developer.android.com/reference/java/util/Set.html">Set</a>&lt;<a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a>&gt;
       </span>
-      <span class="sympad">fromUri</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/net/Uri.html">Uri</a> uri)</span>
+      <span class="sympad">getConnectionHandoverResponders</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the (mutable) set of active connection handover
+ responders.
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="handleNdef(android.nfc.NdefMessage[])"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+        final 
+         
+         
+        int
+      </span>
+      <span class="sympad">handleNdef</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage[]</a> ndefMessages)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Callback issued after an NFC tag is read or an NDEF message is received
+ from a remote device. This method is executed off the main thread, so be
+ careful when updating UI elements as a result of this callback.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li><code><a href="../../mobisocial/nfc/Nfc.NdefHandler.html#NDEF_CONSUME">NDEF_CONSUME</a></code> to indicate this handler has consumed the
+         given message, or <code><a href="../../mobisocial/nfc/Nfc.NdefHandler.html#NDEF_PROPAGATE">NDEF_PROPAGATE</a></code> to pass on to the next
+         handler.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="isConnectionHandoverEnabled()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">isConnectionHandoverEnabled</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -929,51 +1242,20 @@ From class
 </div>
 
 
-<A NAME="fromUri(java.net.URI)"></A>
+<A NAME="removeConnectionHandover(mobisocial.nfc.Nfc.ConnectionHandover)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+         
+        boolean
       </span>
-      <span class="sympad">fromUri</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/net/URI.html">URI</a> uri)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromUrl(java.net.URL)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromUrl</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</span>
+      <span class="sympad">removeConnectionHandover</span>
+      <span class="normal">(<a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a> handover)</span>
     </h4>
       <div class="api-level">
         <div>
