@@ -37,7 +37,6 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * <p>This class acts as an abstraction layer for Android's Nfc stack.
@@ -570,7 +569,6 @@ public class Nfc {
 
 			NdefRecord[] records = ndefMessages[0].getRecords();
 			for (int i = 2; i < records.length; i++) {
-				String ho = new String(records[i].getPayload());
 				Iterator<ConnectionHandover> handovers = mmConnectionHandovers.iterator();
 				while (handovers.hasNext()) {
 					ConnectionHandover handover = handovers.next();
