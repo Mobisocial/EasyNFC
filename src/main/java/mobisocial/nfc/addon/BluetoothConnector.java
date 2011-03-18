@@ -29,8 +29,8 @@ import android.util.Log;
  * MyActivity extends Activity {
  *   Nfc mNfc;
  *   
- *   BtConnector.OnBtConnectedListener mBtListener =
- *           new BtConnector.OnBtConnectedListener() {
+ *   BluetoothConnector.OnConnectedListener mBtListener =
+ *           new BluetoothConnector.OnConnectedListener() {
  *       
  *       public void onConnectionEstablished(BluetoothSocket socket, 
  *               boolean isServer) {
@@ -42,7 +42,7 @@ import android.util.Log;
  *   public void onCreate(Bundle bundle) {
  *     super.onCreate(bundle);
  *     mNfc = new Nfc(this);
- *     BtConnector.prepare(mNfc, mBtListener);
+ *     BluetoothConnector.prepare(mNfc, mBtListener);
  *   }
  *
  *   public void onResume() {
@@ -62,7 +62,7 @@ import android.util.Log;
  * </pre>
  *
  */
-public abstract class BtConnector {
+public abstract class BluetoothConnector {
 	private static final String SERVICE_NAME = "NfcBtHandover";
 	private static final String BT_SOCKET_SCHEMA = "btsocket://";
 	private static final String TAG = "btconnect";
@@ -72,19 +72,19 @@ public abstract class BtConnector {
 	 * another device. The method both sets the foreground ndef message and
 	 * registers an {@link NdefHandler} to look for incoming pairing requests.
 	 */
-	public static void prepare(Nfc nfc, OnBtConnectedListener conn) {
-		BtConnecting btConnecting = new BtConnecting(conn);
+	public static void prepare(Nfc nfc, OnConnectedListener conn) {
+		BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
 		nfc.getConnectionHandoverManager().addConnectionHandover(btConnecting);
 		nfc.share(btConnecting.getHandoverRequestMessage());
 	}
 
-	private static class BtConnecting implements Nfc.ConnectionHandover {
+	private static class BluetoothConnecting implements Nfc.ConnectionHandover {
 		private final byte[] mCollisionResolution;
-		private final OnBtConnectedListener mmBtConnected;
+		private final OnConnectedListener mmBtConnected;
 		private final BluetoothAdapter mBluetoothAdapter;
 		private final UUID mServiceUuid;
 
-		public BtConnecting(OnBtConnectedListener onBtConnected) {
+		public BluetoothConnecting(OnConnectedListener onBtConnected) {
 			mmBtConnected = onBtConnected;
 			mServiceUuid = UUID.randomUUID();
 			mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -307,7 +307,7 @@ public abstract class BtConnector {
 	 * A callback used when a Bluetooth connection has been established.
 	 * 
 	 */
-	public interface OnBtConnectedListener {
+	public interface OnConnectedListener {
 		/**
 		 * The method called when a Bluetooth connection has been established.
 		 * @param socket The connected Bluetooth socket.
