@@ -155,7 +155,7 @@ public class Nfc {
 		mActivity = activity;
 		try {
 			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
-		} catch (Exception e) {
+		} catch (NoSuchMethodError e) {
 			Log.i(TAG, "Nfc not available.");
 			return;
 		}
@@ -548,10 +548,12 @@ public class Nfc {
 		}
 		
 		@Override
-		public final int handleNdef(NdefMessage[] ndefMessages) {
-			final NdefMessage outboundNdef = mForegroundMessage;
+		public final int handleNdef(NdefMessage[] handoverRequest) {
+			return doHandover(handoverRequest[0], mForegroundMessage);
+		}
 
-			if (!isHandoverRequest(ndefMessages[0]) || !mmConnectionHandoverEnabled) {
+		public final int doHandover(NdefMessage handoverRequest, final NdefMessage outboundNdef) {
+			if (!isHandoverRequest(handoverRequest) || !mmConnectionHandoverEnabled) {
 				return NDEF_PROPAGATE;
 			}
 
@@ -567,14 +569,14 @@ public class Nfc {
 				}
 			};
 
-			NdefRecord[] records = ndefMessages[0].getRecords();
+			NdefRecord[] records = handoverRequest.getRecords();
 			for (int i = 2; i < records.length; i++) {
 				Iterator<ConnectionHandover> handovers = mmConnectionHandovers.iterator();
 				while (handovers.hasNext()) {
 					ConnectionHandover handover = handovers.next();
 					if (handover.supportsRequest(records[i])) {
 						try {
-							handover.doConnectionHandover(ndefMessages[0], i, nfcInterface);
+							handover.doConnectionHandover(handoverRequest, i, nfcInterface);
 							return NDEF_CONSUME;
 						} catch (IOException e) {
 							Log.w(TAG, "Handover failed.", e);
