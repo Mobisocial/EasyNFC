@@ -283,7 +283,7 @@ public class Nfc {
 	/**
 	 * A callback issued when an Nfc tag is read.
 	 */
-	public interface NdefHandler {
+	public static interface NdefHandler {
 		public static final int NDEF_PROPAGATE = 0;
 		public static final int NDEF_CONSUME = 1;
 		public static final int DEFAULT_PRIORITY = 50;
@@ -409,7 +409,7 @@ public class Nfc {
 	public void onPause(Activity activity) {
 		if (mNfcAdapter == null) {
 			uninstallNfcHandoverHandler();
-			setNdefHandover(null);
+			notifyRemoteNfcInteface(null);
 			return;
 		}
 
@@ -622,7 +622,7 @@ public class Nfc {
 	private void enableNdefPush() {
 		final NdefMessage ndef = mForegroundMessage;
 		if (mNfcAdapter == null) {
-			setNdefHandover(ndef);
+			notifyRemoteNfcInteface(ndef);
 			return;
 		}
 
@@ -654,7 +654,7 @@ public class Nfc {
 		});
 	}
 
-	private void setNdefHandover(NdefMessage ndef) {
+	private void notifyRemoteNfcInteface(NdefMessage ndef) {
 		Intent intent = new Intent(ACTION_SET_NDEF);
 		if (ndef != null) {
 			NdefMessage[] ndefMessages = new NdefMessage[] { ndef };

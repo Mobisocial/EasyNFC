@@ -164,9 +164,6 @@ public abstract class BluetoothConnector {
 				mmDevice = device;
 
 				BluetoothSocket tmp = null;
-
-				// Get a BluetoothSocket for a connection with the
-				// given BluetoothDevice
 				try {
 					tmp = createBluetoothSocket(mmDevice, uuid);
 				} catch (IOException e) {
@@ -178,7 +175,6 @@ public abstract class BluetoothConnector {
 			public void run() {
 				setName("ConnectThread");
 
-				// Make a connection to the BluetoothSocket
 				try {
 					mmSocket.connect();
 				} catch (IOException e) {
