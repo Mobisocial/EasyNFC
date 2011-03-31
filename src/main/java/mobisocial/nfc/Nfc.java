@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Stanford University MobiSocial Lab
+ * Copyright (C) 2011 Stanford University MobiSocial Lab
  * http://mobisocial.stanford.edu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -179,7 +179,7 @@ public class Nfc {
 			Log.i(TAG, "Nfc not available.");
 			return;
 		}
-		addNdefHandler(ConnectionHandoverManager.HANDOVER_PRIORITY, mConnectionHandoverManager);
+		addNdefHandler(mConnectionHandoverManager);
 	}
 	
 	/**
@@ -284,7 +284,11 @@ public class Nfc {
 	 * Sets a callback to call when an Nfc tag is written.
 	 */
 	public void addNdefHandler(NdefHandler handler) {
-		addNdefHandler(NdefHandler.DEFAULT_PRIORITY, handler);
+		if (handler instanceof PrioritizedHandler) {
+			addNdefHandler(((PrioritizedHandler)handler).getPriority(), handler);
+		} else {
+			addNdefHandler(PrioritizedHandler.DEFAULT_PRIORITY, handler);
+		}
 	}
 	
 	public synchronized void addNdefHandler(Integer priority, NdefHandler handler) {
@@ -306,7 +310,6 @@ public class Nfc {
 	public static interface NdefHandler {
 		public static final int NDEF_PROPAGATE = 0;
 		public static final int NDEF_CONSUME = 1;
-		public static final int DEFAULT_PRIORITY = 50;
 
 		/**
 		 * Callback issued after an NFC tag is read or an NDEF message is received
@@ -318,6 +321,15 @@ public class Nfc {
 		 *         handler.
 		 */
 		public abstract int handleNdef(NdefMessage[] ndefMessages);
+	}
+
+	/**
+	 * Specifies the priority used to determine the order in which
+	 * handlers are executed.
+	 */
+	public interface PrioritizedHandler {
+		public static final int DEFAULT_PRIORITY = 50;
+		public abstract int getPriority();
 	}
 
 	
@@ -519,7 +531,7 @@ public class Nfc {
 		public boolean supportsRequest(NdefRecord record);
 	}
 	
-	public class ConnectionHandoverManager implements NdefHandler {
+	public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandler {
 		public static final int HANDOVER_PRIORITY = 5;
 		private final Set<ConnectionHandover> mmConnectionHandovers = new LinkedHashSet<ConnectionHandover>();
 		private boolean mmConnectionHandoverEnabled = true;
@@ -607,6 +619,11 @@ public class Nfc {
 			}
 
 			return NDEF_PROPAGATE;
+		}
+
+		@Override
+		public int getPriority() {
+			return HANDOVER_PRIORITY;
 		}
 	}
 	
