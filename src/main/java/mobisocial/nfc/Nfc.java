@@ -122,7 +122,7 @@ public class Nfc {
 	private Activity mActivity;
 	private NfcAdapter mNfcAdapter;
 	private static final NdefMessage EMPTY_NDEF = getEmptyNdef();
-	private NdefMessage mForegroundMessage = EMPTY_NDEF;
+	private NdefMessage mForegroundMessage = null;
 	private NdefMessage mWriteMessage = null;
 	private final Map<Integer, Set<NdefHandler>> mNdefHandlers = new TreeMap<Integer, Set<NdefHandler>>();
 	private final ConnectionHandoverManager mConnectionHandoverManager = new ConnectionHandoverManager();
@@ -183,15 +183,15 @@ public class Nfc {
 	
 	public Nfc(Activity activity) {
 		mActivity = activity;
-		try {
-			mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
-		} catch (NoClassDefFoundError e) {
-			Log.i(TAG, "Nfc not available.");
-			return;
-		} catch (NoSuchMethodError e) {
-			Log.i(TAG, "Nfc not available.");
+		if (NfcWrapper.getInstance() != null) {
+			mNfcAdapter = NfcWrapper.getInstance().getAdapter(mActivity);
+		}
+
+		if (mNfcAdapter == null) {
+			Log.i(TAG, "Nfc implementation not available.");
 			return;
 		}
+
 		addNdefHandler(mConnectionHandoverManager);
 		addNdefHandler(new EmptyNdefHandler());
 	}
