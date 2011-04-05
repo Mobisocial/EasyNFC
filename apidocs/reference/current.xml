@@ -375,6 +375,8 @@
 >
 <implements name="mobisocial.nfc.Nfc.NdefHandler">
 </implements>
+<implements name="mobisocial.nfc.Nfc.PrioritizedHandler">
+</implements>
 <constructor name="Nfc.ConnectionHandoverManager"
  type="mobisocial.nfc.Nfc.ConnectionHandoverManager"
  static="false"
@@ -418,6 +420,21 @@
  visibility="public"
 >
 </method>
+<method name="doHandover"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="outboundNdef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
 <method name="enableConnectionHandover"
  return="void"
  abstract="false"
@@ -440,6 +457,17 @@
  visibility="public"
 >
 </method>
+<method name="getPriority"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="handleNdef"
  return="int"
  abstract="false"
@@ -450,7 +478,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="ndefMessages" type="android.nfc.NdefMessage[]">
+<parameter name="handoverRequest" type="android.nfc.NdefMessage[]">
 </parameter>
 </method>
 <method name="isConnectionHandoverEnabled"
@@ -622,6 +650,19 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="uri" type="java.lang.String">
+</parameter>
+</method>
+<method name="fromUri"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 <parameter name="uri" type="java.net.URI">
 </parameter>
 </method>
@@ -659,17 +700,6 @@
 <parameter name="ndefMessages" type="android.nfc.NdefMessage[]">
 </parameter>
 </method>
-<field name="DEFAULT_PRIORITY"
- type="int"
- transient="false"
- volatile="false"
- value="50"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
 <field name="NDEF_CONSUME"
  type="int"
  transient="false"
@@ -845,6 +875,36 @@
  transient="false"
  volatile="false"
  value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</interface>
+<interface name="Nfc.PrioritizedHandler"
+ abstract="true"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getPriority"
+ return="int"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<field name="DEFAULT_PRIORITY"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="50"
  static="true"
  final="true"
  deprecated="not deprecated"
