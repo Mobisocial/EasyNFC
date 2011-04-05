@@ -121,7 +121,8 @@ public class Nfc {
 
 	private Activity mActivity;
 	private NfcAdapter mNfcAdapter;
-	private NdefMessage mForegroundMessage = null;
+	private static final NdefMessage EMPTY_NDEF = getEmptyNdef();
+	private NdefMessage mForegroundMessage = EMPTY_NDEF;
 	private NdefMessage mWriteMessage = null;
 	private final Map<Integer, Set<NdefHandler>> mNdefHandlers = new TreeMap<Integer, Set<NdefHandler>>();
 	private final ConnectionHandoverManager mConnectionHandoverManager = new ConnectionHandoverManager();
@@ -135,6 +136,18 @@ public class Nfc {
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
 	
+	private static final NdefMessage getEmptyNdef() {
+		byte[] empty = new byte[] {};
+		NdefRecord[] records = new NdefRecord[1];
+		records[0] = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, empty, empty, empty);
+		NdefMessage ndef = new NdefMessage(records);
+		return ndef;
+	}
+
+	private static final boolean isEmpty(NdefMessage ndef) {
+		return  (ndef == null || ndef.equals(EMPTY_NDEF));
+	}
+
 	/**
 	 * A broadcasted intent used to set an NDEF message for use in a Connection
 	 * Handover, for devices that do not have an active NFC radio.
@@ -180,13 +193,14 @@ public class Nfc {
 			return;
 		}
 		addNdefHandler(mConnectionHandoverManager);
+		addNdefHandler(new EmptyNdefHandler());
 	}
 	
 	/**
 	 * Removes any message from being shared with an interested reader.
 	 */
 	public void clearSharing() {
-		mForegroundMessage = null;
+		mForegroundMessage = EMPTY_NDEF;
 		synchronized(this) {
 			if (mState == STATE_RESUMED) {
 				enableNdefPush();
@@ -239,8 +253,8 @@ public class Nfc {
 	 */
 	public void setOnTagWriteListener(OnTagWriteListener listener) {
 		mOnTagWriteListener = listener;
-	}	
-	
+	}
+
 	/**
 	 * Disallows connection handover requests.
 	 */
@@ -980,7 +994,19 @@ public class Nfc {
 		public void handleNdef(NdefMessage ndef);
 		public NdefMessage getForegroundNdefMessage();
 	}
-	
+
+	private class EmptyNdefHandler implements NdefHandler, PrioritizedHandler {
+		@Override
+		public int handleNdef(NdefMessage[] ndefMessages) {
+			return isEmpty(ndefMessages[0]) ? NDEF_CONSUME : NDEF_PROPAGATE;
+		}
+		
+		@Override
+		public int getPriority() {
+			return 0;
+		}
+	};
+
 	/**
 	 * A wrapper for the standard Socket implementation.
 	 *
@@ -1083,7 +1109,18 @@ public class Nfc {
 				return null;
 			}
 		}
-		
+
+		public static NdefMessage fromUri(String uri) {
+			try {
+				NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, 
+						new byte[0], uri.getBytes());
+				NdefRecord[] records = new NdefRecord[] { record };
+				return new NdefMessage(records);
+			} catch (NoClassDefFoundError e) {
+				return null;
+			}
+		}
+
 		public static NdefMessage fromUrl(URL url) {
 			try {
 				NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI,
