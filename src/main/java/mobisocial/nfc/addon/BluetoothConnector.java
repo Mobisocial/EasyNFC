@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Stanford University MobiSocial Lab
+ * Copyright (C) 2011 Stanford University MobiSocial Lab
  * http://mobisocial.stanford.edu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

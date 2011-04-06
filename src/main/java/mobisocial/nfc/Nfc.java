@@ -118,11 +118,13 @@ import android.util.Log;
  * </p>
  */
 public class Nfc {
-	private static final String TAG = "easynfc";
+	private static final String TAG = "libhotpotato";
 
 	private Activity mActivity;
 	private NfcAdapter mNfcAdapter;
 	private static final NdefMessage EMPTY_NDEF = getEmptyNdef();
+	private final IntentFilter[] mIntentFilters;
+	private final String[][] mTechLists;
 	private NdefMessage mForegroundMessage = null;
 	private NdefMessage mWriteMessage = null;
 	private final Map<Integer, Set<NdefHandler>> mNdefHandlers = new TreeMap<Integer, Set<NdefHandler>>();
@@ -181,9 +183,13 @@ public class Nfc {
 	 * Nfc interface mode for writing data to a passive tag.
 	 */
 	public static final int MODE_WRITE = 2;
-	
-	public Nfc(Activity activity) {
+
+
+	public Nfc(Activity activity, IntentFilter[] intentFilters, String[][] techLists) {
 		mActivity = activity;
+		mIntentFilters = intentFilters;
+		mTechLists = techLists;
+
 		if (PackageManager.PERMISSION_GRANTED !=
 			mActivity.checkCallingOrSelfPermission("android.permission.NFC")) {
 
@@ -215,11 +221,15 @@ public class Nfc {
 		addNdefHandler(new EmptyNdefHandler());
 	}
 	
+	public Nfc(Activity activity) {
+		this(activity, null, null);
+	}
+	
 	/**
 	 * Removes any message from being shared with an interested reader.
 	 */
 	public void clearSharing() {
-		mForegroundMessage = EMPTY_NDEF;
+		mForegroundMessage = null;
 		synchronized(this) {
 			if (mState == STATE_RESUMED) {
 				enableNdefPush();
@@ -745,7 +755,7 @@ public class Nfc {
 		activityIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		
 		PendingIntent intent = PendingIntent.getActivity(mActivity, 0, activityIntent, 0);
-		mNfcAdapter.enableForegroundDispatch(mActivity, intent, null, null);
+		mNfcAdapter.enableForegroundDispatch(mActivity, intent, mIntentFilters, mTechLists);
 	}
 	
 	private BroadcastReceiver mHandoverReceiver = new BroadcastReceiver() {
@@ -755,18 +765,18 @@ public class Nfc {
 			setResultCode(Activity.RESULT_CANCELED);
 		}
 	};
-	
+
 	private void installNfcHandoverHandler() {
 		IntentFilter handoverFilter = new IntentFilter();
 		handoverFilter.addAction(ACTION_HANDLE_NDEF);
 		mActivity.registerReceiver(mHandoverReceiver, handoverFilter);
 	}
-	
+
 	private void uninstallNfcHandoverHandler() {
 		mActivity.unregisterReceiver(mHandoverReceiver);
 	}
-	
-	/**
+
+	/*
 	 * Credit: AOSP, via Android Tag application.
 	 * http://android.git.kernel.org/?p=platform/packages/apps/Tag.git;a=summary
 	 */
@@ -808,7 +818,7 @@ public class Nfc {
 
         return OnTagWriteListener.WRITE_ERROR_IO_EXCEPTION;
     }
-	
+
 	/**
 	 * <p>Implements an Ndef push handover request in which a static tag
 	 * represents an Ndef reader device listening on a TCP socket.
@@ -835,7 +845,7 @@ public class Nfc {
 			
 			return false;
 		}
-		
+
 		@Override
 		public void doConnectionHandover(NdefMessage handoverMessage, int record, NfcInterface nfcInterface) throws IOException {
 			NdefRecord handoverRequest = handoverMessage.getRecords()[record];
@@ -846,19 +856,19 @@ public class Nfc {
 			Uri uri = Uri.parse(uriString);
 			sendNdefOverTcp(uri, nfcInterface);
 		}
-		
+
 		private void sendNdefOverTcp(Uri target, NfcInterface ndefProxy) throws IOException {
 			String host = target.getHost();
 			int port = target.getPort();
 			if (port == -1) {
 				port = DEFAULT_TCP_HANDOVER_PORT;
 			}
-			
+
 			DuplexSocket socket = new TcpDuplexSocket(host, port);
 			new HandoverConnectedThread(socket, ndefProxy).start();
 		}
 	}
-		
+
 	/**
 	 * <p>Implements an Ndef push handover request in which a static tag
 	 * represents an Ndef reader device listening on a Bluetooth socket.
@@ -874,14 +884,14 @@ public class Nfc {
 		public NdefBluetoothPushHandover() {
 			mmBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		}
-		
+
 		@Override
 		public boolean supportsRequest(NdefRecord handoverRequest) {
 			if (handoverRequest.getTnf() != NdefRecord.TNF_ABSOLUTE_URI
 					|| !Arrays.equals(handoverRequest.getType(), NdefRecord.RTD_URI)) {
 				return false;
 			}
-			
+
 			String uriString = new String(handoverRequest.getPayload());
 			if (uriString.startsWith("ndef+bluetooth://")) {
 				return true;
@@ -958,7 +968,6 @@ public class Nfc {
 						read += dataIn.read(ndefBytes, read, (length - read));
 					}
 					NdefMessage ndef = new NdefMessage(ndefBytes);
-					Log.d(TAG, "mock ndef len is " + ndef.getRecords().length);
 					mmNfcInterface.handleNdef(ndef);
 				}
 			} catch (Exception e) {
