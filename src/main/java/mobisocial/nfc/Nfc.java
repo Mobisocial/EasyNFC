@@ -45,6 +45,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -183,6 +184,24 @@ public class Nfc {
 	
 	public Nfc(Activity activity) {
 		mActivity = activity;
+		if (PackageManager.PERMISSION_GRANTED !=
+			mActivity.checkCallingOrSelfPermission("android.permission.NFC")) {
+
+			throw new SecurityException("Application must hold android.permission.NFC to use libhotpotato.");
+		}
+
+		if (PackageManager.PERMISSION_GRANTED !=
+			mActivity.checkCallingOrSelfPermission("android.permission.BLUETOOTH")) {
+
+			Log.w(TAG, "No android.permission.BLUETOOTH permission; bluetooth handover not supported.");
+		}
+
+		if (PackageManager.PERMISSION_GRANTED !=
+			mActivity.checkCallingOrSelfPermission("android.permission.INTERNET")) {
+
+			Log.w(TAG, "No android.permission.INTERNET permission; internet handover not supported.");
+		}
+
 		if (NfcWrapper.getInstance() != null) {
 			mNfcAdapter = NfcWrapper.getInstance().getAdapter(mActivity);
 		}
