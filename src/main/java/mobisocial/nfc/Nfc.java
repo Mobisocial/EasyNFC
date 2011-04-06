@@ -224,7 +224,14 @@ public class Nfc {
 	public Nfc(Activity activity) {
 		this(activity, null, null);
 	}
-	
+
+	/**
+	 * Returns true if this device has a native NFC implementation.
+	 */
+	public boolean isNativeNfcAvailable() {
+		return mNfcAdapter != null;
+	}
+
 	/**
 	 * Removes any message from being shared with an interested reader.
 	 */
