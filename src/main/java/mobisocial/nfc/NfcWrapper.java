@@ -5,9 +5,8 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 
 /**
- * Provides an abstraction for the various Nfc classes
- * introduced in Android API 9 and beyond.
- *
+ * Wraps the NfcAdapter class for use on platforms not supporting
+ * native NFC interactions.
  */
 public abstract class NfcWrapper {
 	public static int SDK_NDEF_EXCHANGE = 10;
