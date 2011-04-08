@@ -47,6 +47,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -137,6 +138,8 @@ public class Nfc {
 	private static final int STATE_PAUSING = 1;
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
+
+	private static final String USER_HANDOVER_PREFIX = "tato://hr/";
 
 	/**
 	 * A broadcasted intent used to set an NDEF message for use in a Connection
@@ -312,9 +315,23 @@ public class Nfc {
 	 */
 	public static boolean isHandoverRequest(NdefMessage ndef) {
 		NdefRecord[] records = (ndef).getRecords();
-		return (records.length >= 3 
+
+		// NFC Forum specification:
+		if (records.length >= 3
 			&& records[0].getTnf() == NdefRecord.TNF_WELL_KNOWN
-			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST));
+			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST)) {
+			return true;
+		}
+
+		// User-space handover:
+		// TODO: Support uri profile
+		if (records.length > 0
+				&& records[0].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
+				&& records[0].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
+			String scheme = new String(records[0].getPayload(), 0, USER_HANDOVER_PREFIX.length());
+			return USER_HANDOVER_PREFIX.equals(scheme);
+		}
+		return false;
 	}
 
 	/**
@@ -622,6 +639,21 @@ public class Nfc {
 		public final int doHandover(NdefMessage handoverRequest, final NdefMessage outboundNdef) {
 			if (!isHandoverRequest(handoverRequest) || !mmConnectionHandoverEnabled) {
 				return NDEF_PROPAGATE;
+			}
+
+			if (handoverRequest.getRecords()[0].getTnf() == NdefRecord.TNF_ABSOLUTE_URI) {
+				// user-space handover
+				NdefRecord record = handoverRequest.getRecords()[0];
+				final String encoded = new String(record.getPayload(),
+						USER_HANDOVER_PREFIX.length(), record.getPayload().length - USER_HANDOVER_PREFIX.length());
+				try {
+					NdefMessage ndef = new NdefMessage(android.util.Base64.decode(
+                        encoded, android.util.Base64.URL_SAFE));
+					handoverRequest = ndef;
+				} catch (FormatException e) {
+					Log.e(TAG, "Could not parse handover request.");
+					return NDEF_PROPAGATE;
+				}
 			}
 
 			NfcInterface nfcInterface = new NfcInterface() {
