@@ -122,7 +122,6 @@ public class Nfc {
 
 	private Activity mActivity;
 	private NfcAdapter mNfcAdapter;
-	private static final NdefMessage EMPTY_NDEF = getEmptyNdef();
 	private final IntentFilter[] mIntentFilters;
 	private final String[][] mTechLists;
 	private NdefMessage mForegroundMessage = null;
@@ -138,18 +137,6 @@ public class Nfc {
 	private static final int STATE_PAUSING = 1;
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
-	
-	private static final NdefMessage getEmptyNdef() {
-		byte[] empty = new byte[] {};
-		NdefRecord[] records = new NdefRecord[1];
-		records[0] = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, empty, empty, empty);
-		NdefMessage ndef = new NdefMessage(records);
-		return ndef;
-	}
-
-	private static final boolean isEmpty(NdefMessage ndef) {
-		return  (ndef == null || ndef.equals(EMPTY_NDEF));
-	}
 
 	/**
 	 * A broadcasted intent used to set an NDEF message for use in a Connection
@@ -465,44 +452,42 @@ public class Nfc {
 	 * Call this method in your Activity's onResume() method body.
 	 */
 	public void onResume(Activity activity) {
+		mState = STATE_RESUMING;
 		if (mNfcAdapter == null) {
 			installNfcHandoverHandler();
 			enableNdefPush();
-			return;
-		}
-
-		// refresh mActivity
-		mActivity = activity;
-		synchronized(this) {
-			mState = STATE_RESUMING;
-			if (mInterfaceMode != MODE_PASSTHROUGH) {
-				installNfcHandler();
-				if (mInterfaceMode == MODE_EXCHANGE) {
-					enableNdefPush();
+		} else {
+			// refresh mActivity
+			mActivity = activity;
+			synchronized(this) {
+				if (mInterfaceMode != MODE_PASSTHROUGH) {
+					installNfcHandler();
+					if (mInterfaceMode == MODE_EXCHANGE) {
+						enableNdefPush();
+					}
 				}
 			}
-			mState = STATE_RESUMED;
 		}
+		mState = STATE_RESUMED;
 	}
 	
 	/**
 	 * Call this method in your Activity's onPause() method body.
 	 */
 	public void onPause(Activity activity) {
+		mState = STATE_PAUSING;
 		if (mNfcAdapter == null) {
 			uninstallNfcHandoverHandler();
 			notifyRemoteNfcInteface(null);
-			return;
+		} else {
+			// refresh mActivity
+			mActivity = activity;
+			synchronized(this) {
+				mNfcAdapter.disableForegroundDispatch(mActivity);
+				mNfcAdapter.disableForegroundNdefPush(mActivity);
+			}
 		}
-
-		// refresh mActivity
-		mActivity = activity;
-		synchronized(this) {
-			mState = STATE_PAUSING;
-			mNfcAdapter.disableForegroundDispatch(mActivity);
-			mNfcAdapter.disableForegroundNdefPush(mActivity);
-			mState = STATE_PAUSED;
-		}
+		mState = STATE_PAUSED;
 	}
 	
 	/**
@@ -710,7 +695,7 @@ public class Nfc {
 	 */
 	private void enableNdefPush() {
 		final NdefMessage ndef = mForegroundMessage;
-		if (mNfcAdapter == null) {
+		if (isConnectionHandoverEnabled()) {
 			notifyRemoteNfcInteface(ndef);
 			return;
 		}
@@ -1033,7 +1018,7 @@ public class Nfc {
 	private class EmptyNdefHandler implements NdefHandler, PrioritizedHandler {
 		@Override
 		public int handleNdef(NdefMessage[] ndefMessages) {
-			return isEmpty(ndefMessages[0]) ? NDEF_CONSUME : NDEF_PROPAGATE;
+			return NdefFactory.isEmpty(ndefMessages[0]) ? NDEF_CONSUME : NDEF_PROPAGATE;
 		}
 		
 		@Override
@@ -1117,6 +1102,36 @@ public class Nfc {
 		}
 	}
 
+	static class StreamDuplexSocket implements DuplexSocket {
+		final InputStream mInputStream;
+		final OutputStream mOutputStream;
+
+		public StreamDuplexSocket(InputStream in, OutputStream out) throws IOException {
+			mInputStream = in;
+			mOutputStream = out;
+		}
+
+		@Override
+		public void connect() throws IOException {
+
+		}
+
+		@Override
+		public InputStream getInputStream() throws IOException {
+			return mInputStream;
+		}
+
+		@Override
+		public OutputStream getOutputStream() throws IOException {
+			return mOutputStream;
+		}
+
+		@Override
+		public void close() throws IOException {
+			mInputStream.close();
+			mOutputStream.close();
+		}
+	}
 
 	/**
 	 * A utility class for generating NDEF messages.
@@ -1218,6 +1233,18 @@ public class Nfc {
 			} catch (NoClassDefFoundError e) {
 				return null;
 			}
+		}
+
+		public static final NdefMessage getEmptyNdef() {
+			byte[] empty = new byte[] {};
+			NdefRecord[] records = new NdefRecord[1];
+			records[0] = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, empty, empty, empty);
+			NdefMessage ndef = new NdefMessage(records);
+			return ndef;
+		}
+
+		public static final boolean isEmpty(NdefMessage ndef) {
+			return  (ndef == null || ndef.equals(getEmptyNdef()));
 		}
 	}
 }
