@@ -139,7 +139,7 @@ public class Nfc {
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
 
-	private static final String USER_HANDOVER_PREFIX = "tato://hr/";
+	private static final String USER_HANDOVER_PREFIX = "ndef://wkt:hr/";
 
 	/**
 	 * A broadcasted intent used to set an NDEF message for use in a Connection
