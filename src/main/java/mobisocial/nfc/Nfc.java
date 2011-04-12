@@ -54,6 +54,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Parcelable;
+import android.util.Base64;
 import android.util.Log;
 
 /**
@@ -1291,7 +1292,7 @@ public class Nfc {
 			NdefMessage wrappedNdef;
 			try {
 				wrappedNdef = new NdefMessage(android.util.Base64.decode(
-             	    uri.getPath().substring(1), android.util.Base64.URL_SAFE));
+             	    uri.getPath().substring(1), Base64.URL_SAFE));
 			} catch (FormatException e) {
 				throw new IllegalArgumentException("Format error.");
 			}
@@ -1302,10 +1303,10 @@ public class Nfc {
 		 * Converts an Ndef message to its uri encoding, using the
 		 * {code ndef://} scheme.
 		 */
+		// TODO Switch for the appropriate type
 		/*
 		public static final Uri toNdefUri(NdefMessage ndef) {
-			return Uri.parse(ConnectionHandoverManager.USER_HANDOVER_PREFIX +
-				new String(Base64.encodeBase64(ndef.toByteArray())));
+			return Uri.parse("ndef://url/" + Base64.encodeToString(ndef.toByteArray(), Base64.URL_SAFE));
 		}*/
 	}
 }
