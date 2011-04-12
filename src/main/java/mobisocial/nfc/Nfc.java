@@ -35,7 +35,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
@@ -138,8 +137,6 @@ public class Nfc {
 	private static final int STATE_PAUSING = 1;
 	private static final int STATE_RESUMING = 2;
 	private static final int STATE_RESUMED = 3;
-
-	private static final String USER_HANDOVER_PREFIX = "ndef://wkt:hr/";
 
 	/**
 	 * A broadcasted intent used to set an NDEF message for use in a Connection
@@ -327,9 +324,10 @@ public class Nfc {
 		// TODO: Support uri profile
 		if (records.length > 0
 				&& records[0].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
-				&& records[0].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
-			String scheme = new String(records[0].getPayload(), 0, USER_HANDOVER_PREFIX.length());
-			return USER_HANDOVER_PREFIX.equals(scheme);
+				&& records[0].getPayload().length >= ConnectionHandoverManager.USER_HANDOVER_PREFIX.length()) {
+			String scheme = new String(records[0].getPayload(), 0,
+					ConnectionHandoverManager.USER_HANDOVER_PREFIX.length());
+			return ConnectionHandoverManager.USER_HANDOVER_PREFIX.equals(scheme);
 		}
 		return false;
 	}
@@ -584,6 +582,7 @@ public class Nfc {
 	}
 	
 	public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandler {
+		public static final String USER_HANDOVER_PREFIX = "ndef://wkt:hr/";
 		public static final int HANDOVER_PRIORITY = 5;
 		private final Set<ConnectionHandover> mmConnectionHandovers = new LinkedHashSet<ConnectionHandover>();
 		private boolean mmConnectionHandoverEnabled = true;
@@ -729,6 +728,9 @@ public class Nfc {
 		final NdefMessage ndef = mForegroundMessage;
 		if (isConnectionHandoverEnabled()) {
 			notifyRemoteNfcInteface(ndef);
+		}
+
+		if (!isNativeNfcAvailable()) {
 			return;
 		}
 
@@ -1278,5 +1280,32 @@ public class Nfc {
 		public static final boolean isEmpty(NdefMessage ndef) {
 			return  (ndef == null || ndef.equals(getEmptyNdef()));
 		}
+
+		/**
+		 * Converts an Ndef message encoded in uri format to an NdefMessage.
+		 */
+		public static final NdefMessage fromNdefUri(Uri uri) {
+			if (!"ndef".equals(uri.getScheme())) {
+				throw new IllegalArgumentException("Not an ndef:// uri. did you want NdefFactory.fromUri()?");
+			}
+			NdefMessage wrappedNdef;
+			try {
+				wrappedNdef = new NdefMessage(android.util.Base64.decode(
+             	    uri.getPath().substring(1), android.util.Base64.URL_SAFE));
+			} catch (FormatException e) {
+				throw new IllegalArgumentException("Format error.");
+			}
+			return wrappedNdef;
+		}
+
+		/**
+		 * Converts an Ndef message to its uri encoding, using the
+		 * {code ndef://} scheme.
+		 */
+		/*
+		public static final Uri toNdefUri(NdefMessage ndef) {
+			return Uri.parse(ConnectionHandoverManager.USER_HANDOVER_PREFIX +
+				new String(Base64.encodeBase64(ndef.toByteArray())));
+		}*/
 	}
 }
