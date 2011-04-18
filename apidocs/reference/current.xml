@@ -1722,67 +1722,6 @@
 >
 </field>
 </interface>
-<class name="NfcWrapper"
- extends="java.lang.Object"
- abstract="true"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<constructor name="NfcWrapper"
- type="mobisocial.nfc.NfcWrapper"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="getAdapter"
- return="android.nfc.NfcAdapter"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="c" type="android.content.Context">
-</parameter>
-</method>
-<method name="getInstance"
- return="mobisocial.nfc.NfcWrapper"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<field name="SDK_NDEF_DEFINED"
- type="int"
- transient="false"
- volatile="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="SDK_NDEF_EXCHANGE"
- type="int"
- transient="false"
- volatile="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-</class>
 <interface name="PrioritizedHandler"
  abstract="true"
  static="false"

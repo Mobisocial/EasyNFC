@@ -20,10 +20,9 @@ var DATA = [
       { id:18, label:"mobisocial.nfc.NdefHandler", link:"mobisocial/nfc/NdefHandler.html", type:"class" },
       { id:19, label:"mobisocial.nfc.Nfc", link:"mobisocial/nfc/Nfc.html", type:"class" },
       { id:20, label:"mobisocial.nfc.Nfc.OnTagWriteListener", link:"mobisocial/nfc/Nfc.OnTagWriteListener.html", type:"class" },
-      { id:21, label:"mobisocial.nfc.NfcWrapper", link:"mobisocial/nfc/NfcWrapper.html", type:"class" },
-      { id:22, label:"mobisocial.nfc.PrioritizedHandler", link:"mobisocial/nfc/PrioritizedHandler.html", type:"class" },
-      { id:23, label:"mobisocial.nfc.addon", link:"mobisocial/nfc/addon/package-summary.html", type:"package" },
-      { id:24, label:"mobisocial.nfc.addon.BluetoothConnector", link:"mobisocial/nfc/addon/BluetoothConnector.html", type:"class" },
-      { id:25, label:"mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener", link:"mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html", type:"class" }
+      { id:21, label:"mobisocial.nfc.PrioritizedHandler", link:"mobisocial/nfc/PrioritizedHandler.html", type:"class" },
+      { id:22, label:"mobisocial.nfc.addon", link:"mobisocial/nfc/addon/package-summary.html", type:"package" },
+      { id:23, label:"mobisocial.nfc.addon.BluetoothConnector", link:"mobisocial/nfc/addon/BluetoothConnector.html", type:"class" },
+      { id:24, label:"mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener", link:"mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html", type:"class" }
 
     ];
