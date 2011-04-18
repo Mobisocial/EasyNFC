@@ -25,7 +25,7 @@ import android.os.Build;
  * Wraps the NfcAdapter class for use on platforms not supporting
  * native NFC interactions.
  */
-public abstract class NfcWrapper {
+abstract class NfcWrapper {
 	public static int SDK_NDEF_EXCHANGE = 10;
 	public static int SDK_NDEF_DEFINED = 9;
 
