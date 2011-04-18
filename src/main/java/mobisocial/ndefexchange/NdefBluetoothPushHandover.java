@@ -73,7 +73,7 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 		new NdefExchangeThread(socket, nfcInterface).start();
 	}
 
-	class BluetoothDuplexSocket implements DuplexSocket {
+	public class BluetoothDuplexSocket implements DuplexSocket {
 		final String mmMac;
 		final UUID mmServiceUuid;
 		final BluetoothAdapter mmBluetoothAdapter;
