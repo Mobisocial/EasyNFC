@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Stanford University MobiSocial Lab
+ * Copyright (C) 2011 Stanford University MobiSocial Lab
  * http://mobisocial.stanford.edu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,13 @@
  * limitations under the License.
  */
 
-package mobisocial.nfc.addon;
+package mobisocial.nfc;
 
-import mobisocial.nfc.Nfc.NfcInterface;
-import android.nfc.NdefMessage;
-
-public interface NfcExtension {
-	public int handleNdef(NdefMessage[] ndefMessages);
-	
-	public void init(NfcInterface nfc);
-	public void activate();
-	
-	public void setForegroundNdef(NdefMessage[] ndefs);
+/**
+ * Specifies the priority used to determine the order in which
+ * handlers are executed.
+ */
+public interface PrioritizedHandler {
+	public static final int DEFAULT_PRIORITY = 50;
+	public abstract int getPriority();
 }

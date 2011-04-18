@@ -25,9 +25,9 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
+import mobisocial.ndefexchange.ConnectionHandover;
+import mobisocial.ndefexchange.NdefExchangeContract;
 import mobisocial.nfc.Nfc;
-import mobisocial.nfc.Nfc.NdefHandler;
-import mobisocial.nfc.Nfc.NfcInterface;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -95,7 +95,7 @@ public abstract class BluetoothConnector {
 		nfc.share(btConnecting.getHandoverRequestMessage());
 	}
 
-	private static class BluetoothConnecting implements Nfc.ConnectionHandover {
+	private static class BluetoothConnecting implements ConnectionHandover {
 		private final byte[] mCollisionResolution;
 		private final OnConnectedListener mmBtConnected;
 		private final BluetoothAdapter mBluetoothAdapter;
@@ -137,7 +137,7 @@ public abstract class BluetoothConnector {
 
 		@Override
 		public void doConnectionHandover(NdefMessage handoverRequest,
-				int record, NfcInterface nfcInterface) throws IOException {
+				int record, NdefExchangeContract nfcInterface) throws IOException {
 
 			byte[] remoteCollision = handoverRequest.getRecords()[1]
 					.getPayload();
