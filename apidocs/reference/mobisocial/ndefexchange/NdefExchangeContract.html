@@ -55,7 +55,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  Nfc.NdefProxy
+  NdefExchangeContract
 
 
 | EasyNfc
@@ -142,8 +142,14 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
     <li class="selected api apilevel-">
+  <a href="../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
+    <li class="api apilevel-">
   <a href="../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
+    <li class="api apilevel-">
+  <a href="../../mobisocial/nfc/addon/package-summary.html">mobisocial.nfc.addon</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -152,19 +158,20 @@
               
     <li><h2>Interfaces</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></li>
-          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html">Nfc.NdefProxy</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/DuplexSocket.html">DuplexSocket</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeContract.html">NdefExchangeContract</a></li>
       </ul>
     </li>
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefBluetoothPushHandover.html">Nfc.NdefBluetoothPushHandover</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html">Nfc.NdefFactory</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.html">NdefBluetoothPushHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.BluetoothDuplexSocket.html">NdefBluetoothPushHandover.BluetoothDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeThread.html">NdefExchangeThread</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html">NdefTcpPushHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html">NdefTcpPushHandover.TcpDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/PendingNdefExchange.html">PendingNdefExchange</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/StreamDuplexSocket.html">StreamDuplexSocket</a></li>
       </ul>
     </li>
               
@@ -227,11 +234,11 @@
 
 <div id="jd-header">
     public
-    static 
+     
      
     
     interface
-<h1>Nfc.NdefProxy</h1>
+<h1>NdefExchangeContract</h1>
 
 
 
@@ -250,7 +257,7 @@
 
     <tr>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.Nfc.NdefProxy</td>
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.ndefexchange.NdefExchangeContract</td>
     </tr>
     
 
@@ -330,10 +337,10 @@
             
             
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            <a href="../../android/nfc/NdefMessage.html">NdefMessage</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html#getForegroundNdefMessage()">getForegroundNdefMessage</a></span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefExchangeContract.html#getForegroundNdefMessage()">getForegroundNdefMessage</a></span>()</nobr>
         
   </td></tr>
 
@@ -349,7 +356,7 @@
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefProxy.html#handleNdef(android.nfc.NdefMessage)">handleNdef</a></span>(<a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefExchangeContract.html#handleNdef(android.nfc.NdefMessage)">handleNdef</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
         
   </td></tr>
 
@@ -412,7 +419,7 @@
          
         abstract 
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+        <a href="../../android/nfc/NdefMessage.html">NdefMessage</a>
       </span>
       <span class="sympad">getForegroundNdefMessage</span>
       <span class="normal">()</span>
@@ -446,7 +453,7 @@
         void
       </span>
       <span class="sympad">handleNdef</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a> ndef)</span>
+      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</span>
     </h4>
       <div class="api-level">
         <div>

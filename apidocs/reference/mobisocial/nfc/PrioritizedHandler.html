@@ -52,27 +52,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  BtConnector.OnBtConnectedListener
+  PrioritizedHandler
 
 
 | EasyNfc
 
 </title>
-<link href="../../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
-<link href="../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
-<script src="../../../../assets/search_autocomplete.js" type="text/javascript"></script>
-<script src="../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
-<script src="../../../../assets/android-developer-docs.js" type="text/javascript"></script>
-<script src="../../../../assets/prettify.js" type="text/javascript"></script>
+<link href="../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<script src="../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../assets/android-developer-docs.js" type="text/javascript"></script>
+<script src="../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
-  setToRoot("../../../", "../../../../assets/");
+  setToRoot("../../", "../../../assets/");
 </script>
-<script src="../../../../assets/android-developer-reference.js" type="text/javascript"></script>
-<script src="../../../../assets/navtree_data.js" type="text/javascript"></script>
-<script src="../../../../assets/customizations.js" type="text/javascript"></script>
+<script src="../../../assets/android-developer-reference.js" type="text/javascript"></script>
+<script src="../../../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../../../assets/customizations.js" type="text/javascript"></script>
 <noscript>
   <style type="text/css">
     html,body{overflow:auto;}
@@ -107,8 +107,8 @@
                       value="search developer docs"
                       onFocus="search_focus_changed(this, true)"
                       onBlur="search_focus_changed(this, false)"
-                      onkeydown="return search_changed(event, true, '../../../')"
-                      onkeyup="return search_changed(event, false, '../../../')" />
+                      onkeydown="return search_changed(event, true, '../../')"
+                      onkeyup="return search_changed(event, false, '../../')" />
                   <div id="search_filtered_div" class="no-display">
                       <table id="search_filtered" cellspacing=0>
                       </table>
@@ -137,15 +137,19 @@
           <div id="resize-packages-nav">
             <div id="packages-nav">
               <div id="index-links"><nobr>
-                <a href="../../../packages.html"  >Package Index</a> | 
-                <a href="../../../classes.html" >Class Index</a></nobr>
+                <a href="../../packages.html"  >Package Index</a> | 
+                <a href="../../classes.html" >Class Index</a></nobr>
               </div>
               <ul>
                 
     <li class="api apilevel-">
-  <a href="../../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
+  <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
+    <li class="api apilevel-">
+  <a href="../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
     <li class="selected api apilevel-">
-  <a href="../../../mobisocial/nfc/addon/package-summary.html">mobisocial.nfc.addon</a></li>
+  <a href="../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
+    <li class="api apilevel-">
+  <a href="../../mobisocial/nfc/addon/package-summary.html">mobisocial.nfc.addon</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -154,13 +158,19 @@
               
     <li><h2>Interfaces</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../../mobisocial/nfc/addon/BtConnector.OnBtConnectedListener.html">BtConnector.OnBtConnectedListener</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/PrioritizedHandler.html">PrioritizedHandler</a></li>
       </ul>
     </li>
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../mobisocial/nfc/addon/BtConnector.html">BtConnector</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/NdefFactory.html">NdefFactory</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/NfcWrapper.html">NfcWrapper</a></li>
       </ul>
     </li>
               
@@ -172,8 +182,8 @@
         </div><!-- end nav-panels -->
         <div id="nav-tree" style="display:none">
           <div id="index-links"><nobr>
-            <a href="../../../packages.html"  >Package Index</a> | 
-            <a href="../../../classes.html" >Class Index</a></nobr>
+            <a href="../../packages.html"  >Package Index</a> | 
+            <a href="../../classes.html" >Class Index</a></nobr>
           </div>
         </div><!-- end nav-tree -->
       </div><!-- end swapper -->
@@ -183,7 +193,7 @@
         $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
         chooseDefaultNav();
         if ($("#nav-tree").is(':visible')) {
-          init_default_navtree("../../../");
+          init_default_navtree("../../");
         } else {
           addLoadEvent(function() {
             scrollIntoView("packages-nav");
@@ -207,6 +217,28 @@
 
 <div class="sum-details-links">
 
+Summary:
+
+
+
+
+
+  <a href="#constants">Constants</a>
+  
+
+
+
+
+
+
+
+  &#124; <a href="#pubmethods">Methods</a>
+  
+
+
+
+&#124; <a href="#" onclick="return toggleAllClassInherited()" id="toggleAllClassInherited">[Expand All]</a>
+
 </div><!-- end sum-details-links -->
 <div class="api-level">
   
@@ -223,11 +255,11 @@
 
 <div id="jd-header">
     public
-    static 
+     
      
     
     interface
-<h1>BtConnector.OnBtConnectedListener</h1>
+<h1>PrioritizedHandler</h1>
 
 
 
@@ -246,7 +278,7 @@
 
     <tr>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.addon.BtConnector.OnBtConnectedListener</td>
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.PrioritizedHandler</td>
     </tr>
     
 
@@ -257,13 +289,44 @@
 
 
 
+<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
+          ><img id="subclasses-indirect-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
+
+  <div id="subclasses-indirect">
+      <div id="subclasses-indirect-list"
+              class="jd-inheritedlinks"
+              
+              >
+          
+            
+              <a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a>
+            
+          
+      </div>
+      <div id="subclasses-indirect-summary"
+              style="display: none;"
+              >
+  <table class="jd-sumtable-expando">
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a></td>
+              <td class="jd-descrcol" width="100%">&nbsp;</td>
+          </tr>
+  </table>
+      </div>
+  </div>
+</td></tr></table>
+
 
 <div class="jd-descr">
 
 
 <h2>Class Overview</h2>
-<p>A callback used when a Bluetooth connection has been established.
- 
+<p>Specifies the priority used to determine the order in which
+ handlers are executed.
 </p>
 
 
@@ -304,6 +367,22 @@
 
 
 
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
+
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/PrioritizedHandler.html#DEFAULT_PRIORITY">DEFAULT_PRIORITY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+
+</table>
+
+
 
 
 
@@ -331,13 +410,11 @@
             
             
             
-            void</nobr>
+            int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../mobisocial/nfc/addon/BtConnector.OnBtConnectedListener.html#onConnectionEstablished(android.bluetooth.BluetoothSocket, boolean)">onConnectionEstablished</a></span>(<a href="http://developer.android.com/reference/android/bluetooth/BluetoothSocket.html">BluetoothSocket</a> socket, boolean isServer)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/PrioritizedHandler.html#getPriority()">getPriority</a></span>()</nobr>
         
-        <div class="jd-descrdiv">The method called when a Bluetooth connection has been established.</div>
-  
   </td></tr>
 
 
@@ -370,6 +447,53 @@
 <!-- Constants -->
 
 
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Constants</h2>
+
+
+
+
+<A NAME="DEFAULT_PRIORITY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        int
+      </span>
+        DEFAULT_PRIORITY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                50
+                (0x00000032)
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+
 <!-- Fields -->
 
 
@@ -389,7 +513,7 @@
 
 
 
-<A NAME="onConnectionEstablished(android.bluetooth.BluetoothSocket, boolean)"></A>
+<A NAME="getPriority()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -399,10 +523,10 @@
          
         abstract 
          
-        void
+        int
       </span>
-      <span class="sympad">onConnectionEstablished</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/bluetooth/BluetoothSocket.html">BluetoothSocket</a> socket, boolean isServer)</span>
+      <span class="sympad">getPriority</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -414,23 +538,7 @@
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The method called when a Bluetooth connection has been established.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>socket</td>
-          <td>The connected Bluetooth socket.</td>
-        </tr>
-        <tr>
-          <th>isServer</td>
-          <td>True if this connection is the "host" of this connection.
- Useful in establishing an asymmetric relationship between otherwise
- symmetric devices.
-</td>
-        </tr>
-      </table>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>

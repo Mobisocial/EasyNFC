@@ -1,6 +1,1302 @@
 <api>
+<package name="android.nfc"
+>
+<class name="FormatException"
+ extends="java.lang.Exception"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="FormatException"
+ type="android.nfc.FormatException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<constructor name="FormatException"
+ type="android.nfc.FormatException"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="message" type="java.lang.String">
+</parameter>
+</constructor>
+</class>
+<class name="NdefMessage"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="android.os.Parcelable">
+</implements>
+<constructor name="NdefMessage"
+ type="android.nfc.NdefMessage"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="records" type="android.nfc.NdefRecord[]">
+</parameter>
+</constructor>
+<constructor name="NdefMessage"
+ type="android.nfc.NdefMessage"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="byte[]">
+</parameter>
+<exception name="FormatException" type="android.nfc.FormatException">
+</exception>
+</constructor>
+<method name="describeContents"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getRecords"
+ return="android.nfc.NdefRecord[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="toByteArray"
+ return="byte[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="writeToParcel"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dest" type="android.os.Parcel">
+</parameter>
+<parameter name="flags" type="int">
+</parameter>
+</method>
+<field name="CREATOR"
+ type="android.os.Parcelable.Creator"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="NdefRecord"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="android.os.Parcelable">
+</implements>
+<constructor name="NdefRecord"
+ type="android.nfc.NdefRecord"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="byte[]">
+</parameter>
+<exception name="FormatException" type="android.nfc.FormatException">
+</exception>
+</constructor>
+<constructor name="NdefRecord"
+ type="android.nfc.NdefRecord"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="tnf" type="short">
+</parameter>
+<parameter name="type" type="byte[]">
+</parameter>
+<parameter name="id" type="byte[]">
+</parameter>
+<parameter name="payload" type="byte[]">
+</parameter>
+</constructor>
+<method name="describeContents"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getId"
+ return="byte[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPayload"
+ return="byte[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getTnf"
+ return="short"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getType"
+ return="byte[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="toByteArray"
+ return="byte[]"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="writeToParcel"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="dest" type="android.os.Parcel">
+</parameter>
+<parameter name="flags" type="int">
+</parameter>
+</method>
+<field name="CREATOR"
+ type="android.os.Parcelable.Creator"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_ALTERNATIVE_CARRIER"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_HANDOVER_CARRIER"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_HANDOVER_REQUEST"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_HANDOVER_SELECT"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_SMART_POSTER"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_TEXT"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="RTD_URI"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_ABSOLUTE_URI"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="3"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_EMPTY"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_EXTERNAL_TYPE"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="4"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_MIME_MEDIA"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="2"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_UNCHANGED"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="6"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_UNKNOWN"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="5"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TNF_WELL_KNOWN"
+ type="short"
+ transient="false"
+ volatile="false"
+ value="1"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+</package>
+<package name="mobisocial.ndefexchange"
+>
+<interface name="DuplexSocket"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="connect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getOutputStream"
+ return="java.io.OutputStream"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</interface>
+<class name="NdefBluetoothPushHandover"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.nfc.ConnectionHandover">
+</implements>
+<constructor name="NdefBluetoothPushHandover"
+ type="mobisocial.ndefexchange.NdefBluetoothPushHandover"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefExchange" type="mobisocial.ndefexchange.NdefExchangeContract">
+</parameter>
+</constructor>
+<method name="doConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverMessage" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="record" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="supportsRequest"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefRecord">
+</parameter>
+</method>
+</class>
+<class name="NdefBluetoothPushHandover.BluetoothDuplexSocket"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.ndefexchange.DuplexSocket">
+</implements>
+<constructor name="NdefBluetoothPushHandover.BluetoothDuplexSocket"
+ type="mobisocial.ndefexchange.NdefBluetoothPushHandover.BluetoothDuplexSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="adapter" type="android.bluetooth.BluetoothAdapter">
+</parameter>
+<parameter name="mac" type="java.lang.String">
+</parameter>
+<parameter name="serviceUuid" type="java.util.UUID">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</constructor>
+<method name="close"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="connect"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getOutputStream"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
+<interface name="NdefExchangeContract"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="getForegroundNdefMessage"
+ return="android.nfc.NdefMessage"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="handleNdef"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
+</interface>
+<class name="NdefExchangeThread"
+ extends="java.lang.Thread"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="NdefExchangeThread"
+ type="mobisocial.ndefexchange.NdefExchangeThread"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="socket" type="mobisocial.ndefexchange.DuplexSocket">
+</parameter>
+<parameter name="nfcInterface" type="mobisocial.ndefexchange.NdefExchangeContract">
+</parameter>
+</constructor>
+<method name="cancel"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<field name="HANDOVER_VERSION"
+ type="byte"
+ transient="false"
+ volatile="false"
+ value="25"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TAG"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;ndefexchange&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="NdefTcpPushHandover"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.nfc.ConnectionHandover">
+</implements>
+<constructor name="NdefTcpPushHandover"
+ type="mobisocial.ndefexchange.NdefTcpPushHandover"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefExchange" type="mobisocial.ndefexchange.NdefExchangeContract">
+</parameter>
+</constructor>
+<method name="doConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverMessage" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="record" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="supportsRequest"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefRecord">
+</parameter>
+</method>
+</class>
+<class name="NdefTcpPushHandover.TcpDuplexSocket"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.ndefexchange.DuplexSocket">
+</implements>
+<constructor name="NdefTcpPushHandover.TcpDuplexSocket"
+ type="mobisocial.ndefexchange.NdefTcpPushHandover.TcpDuplexSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="host" type="java.lang.String">
+</parameter>
+<parameter name="port" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</constructor>
+<method name="close"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="connect"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getOutputStream"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
+<class name="PendingNdefExchange"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="PendingNdefExchange"
+ type="mobisocial.ndefexchange.PendingNdefExchange"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handover" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="nfcInterface" type="mobisocial.ndefexchange.NdefExchangeContract">
+</parameter>
+</constructor>
+<method name="exchangeNdef"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
+</class>
+<class name="StreamDuplexSocket"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.ndefexchange.DuplexSocket">
+</implements>
+<constructor name="StreamDuplexSocket"
+ type="mobisocial.ndefexchange.StreamDuplexSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="in" type="java.io.InputStream">
+</parameter>
+<parameter name="out" type="java.io.OutputStream">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</constructor>
+<method name="close"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="connect"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getOutputStream"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
+</package>
 <package name="mobisocial.nfc"
 >
+<interface name="ConnectionHandover"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="doConnectionHandover"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="recordNumber" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="supportsRequest"
+ return="boolean"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="record" type="android.nfc.NdefRecord">
+</parameter>
+</method>
+</interface>
+<class name="ConnectionHandoverManager"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.nfc.NdefHandler">
+</implements>
+<implements name="mobisocial.nfc.PrioritizedHandler">
+</implements>
+<constructor name="ConnectionHandoverManager"
+ type="mobisocial.nfc.ConnectionHandoverManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="nfc" type="mobisocial.ndefexchange.NdefExchangeContract">
+</parameter>
+</constructor>
+<method name="addConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handover" type="mobisocial.nfc.ConnectionHandover">
+</parameter>
+</method>
+<method name="clearConnectionHandovers"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="doHandover"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="outboundNdef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
+<method name="getConnectionHandoverResponders"
+ return="java.util.Set&lt;mobisocial.nfc.ConnectionHandover&gt;"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="getPriority"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="handleNdef"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefMessage[]">
+</parameter>
+</method>
+<method name="isHandoverRequest"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
+<method name="removeConnectionHandover"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handover" type="mobisocial.nfc.ConnectionHandover">
+</parameter>
+</method>
+<field name="HANDOVER_PRIORITY"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="5"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="TAG"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;connectionhandover&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="USER_HANDOVER_PREFIX"
+ type="java.lang.String"
+ transient="false"
+ volatile="false"
+ value="&quot;ndef://wkt:hr/&quot;"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<class name="NdefFactory"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="NdefFactory"
+ type="mobisocial.nfc.NdefFactory"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="fromMime"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="mimeType" type="java.lang.String">
+</parameter>
+<parameter name="data" type="byte[]">
+</parameter>
+</method>
+<method name="fromNdefUri"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uri" type="android.net.Uri">
+</parameter>
+</method>
+<method name="fromText"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+</method>
+<method name="fromText"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="text" type="java.lang.String">
+</parameter>
+<parameter name="languageCode" type="java.lang.String">
+</parameter>
+</method>
+<method name="fromUri"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uri" type="android.net.Uri">
+</parameter>
+</method>
+<method name="fromUri"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uri" type="java.lang.String">
+</parameter>
+</method>
+<method name="fromUri"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="uri" type="java.net.URI">
+</parameter>
+</method>
+<method name="fromUrl"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="url" type="java.net.URL">
+</parameter>
+</method>
+<method name="getEmptyNdef"
+ return="android.nfc.NdefMessage"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="isEmpty"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
+</class>
+<interface name="NdefHandler"
+ abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<method name="handleNdef"
+ return="int"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefMessages" type="android.nfc.NdefMessage[]">
+</parameter>
+</method>
+<field name="NDEF_CONSUME"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="1"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="NDEF_PROPAGATE"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</interface>
 <class name="Nfc"
  extends="java.lang.Object"
  abstract="false"
@@ -19,6 +1315,20 @@
 <parameter name="activity" type="android.app.Activity">
 </parameter>
 </constructor>
+<constructor name="Nfc"
+ type="mobisocial.nfc.Nfc"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="activity" type="android.app.Activity">
+</parameter>
+<parameter name="intentFilters" type="android.content.IntentFilter[]">
+</parameter>
+<parameter name="techLists" type="java.lang.String[][]">
+</parameter>
+</constructor>
 <method name="addNdefHandler"
  return="void"
  abstract="false"
@@ -31,7 +1341,7 @@
 >
 <parameter name="priority" type="java.lang.Integer">
 </parameter>
-<parameter name="handler" type="mobisocial.nfc.Nfc.NdefHandler">
+<parameter name="handler" type="mobisocial.nfc.NdefHandler">
 </parameter>
 </method>
 <method name="addNdefHandler"
@@ -44,7 +1354,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="handler" type="mobisocial.nfc.Nfc.NdefHandler">
+<parameter name="handler" type="mobisocial.nfc.NdefHandler">
 </parameter>
 </method>
 <method name="clearNdefHandlers"
@@ -127,7 +1437,7 @@
 </parameter>
 </method>
 <method name="getConnectionHandoverManager"
- return="mobisocial.nfc.Nfc.ConnectionHandoverManager"
+ return="mobisocial.nfc.ConnectionHandoverManager"
  abstract="false"
  native="false"
  synchronized="false"
@@ -160,6 +1470,17 @@
 >
 <parameter name="ndef" type="android.nfc.NdefMessage">
 </parameter>
+</method>
+<method name="isNativeNfcAvailable"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 </method>
 <method name="onNewIntent"
  return="boolean"
@@ -325,487 +1646,6 @@
 >
 </field>
 </class>
-<interface name="Nfc.ConnectionHandover"
- abstract="true"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="doConnectionHandover"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefMessage">
-</parameter>
-<parameter name="recordNumber" type="int">
-</parameter>
-<parameter name="nfcInterface" type="mobisocial.nfc.Nfc.NfcInterface">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="supportsRequest"
- return="boolean"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="record" type="android.nfc.NdefRecord">
-</parameter>
-</method>
-</interface>
-<class name="Nfc.ConnectionHandoverManager"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.nfc.Nfc.NdefHandler">
-</implements>
-<implements name="mobisocial.nfc.Nfc.PrioritizedHandler">
-</implements>
-<constructor name="Nfc.ConnectionHandoverManager"
- type="mobisocial.nfc.Nfc.ConnectionHandoverManager"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="addConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handover" type="mobisocial.nfc.Nfc.ConnectionHandover">
-</parameter>
-</method>
-<method name="clearConnectionHandovers"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="disableConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="doHandover"
- return="int"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefMessage">
-</parameter>
-<parameter name="outboundNdef" type="android.nfc.NdefMessage">
-</parameter>
-</method>
-<method name="enableConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getConnectionHandoverResponders"
- return="java.util.Set&lt;mobisocial.nfc.Nfc.ConnectionHandover&gt;"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="getPriority"
- return="int"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="handleNdef"
- return="int"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefMessage[]">
-</parameter>
-</method>
-<method name="isConnectionHandoverEnabled"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="removeConnectionHandover"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handover" type="mobisocial.nfc.Nfc.ConnectionHandover">
-</parameter>
-</method>
-<field name="HANDOVER_PRIORITY"
- type="int"
- transient="false"
- volatile="false"
- value="5"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-</class>
-<class name="Nfc.NdefBluetoothPushHandover"
- extends="java.lang.Object"
- abstract="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.nfc.Nfc.ConnectionHandover">
-</implements>
-<constructor name="Nfc.NdefBluetoothPushHandover"
- type="mobisocial.nfc.Nfc.NdefBluetoothPushHandover"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="doConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverMessage" type="android.nfc.NdefMessage">
-</parameter>
-<parameter name="record" type="int">
-</parameter>
-<parameter name="nfcInterface" type="mobisocial.nfc.Nfc.NfcInterface">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="supportsRequest"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
-</parameter>
-</method>
-</class>
-<class name="Nfc.NdefFactory"
- extends="java.lang.Object"
- abstract="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<constructor name="Nfc.NdefFactory"
- type="mobisocial.nfc.Nfc.NdefFactory"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="fromMime"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="mimeType" type="java.lang.String">
-</parameter>
-<parameter name="data" type="byte[]">
-</parameter>
-</method>
-<method name="fromText"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="text" type="java.lang.String">
-</parameter>
-</method>
-<method name="fromText"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="text" type="java.lang.String">
-</parameter>
-<parameter name="languageCode" type="java.lang.String">
-</parameter>
-</method>
-<method name="fromUri"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="uri" type="android.net.Uri">
-</parameter>
-</method>
-<method name="fromUri"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="uri" type="java.lang.String">
-</parameter>
-</method>
-<method name="fromUri"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="uri" type="java.net.URI">
-</parameter>
-</method>
-<method name="fromUrl"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="url" type="java.net.URL">
-</parameter>
-</method>
-</class>
-<interface name="Nfc.NdefHandler"
- abstract="true"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="handleNdef"
- return="int"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="ndefMessages" type="android.nfc.NdefMessage[]">
-</parameter>
-</method>
-<field name="NDEF_CONSUME"
- type="int"
- transient="false"
- volatile="false"
- value="1"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="NDEF_PROPAGATE"
- type="int"
- transient="false"
- volatile="false"
- value="0"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-</interface>
-<class name="Nfc.NdefTcpPushHandover"
- extends="java.lang.Object"
- abstract="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.nfc.Nfc.ConnectionHandover">
-</implements>
-<constructor name="Nfc.NdefTcpPushHandover"
- type="mobisocial.nfc.Nfc.NdefTcpPushHandover"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</constructor>
-<method name="doConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverMessage" type="android.nfc.NdefMessage">
-</parameter>
-<parameter name="record" type="int">
-</parameter>
-<parameter name="nfcInterface" type="mobisocial.nfc.Nfc.NfcInterface">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="supportsRequest"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
-</parameter>
-</method>
-</class>
-<interface name="Nfc.NfcInterface"
- abstract="true"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<method name="getForegroundNdefMessage"
- return="android.nfc.NdefMessage"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-</method>
-<method name="handleNdef"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="ndef" type="android.nfc.NdefMessage">
-</parameter>
-</method>
-</interface>
 <interface name="Nfc.OnTagWriteListener"
  abstract="true"
  static="true"
@@ -882,9 +1722,70 @@
 >
 </field>
 </interface>
-<interface name="Nfc.PrioritizedHandler"
+<class name="NfcWrapper"
+ extends="java.lang.Object"
  abstract="true"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="NfcWrapper"
+ type="mobisocial.nfc.NfcWrapper"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</constructor>
+<method name="getAdapter"
+ return="android.nfc.NfcAdapter"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="c" type="android.content.Context">
+</parameter>
+</method>
+<method name="getInstance"
+ return="mobisocial.nfc.NfcWrapper"
+ abstract="false"
+ native="false"
+ synchronized="false"
  static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<field name="SDK_NDEF_DEFINED"
+ type="int"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="SDK_NDEF_EXCHANGE"
+ type="int"
+ transient="false"
+ volatile="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
+<interface name="PrioritizedHandler"
+ abstract="true"
+ static="false"
  final="false"
  deprecated="not deprecated"
  visibility="public"

@@ -55,7 +55,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  Nfc.NdefFactory
+  NfcWrapper
 
 
 | EasyNfc
@@ -142,6 +142,10 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
+    <li class="api apilevel-">
+  <a href="../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
     <li class="selected api apilevel-">
   <a href="../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
     <li class="api apilevel-">
@@ -154,21 +158,19 @@
               
     <li><h2>Interfaces</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandover.html">Nfc.ConnectionHandover</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NfcInterface.html">Nfc.NfcInterface</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.PrioritizedHandler.html">Nfc.PrioritizedHandler</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/PrioritizedHandler.html">PrioritizedHandler</a></li>
       </ul>
     </li>
               
     <li><h2>Classes</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/NdefFactory.html">NdefFactory</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.ConnectionHandoverManager.html">Nfc.ConnectionHandoverManager</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefBluetoothPushHandover.html">Nfc.NdefBluetoothPushHandover</a></li>
-          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html">Nfc.NdefFactory</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.NdefTcpPushHandover.html">Nfc.NdefTcpPushHandover</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/NfcWrapper.html">NfcWrapper</a></li>
       </ul>
     </li>
               
@@ -230,9 +232,12 @@ Summary:
 
 
 
+  <a href="#lfields">Fields</a>
+  
 
 
-  <a href="#pubctors">Ctors</a>
+
+  &#124; <a href="#pubctors">Ctors</a>
   
 
 
@@ -262,11 +267,11 @@ Summary:
 
 <div id="jd-header">
     public
-    static 
      
-    
+     
+    abstract
     class
-<h1>Nfc.NdefFactory</h1>
+<h1>NfcWrapper</h1>
 
 
 
@@ -299,7 +304,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.Nfc.NdefFactory</td>
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.NfcWrapper</td>
     </tr>
     
 
@@ -315,15 +320,12 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>A utility class for generating NDEF messages.</p>
+<p>Wraps the NfcAdapter class for use on platforms not supporting
+ native NFC interactions.
+</p>
 
 
 
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">See Also</h5>
-      <ul class="nolist"><li>NdefMessage</li>
-      </ul>
-  </div>
 
 
 </div><!-- jd-descr -->
@@ -365,6 +367,37 @@ Summary:
 
 
 
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../mobisocial/nfc/NfcWrapper.html#SDK_NDEF_DEFINED">SDK_NDEF_DEFINED</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../mobisocial/nfc/NfcWrapper.html#SDK_NDEF_EXCHANGE">SDK_NDEF_EXCHANGE</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+
+</table>
+
+
 
 
 
@@ -386,7 +419,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#Nfc.NdefFactory()">Nfc.NdefFactory</a></span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/NfcWrapper.html#NfcWrapper()">NfcWrapper</a></span>()</nobr>
         
   </td></tr>
 
@@ -407,15 +440,15 @@ Summary:
 	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
+            abstract
             
             
             
-            static
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            <a href="http://developer.android.com/reference/android/nfc/NfcAdapter.html">NfcAdapter</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromMime(java.lang.String, byte[])">fromMime</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/NfcWrapper.html#getAdapter(android.content.Context)">getAdapter</a></span>(<a href="http://developer.android.com/reference/android/content/Context.html">Context</a> c)</nobr>
         
   </td></tr>
 
@@ -428,96 +461,10 @@ Summary:
             
             static
             
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
+            <a href="../../mobisocial/nfc/NfcWrapper.html">NfcWrapper</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromText(java.lang.String)">fromText</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text)</nobr>
-        
-        <div class="jd-descrdiv">Creates an NDEF message with a single text record, with language
- code "en" and the given text, encoded using UTF-8.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromText(java.lang.String, java.lang.String)">fromText</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text, <a href="http://developer.android.com/reference/java/lang/String.html">String</a> languageCode)</nobr>
-        
-        <div class="jd-descrdiv">Creates an NDEF message with a single text record, with the given
- text content (UTF-8 encoded) and language code.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUri(android.net.Uri)">fromUri</a></span>(<a href="http://developer.android.com/reference/android/net/Uri.html">Uri</a> uri)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUri(java.lang.String)">fromUri</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> uri)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUri(java.net.URI)">fromUri</a></span>(<a href="http://developer.android.com/reference/java/net/URI.html">URI</a> uri)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.NdefFactory.html#fromUrl(java.net.URL)">fromUrl</a></span>(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/NfcWrapper.html#getInstance()">getInstance</a></span>()</nobr>
         
   </td></tr>
 
@@ -764,6 +711,73 @@ From class
 <!-- Fields -->
 
 
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
+
+
+
+
+<A NAME="SDK_NDEF_DEFINED"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+        int
+      </span>
+        SDK_NDEF_DEFINED
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="SDK_NDEF_EXCHANGE"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+        int
+      </span>
+        SDK_NDEF_EXCHANGE
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+
 <!-- Public ctors -->
 
 
@@ -772,7 +786,7 @@ From class
 
 
 
-<A NAME="Nfc.NdefFactory()"></A>
+<A NAME="NfcWrapper()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -784,7 +798,7 @@ From class
          
         
       </span>
-      <span class="sympad">Nfc.NdefFactory</span>
+      <span class="sympad">NfcWrapper</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -818,20 +832,20 @@ From class
 
 
 
-<A NAME="fromMime(java.lang.String, byte[])"></A>
+<A NAME="getAdapter(android.content.Context)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
+        abstract 
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+        <a href="http://developer.android.com/reference/android/nfc/NfcAdapter.html">NfcAdapter</a>
       </span>
-      <span class="sympad">fromMime</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</span>
+      <span class="sympad">getAdapter</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/android/content/Context.html">Context</a> c)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -849,7 +863,7 @@ From class
 </div>
 
 
-<A NAME="fromText(java.lang.String)"></A>
+<A NAME="getInstance()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -859,169 +873,10 @@ From class
          
          
          
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
+        <a href="../../mobisocial/nfc/NfcWrapper.html">NfcWrapper</a>
       </span>
-      <span class="sympad">fromText</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Creates an NDEF message with a single text record, with language
- code "en" and the given text, encoded using UTF-8.
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromText(java.lang.String, java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromText</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> text, <a href="http://developer.android.com/reference/java/lang/String.html">String</a> languageCode)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Creates an NDEF message with a single text record, with the given
- text content (UTF-8 encoded) and language code. 
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromUri(android.net.Uri)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromUri</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/net/Uri.html">Uri</a> uri)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromUri(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromUri</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> uri)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromUri(java.net.URI)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromUri</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/net/URI.html">URI</a> uri)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromUrl(java.net.URL)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromUrl</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</span>
+      <span class="sympad">getInstance</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>

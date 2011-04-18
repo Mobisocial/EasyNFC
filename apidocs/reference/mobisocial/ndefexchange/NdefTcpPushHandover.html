@@ -52,27 +52,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  BtConnector
+  NdefTcpPushHandover
 
 
 | EasyNfc
 
 </title>
-<link href="../../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
-<link href="../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
-<script src="../../../../assets/search_autocomplete.js" type="text/javascript"></script>
-<script src="../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
-<script src="../../../../assets/android-developer-docs.js" type="text/javascript"></script>
-<script src="../../../../assets/prettify.js" type="text/javascript"></script>
+<link href="../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<script src="../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../assets/android-developer-docs.js" type="text/javascript"></script>
+<script src="../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
-  setToRoot("../../../", "../../../../assets/");
+  setToRoot("../../", "../../../assets/");
 </script>
-<script src="../../../../assets/android-developer-reference.js" type="text/javascript"></script>
-<script src="../../../../assets/navtree_data.js" type="text/javascript"></script>
-<script src="../../../../assets/customizations.js" type="text/javascript"></script>
+<script src="../../../assets/android-developer-reference.js" type="text/javascript"></script>
+<script src="../../../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../../../assets/customizations.js" type="text/javascript"></script>
 <noscript>
   <style type="text/css">
     html,body{overflow:auto;}
@@ -107,8 +107,8 @@
                       value="search developer docs"
                       onFocus="search_focus_changed(this, true)"
                       onBlur="search_focus_changed(this, false)"
-                      onkeydown="return search_changed(event, true, '../../../')"
-                      onkeyup="return search_changed(event, false, '../../../')" />
+                      onkeydown="return search_changed(event, true, '../../')"
+                      onkeyup="return search_changed(event, false, '../../')" />
                   <div id="search_filtered_div" class="no-display">
                       <table id="search_filtered" cellspacing=0>
                       </table>
@@ -137,15 +137,19 @@
           <div id="resize-packages-nav">
             <div id="packages-nav">
               <div id="index-links"><nobr>
-                <a href="../../../packages.html"  >Package Index</a> | 
-                <a href="../../../classes.html" >Class Index</a></nobr>
+                <a href="../../packages.html"  >Package Index</a> | 
+                <a href="../../classes.html" >Class Index</a></nobr>
               </div>
               <ul>
                 
     <li class="api apilevel-">
-  <a href="../../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
+  <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
     <li class="selected api apilevel-">
-  <a href="../../../mobisocial/nfc/addon/package-summary.html">mobisocial.nfc.addon</a></li>
+  <a href="../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
+    <li class="api apilevel-">
+  <a href="../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
+    <li class="api apilevel-">
+  <a href="../../mobisocial/nfc/addon/package-summary.html">mobisocial.nfc.addon</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -154,13 +158,20 @@
               
     <li><h2>Interfaces</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../../mobisocial/nfc/addon/BtConnector.OnBtConnectedListener.html">BtConnector.OnBtConnectedListener</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/DuplexSocket.html">DuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeContract.html">NdefExchangeContract</a></li>
       </ul>
     </li>
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../../mobisocial/nfc/addon/BtConnector.html">BtConnector</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.html">NdefBluetoothPushHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.BluetoothDuplexSocket.html">NdefBluetoothPushHandover.BluetoothDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeThread.html">NdefExchangeThread</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html">NdefTcpPushHandover</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html">NdefTcpPushHandover.TcpDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/PendingNdefExchange.html">PendingNdefExchange</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/StreamDuplexSocket.html">StreamDuplexSocket</a></li>
       </ul>
     </li>
               
@@ -172,8 +183,8 @@
         </div><!-- end nav-panels -->
         <div id="nav-tree" style="display:none">
           <div id="index-links"><nobr>
-            <a href="../../../packages.html"  >Package Index</a> | 
-            <a href="../../../classes.html" >Class Index</a></nobr>
+            <a href="../../packages.html"  >Package Index</a> | 
+            <a href="../../classes.html" >Class Index</a></nobr>
           </div>
         </div><!-- end nav-tree -->
       </div><!-- end swapper -->
@@ -183,7 +194,7 @@
         $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
         chooseDefaultNav();
         if ($("#nav-tree").is(':visible')) {
-          init_default_navtree("../../../");
+          init_default_navtree("../../");
         } else {
           addLoadEvent(function() {
             scrollIntoView("packages-nav");
@@ -203,6 +214,13 @@
 <div id="api-info-block">
 
 
+
+  
+   
+  
+  
+  
+  
 
   
    
@@ -259,9 +277,9 @@ Summary:
     public
      
      
-    abstract
+    
     class
-<h1>BtConnector</h1>
+<h1>NdefTcpPushHandover</h1>
 
 
 
@@ -272,6 +290,11 @@ Summary:
   
 
   
+  
+      implements 
+      
+        <a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a> 
+      
   
   
 
@@ -294,7 +317,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.addon.BtConnector</td>
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.ndefexchange.NdefTcpPushHandover</td>
     </tr>
     
 
@@ -310,45 +333,13 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>Allows two devices to establish a Bluetooth connection after exchanging an NFC
- Connection Handover Request. The socket is returned via callback. Example usage:
- 
- <pre class="prettyprint">
- MyActivity extends Activity {
-   Nfc mNfc;
-   
-   BtConnector.OnBtConnectedListener mBtListener =
-           new BtConnector.OnBtConnectedListener() {
-       
-       public void onConnectionEstablished(BluetoothSocket socket, 
-               boolean isServer) {
-          Log.d(TAG, "Connected over Bluetooth as " +
-              (isServer ? "server" : "client"));
-       }
-   }
-   
-   public void onCreate(Bundle bundle) {
-     super.onCreate(bundle);
-     mNfc = new Nfc(this);
-     BtConnector.prepare(mNfc, mBtListener);
-   }
-
-   public void onResume() {
-     super.onResume();
-     mNfc.onResume(this);
-   }
-   
-   public void onPause() {
-     super.onPause();
-     mNfc.onPause();
-   }
-   
-   public void onNewInent(Intent intent) {
-     if (mNfc.onNewIntent(this, intent)) return;
-   }
- }
- </pre>
-
+<p><p>Implements an Ndef push handover request in which a static tag
+ represents an Ndef reader device listening on a TCP socket.
+ </p>
+ <p>
+ Your application must hold the <code>android.permission.INTERNET</code>
+ permission to support TCP handovers.
+ </p>
 </p>
 
 
@@ -390,9 +381,9 @@ Summary:
          
          
         
-        interface</nobr></td>
-      <td class="jd-linkcol"><a href="../../../mobisocial/nfc/addon/BtConnector.OnBtConnectedListener.html">BtConnector.OnBtConnectedListener</a></td>
-      <td class="jd-descrcol" width="100%">A callback used when a Bluetooth connection has been established.&nbsp;</td>
+        class</nobr></td>
+      <td class="jd-linkcol"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html">NdefTcpPushHandover.TcpDuplexSocket</a></td>
+      <td class="jd-descrcol" width="100%">&nbsp;</td>
     </tr>
     
     
@@ -435,7 +426,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../mobisocial/nfc/addon/BtConnector.html#BtConnector()">BtConnector</a></span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html#NdefTcpPushHandover(mobisocial.ndefexchange.NdefExchangeContract)">NdefTcpPushHandover</a></span>(<a href="../../mobisocial/ndefexchange/NdefExchangeContract.html">NdefExchangeContract</a> ndefExchange)</nobr>
         
   </td></tr>
 
@@ -459,16 +450,31 @@ Summary:
             
             
             
-            static
+            
             
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../mobisocial/nfc/addon/BtConnector.html#prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BtConnector.OnBtConnectedListener)">prepare</a></span>(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BtConnector.OnBtConnectedListener.html">BtConnector.OnBtConnectedListener</a> conn)</nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html#doConnectionHandover(android.nfc.NdefMessage, int)">doConnectionHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverMessage, int record)</nobr>
         
-        <div class="jd-descrdiv">Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a bluetooth socket with
- another device.</div>
+        <div class="jd-descrdiv">Issues a connection handover of the given type.</div>
   
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html#supportsRequest(android.nfc.NdefRecord)">supportsRequest</a></span>(<a href="../../android/nfc/NdefRecord.html">NdefRecord</a> handoverRequest)</nobr>
+        
   </td></tr>
 
 
@@ -491,7 +497,7 @@ Summary:
 <td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Object" class="jd-expando-trigger closed"
           ><img id="inherited-methods-java.lang.Object-trigger"
-          src="../../../../assets/images/triangle-closed.png"
+          src="../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
@@ -688,6 +694,66 @@ From class
 </td></tr>
 
 
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.nfc.ConnectionHandover" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.nfc.ConnectionHandover-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../mobisocial/nfc/ConnectionHandover.html">mobisocial.nfc.ConnectionHandover</a>
+
+<div id="inherited-methods-mobisocial.nfc.ConnectionHandover">
+  <div id="inherited-methods-mobisocial.nfc.ConnectionHandover-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-mobisocial.nfc.ConnectionHandover-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandover.html#doConnectionHandover(android.nfc.NdefMessage, int)">doConnectionHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverRequest, int recordNumber)</nobr>
+        
+        <div class="jd-descrdiv">Issues a connection handover of the given type.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandover.html#supportsRequest(android.nfc.NdefRecord)">supportsRequest</a></span>(<a href="../../android/nfc/NdefRecord.html">NdefRecord</a> record)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
 </table>
 
 
@@ -722,7 +788,7 @@ From class
 
 
 
-<A NAME="BtConnector()"></A>
+<A NAME="NdefTcpPushHandover(mobisocial.ndefexchange.NdefExchangeContract)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -734,8 +800,8 @@ From class
          
         
       </span>
-      <span class="sympad">BtConnector</span>
-      <span class="normal">()</span>
+      <span class="sympad">NdefTcpPushHandover</span>
+      <span class="normal">(<a href="../../mobisocial/ndefexchange/NdefExchangeContract.html">NdefExchangeContract</a> ndefExchange)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -768,20 +834,20 @@ From class
 
 
 
-<A NAME="prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BtConnector.OnBtConnectedListener)"></A>
+<A NAME="doConnectionHandover(android.nfc.NdefMessage, int)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
+         
          
          
          
         void
       </span>
-      <span class="sympad">prepare</span>
-      <span class="normal">(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BtConnector.OnBtConnectedListener.html">BtConnector.OnBtConnectedListener</a> conn)</span>
+      <span class="sympad">doConnectionHandover</span>
+      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverMessage, int record)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -793,10 +859,60 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a bluetooth socket with
- another device. The method both sets the foreground ndef message and
- registers an <code><a href="../../../mobisocial/nfc/Nfc.NdefHandler.html">Nfc.NdefHandler</a></code> to look for incoming pairing requests.
-</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Issues a connection handover of the given type.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>handoverMessage</td>
+          <td>The connection handover request message.</td>
+        </tr>
+        <tr>
+          <th>record</td>
+          <td>The index of the handover record entry being attempted.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="supportsRequest(android.nfc.NdefRecord)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        boolean
+      </span>
+      <span class="sympad">supportsRequest</span>
+      <span class="normal">(<a href="../../android/nfc/NdefRecord.html">NdefRecord</a> handoverRequest)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
