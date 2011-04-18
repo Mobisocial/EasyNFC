@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package mobisocial.ndefexchange;
+package mobisocial.nfc;
 
 import java.io.IOException;
 
@@ -32,9 +32,8 @@ public interface ConnectionHandover {
 	 * Issues a connection handover of the given type.
 	 * @param handoverRequest The connection handover request message.
 	 * @param recordNumber The index of the handover record entry being attempted.
-	 * @param nfcInterface The Nfc interface for sending and receiving ndef messages.
 	 * @throws IOException
 	 */
-	public void doConnectionHandover(NdefMessage handoverRequest, int recordNumber, NdefExchangeContract nfcInterface) throws IOException;
+	public void doConnectionHandover(NdefMessage handoverRequest, int recordNumber) throws IOException;
 	public boolean supportsRequest(NdefRecord record);
 }

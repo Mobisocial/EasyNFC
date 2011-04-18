@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import mobisocial.ndefexchange.ConnectionHandoverManager;
 import mobisocial.ndefexchange.NdefExchangeContract;
 
 import android.app.Activity;

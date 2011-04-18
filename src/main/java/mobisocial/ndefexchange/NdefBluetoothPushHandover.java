@@ -23,6 +23,8 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
+import mobisocial.nfc.ConnectionHandover;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -41,9 +43,11 @@ import android.nfc.NdefRecord;
  */
 public class NdefBluetoothPushHandover implements ConnectionHandover {
 	final BluetoothAdapter mmBluetoothAdapter;
-	
-	public NdefBluetoothPushHandover() {
+	private final NdefExchangeContract mNdefExchange;
+
+	public NdefBluetoothPushHandover(NdefExchangeContract ndefExchange) {
 		mmBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		mNdefExchange = ndefExchange;
 	}
 
 	@Override
@@ -62,7 +66,7 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 	}
 	
 	@Override
-	public void doConnectionHandover(NdefMessage handoverMessage, int record, NdefExchangeContract nfcInterface) throws IOException {
+	public void doConnectionHandover(NdefMessage handoverMessage, int record) throws IOException {
 		NdefRecord handoverRequest = handoverMessage.getRecords()[record];
 		String uriString = new String(handoverRequest.getPayload());
 		Uri target = Uri.parse(uriString);
@@ -70,7 +74,7 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 		String mac = target.getAuthority();
 		UUID uuid = UUID.fromString(target.getPath().substring(1));
 		DuplexSocket socket = new BluetoothDuplexSocket(mmBluetoothAdapter, mac, uuid);
-		new NdefExchangeThread(socket, nfcInterface).start();
+		new NdefExchangeThread(socket, mNdefExchange).start();
 	}
 
 	public class BluetoothDuplexSocket implements DuplexSocket {

@@ -24,6 +24,8 @@ import java.net.Socket;
 import java.net.URI;
 import java.util.Arrays;
 
+import mobisocial.nfc.ConnectionHandover;
+
 
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -39,7 +41,12 @@ import android.nfc.NdefRecord;
  */
 public class NdefTcpPushHandover implements ConnectionHandover {
 	private static final int DEFAULT_TCP_HANDOVER_PORT = 7924;
-	
+	private final NdefExchangeContract mNdefExchange;
+
+	public NdefTcpPushHandover(NdefExchangeContract ndefExchange) {
+		mNdefExchange = ndefExchange;
+	}
+
 	//@Override
 	public boolean supportsRequest(NdefRecord handoverRequest) {
 		if (handoverRequest.getTnf() != NdefRecord.TNF_ABSOLUTE_URI
@@ -55,15 +62,15 @@ public class NdefTcpPushHandover implements ConnectionHandover {
 		return false;
 	}
 
-	//@Override
-	public void doConnectionHandover(NdefMessage handoverMessage, int record, NdefExchangeContract nfcInterface) throws IOException {
+	@Override
+	public void doConnectionHandover(NdefMessage handoverMessage, int record) throws IOException {
 		NdefRecord handoverRequest = handoverMessage.getRecords()[record];
-		NdefMessage outboundNdef = nfcInterface.getForegroundNdefMessage();
+		NdefMessage outboundNdef = mNdefExchange.getForegroundNdefMessage();
 		if (outboundNdef == null) return;
 		
 		String uriString = new String(handoverRequest.getPayload());
 		URI uri = URI.create(uriString);
-		sendNdefOverTcp(uri, nfcInterface);
+		sendNdefOverTcp(uri, mNdefExchange);
 	}
 
 	private void sendNdefOverTcp(URI target, NdefExchangeContract ndefProxy) throws IOException {

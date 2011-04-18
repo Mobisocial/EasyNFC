@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package mobisocial.ndefexchange;
+package mobisocial.nfc;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -23,8 +23,9 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mobisocial.nfc.NdefHandler;
-import mobisocial.nfc.PrioritizedHandler;
+import mobisocial.ndefexchange.NdefBluetoothPushHandover;
+import mobisocial.ndefexchange.NdefExchangeContract;
+import mobisocial.ndefexchange.NdefTcpPushHandover;
 
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -39,8 +40,8 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 
 	public ConnectionHandoverManager(NdefExchangeContract nfc) {
 		mNfc = nfc;
-		//mmConnectionHandovers.add(new NdefBluetoothPushHandover());
-		mmConnectionHandovers.add(new NdefTcpPushHandover());
+		mmConnectionHandovers.add(new NdefBluetoothPushHandover(nfc));
+		mmConnectionHandovers.add(new NdefTcpPushHandover(nfc));
 	}
 	
 	public void addConnectionHandover(ConnectionHandover handover) {
@@ -81,7 +82,7 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 				ConnectionHandover handover = handovers.next();
 				if (handover.supportsRequest(records[i])) {
 					try {
-						handover.doConnectionHandover(handoverRequest, i, mNfc);
+						handover.doConnectionHandover(handoverRequest, i);
 						return NDEF_CONSUME;
 					} catch (IOException e) {
 						Log.w(TAG, "Handover failed.", e);

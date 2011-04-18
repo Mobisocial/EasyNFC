@@ -17,6 +17,7 @@
 
 package mobisocial.ndefexchange;
 
+import mobisocial.nfc.ConnectionHandoverManager;
 import android.nfc.NdefMessage;
 
 /**
