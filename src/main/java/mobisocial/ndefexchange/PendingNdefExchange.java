@@ -26,12 +26,10 @@ import android.nfc.NdefMessage;
  */
 public class PendingNdefExchange {
 	private final NdefMessage mHandover;
-	private final NdefExchangeContract mNfcInterface;
 	private final ConnectionHandoverManager mConnectionHandoverManager;
 
 	public PendingNdefExchange(NdefMessage handover, NdefExchangeContract nfcInterface) {
 		mHandover = handover;
-		mNfcInterface = nfcInterface;
 		mConnectionHandoverManager = new ConnectionHandoverManager(nfcInterface);
 	}
 	
