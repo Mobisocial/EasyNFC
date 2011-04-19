@@ -25,7 +25,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import mobisocial.ndefexchange.NdefBluetoothPushHandover;
 import mobisocial.ndefexchange.NdefExchangeContract;
+import mobisocial.ndefexchange.NdefTcpPushHandover;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -189,9 +191,11 @@ public class Nfc {
 
 		if (mNfcAdapter == null) {
 			Log.i(TAG, "Nfc implementation not available.");
-			return;
 		}
 
+		mConnectionHandoverManager = new ConnectionHandoverManager();
+		mConnectionHandoverManager.addConnectionHandover(new NdefBluetoothPushHandover(mHandoverHandler));
+		mConnectionHandoverManager.addConnectionHandover(new NdefTcpPushHandover(mHandoverHandler));
 		addNdefHandler(mConnectionHandoverManager);
 		addNdefHandler(new EmptyNdefHandler());
 	}
@@ -656,7 +660,7 @@ public class Nfc {
 		}
 	};
 
-	private final ConnectionHandoverManager mConnectionHandoverManager = new ConnectionHandoverManager(mHandoverHandler);
+	private final ConnectionHandoverManager mConnectionHandoverManager;
 
 	private class EmptyNdefHandler implements NdefHandler, PrioritizedHandler {
 		@Override

@@ -38,12 +38,9 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 	public static final String TAG = "connectionhandover";
 	public static final int HANDOVER_PRIORITY = 5;
 	private final Set<ConnectionHandover> mmConnectionHandovers = new LinkedHashSet<ConnectionHandover>();
-	private final NdefExchangeContract mNfc;
 
-	public ConnectionHandoverManager(NdefExchangeContract nfc) {
-		mNfc = nfc;
-		mmConnectionHandovers.add(new NdefBluetoothPushHandover(nfc));
-		mmConnectionHandovers.add(new NdefTcpPushHandover(nfc));
+	public ConnectionHandoverManager() {
+
 	}
 	
 	public void addConnectionHandover(ConnectionHandover handover) {
@@ -69,10 +66,10 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 	//@Override
 	public final int handleNdef(NdefMessage[] handoverRequest) {
 		// TODO: What does this mean?
-		return doHandover(handoverRequest[0], mNfc.getForegroundNdefMessage());
+		return doHandover(handoverRequest[0]);
 	}
 
-	public final int doHandover(NdefMessage handoverRequest, final NdefMessage outboundNdef) {
+	public final int doHandover(NdefMessage handoverRequest) {
 		if (!isHandoverRequest(handoverRequest)) {
 			return NDEF_PROPAGATE;
 		}
