@@ -25,9 +25,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import mobisocial.ndefexchange.NdefBluetoothPushHandover;
 import mobisocial.ndefexchange.NdefExchangeContract;
-import mobisocial.ndefexchange.NdefTcpPushHandover;
+import mobisocial.ndefexchange.NdefExchangeManager;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -119,6 +118,7 @@ public class Nfc {
 	private final Map<Integer, Set<NdefHandler>> mNdefHandlers = new TreeMap<Integer, Set<NdefHandler>>();
 	private boolean mHandoverEnabled = true;
 	private OnTagWriteListener mOnTagWriteListener = null;
+	private final ConnectionHandoverManager mNdefExchangeManager;
 	
 	private int mState = STATE_PAUSED;
 	private int mInterfaceMode = MODE_EXCHANGE;
@@ -193,10 +193,19 @@ public class Nfc {
 			Log.i(TAG, "Nfc implementation not available.");
 		}
 
-		mConnectionHandoverManager = new ConnectionHandoverManager();
-		mConnectionHandoverManager.addConnectionHandover(new NdefBluetoothPushHandover(mHandoverHandler));
-		mConnectionHandoverManager.addConnectionHandover(new NdefTcpPushHandover(mHandoverHandler));
-		addNdefHandler(mConnectionHandoverManager);
+		mNdefExchangeManager = new NdefExchangeManager(new NdefExchangeContract() {
+			@Override
+			public int handleNdef(NdefMessage[] ndef) {
+				doHandleNdef(ndef);
+				return NDEF_CONSUME;
+			}
+			
+			@Override
+			public NdefMessage getForegroundNdefMessage() {
+				return mForegroundMessage;
+			}
+		});
+		addNdefHandler(mNdefExchangeManager);
 		addNdefHandler(new EmptyNdefHandler());
 	}
 	
@@ -497,7 +506,7 @@ public class Nfc {
 	}
 
 	public ConnectionHandoverManager getConnectionHandoverManager() {
-		return mConnectionHandoverManager;
+		return mNdefExchangeManager;
 	}
 	
 	/**
@@ -647,20 +656,6 @@ public class Nfc {
 
         return OnTagWriteListener.WRITE_ERROR_IO_EXCEPTION;
     }
-	
-	private final NdefExchangeContract mHandoverHandler = new NdefExchangeContract() {
-		@Override
-		public void handleNdef(NdefMessage ndef) {
-			Nfc.this.doHandleNdef(new NdefMessage[] {ndef});
-		}
-		
-		@Override
-		public NdefMessage getForegroundNdefMessage() {
-			return Nfc.this.mForegroundMessage;
-		}
-	};
-
-	private final ConnectionHandoverManager mConnectionHandoverManager;
 
 	private class EmptyNdefHandler implements NdefHandler, PrioritizedHandler {
 		@Override

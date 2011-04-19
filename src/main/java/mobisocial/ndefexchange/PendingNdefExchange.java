@@ -17,7 +17,7 @@
 
 package mobisocial.ndefexchange;
 
-import mobisocial.nfc.ConnectionHandoverManager;
+import mobisocial.nfc.NdefHandler;
 import android.nfc.NdefMessage;
 
 /**
@@ -26,14 +26,27 @@ import android.nfc.NdefMessage;
  */
 public class PendingNdefExchange {
 	private final NdefMessage mHandover;
-	private final ConnectionHandoverManager mConnectionHandoverManager;
+	private final NdefHandler mNdefHandler;
 
-	public PendingNdefExchange(NdefMessage handover, NdefExchangeContract nfcInterface) {
+	public PendingNdefExchange(NdefMessage handover, final NdefHandler ndefHandler) {
 		mHandover = handover;
-		mConnectionHandoverManager = new ConnectionHandoverManager(nfcInterface);
+		mNdefHandler = ndefHandler;
 	}
 	
-	public void exchangeNdef(NdefMessage ndef) {
-		mConnectionHandoverManager.doHandover(mHandover, ndef);
+	public void exchangeNdef(final NdefMessage ndef) {
+		NdefExchangeContract ndefExchange = new NdefExchangeContract() {
+			@Override
+			public int handleNdef(NdefMessage[] ndef) {
+				mNdefHandler.handleNdef(ndef);
+				return NDEF_CONSUME;
+			}
+			
+			@Override
+			public NdefMessage getForegroundNdefMessage() {
+				return ndef;
+			}
+		};
+
+		new NdefExchangeManager(ndefExchange).doHandover(mHandover);
 	}
 }

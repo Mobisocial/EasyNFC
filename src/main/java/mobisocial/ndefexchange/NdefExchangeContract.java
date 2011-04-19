@@ -17,9 +17,9 @@
 
 package mobisocial.ndefexchange;
 
+import mobisocial.nfc.NdefHandler;
 import android.nfc.NdefMessage;
 
-public interface NdefExchangeContract {
-		public void handleNdef(NdefMessage ndef);
-		public NdefMessage getForegroundNdefMessage();
-	}
+public interface NdefExchangeContract extends NdefHandler {
+	public NdefMessage getForegroundNdefMessage();
+}
