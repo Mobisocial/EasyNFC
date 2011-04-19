@@ -167,6 +167,7 @@
       <ul>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.html">NdefBluetoothPushHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.BluetoothDuplexSocket.html">NdefBluetoothPushHandover.BluetoothDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeManager.html">NdefExchangeManager</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeThread.html">NdefExchangeThread</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html">NdefTcpPushHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html">NdefTcpPushHandover.TcpDuplexSocket</a></li>
@@ -215,8 +216,41 @@
 
 
 
+  
+   
+  
+  
+   
+  
+  
+  
+
 
 <div class="sum-details-links">
+
+Summary:
+
+
+
+
+
+
+  <a href="#inhconstants">Inherited Constants</a>
+  
+
+
+
+
+
+
+  &#124; <a href="#pubmethods">Methods</a>
+  
+
+
+
+  &#124; <a href="#inhmethods">Inherited Methods</a>
+
+&#124; <a href="#" onclick="return toggleAllClassInherited()" id="toggleAllClassInherited">[Expand All]</a>
 
 </div><!-- end sum-details-links -->
 <div class="api-level">
@@ -243,6 +277,11 @@
 
 
   
+  
+      implements 
+      
+        <a href="../../mobisocial/nfc/NdefHandler.html">NdefHandler</a> 
+      
   
   
 
@@ -313,6 +352,52 @@
 
 
 
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="inhconstants" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Constants</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-mobisocial.nfc.NdefHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-mobisocial.nfc.NdefHandler-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+<a href="../../mobisocial/nfc/NdefHandler.html">mobisocial.nfc.NdefHandler</a>
+<div id="inherited-constants-mobisocial.nfc.NdefHandler">
+  <div id="inherited-constants-mobisocial.nfc.NdefHandler-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-mobisocial.nfc.NdefHandler-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/NdefHandler.html#NDEF_CONSUME">NDEF_CONSUME</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/NdefHandler.html#NDEF_PROPAGATE">NDEF_PROPAGATE</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
+
+
 
 
 
@@ -345,22 +430,6 @@
   </td></tr>
 
 
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefExchangeContract.html#handleNdef(android.nfc.NdefMessage)">handleNdef</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
-        
-  </td></tr>
-
-
 
 </table>
 
@@ -368,6 +437,59 @@
 
 
 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="inhmethods" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.nfc.NdefHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.nfc.NdefHandler-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../mobisocial/nfc/NdefHandler.html">mobisocial.nfc.NdefHandler</a>
+
+<div id="inherited-methods-mobisocial.nfc.NdefHandler">
+  <div id="inherited-methods-mobisocial.nfc.NdefHandler-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-mobisocial.nfc.NdefHandler-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/NdefHandler.html#handleNdef(android.nfc.NdefMessage[])">handleNdef</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage[]</a> ndefMessages)</nobr>
+        
+        <div class="jd-descrdiv">Callback issued after an NFC tag is read or an NDEF message is received
+ from a remote device.</div>
+  
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
 
 
 </div><!-- jd-descr (summary) -->
@@ -423,37 +545,6 @@
       </span>
       <span class="sympad">getForegroundNdefMessage</span>
       <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="handleNdef(android.nfc.NdefMessage)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-        abstract 
-         
-        void
-      </span>
-      <span class="sympad">handleNdef</span>
-      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</span>
     </h4>
       <div class="api-level">
         <div>

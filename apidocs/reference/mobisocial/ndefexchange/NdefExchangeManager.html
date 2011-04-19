@@ -55,7 +55,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  NdefTcpPushHandover.TcpDuplexSocket
+  NdefExchangeManager
 
 
 | EasyNfc
@@ -167,10 +167,10 @@
       <ul>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.html">NdefBluetoothPushHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.BluetoothDuplexSocket.html">NdefBluetoothPushHandover.BluetoothDuplexSocket</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeManager.html">NdefExchangeManager</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeManager.html">NdefExchangeManager</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefExchangeThread.html">NdefExchangeThread</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.html">NdefTcpPushHandover</a></li>
-          <li class="selected api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html">NdefTcpPushHandover.TcpDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html">NdefTcpPushHandover.TcpDuplexSocket</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/PendingNdefExchange.html">PendingNdefExchange</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/ndefexchange/StreamDuplexSocket.html">StreamDuplexSocket</a></li>
       </ul>
@@ -220,6 +220,8 @@
    
   
   
+   
+  
   
   
 
@@ -233,6 +235,17 @@
   
    
   
+  
+   
+  
+  
+  
+
+  
+   
+  
+  
+   
   
   
   
@@ -247,16 +260,16 @@ Summary:
 
 
 
-
-
-
-  <a href="#pubctors">Ctors</a>
+  <a href="#inhconstants">Inherited Constants</a>
   
 
 
 
-  &#124; <a href="#pubmethods">Methods</a>
+
+  &#124; <a href="#pubctors">Ctors</a>
   
+
+
 
 
 
@@ -284,22 +297,21 @@ Summary:
      
     
     class
-<h1>NdefTcpPushHandover.TcpDuplexSocket</h1>
+<h1>NdefExchangeManager</h1>
 
 
 
-  
-    extends <a href="http://developer.android.com/reference/java/lang/Object.html">Object</a><br/>
   
   
   
 
   
+    extends <a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a><br/>
   
-      implements 
-      
-        <a href="../../mobisocial/ndefexchange/DuplexSocket.html">DuplexSocket</a> 
-      
+  
+  
+
+  
   
   
 
@@ -314,7 +326,7 @@ Summary:
 
     <tr>
          	
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="http://developer.android.com/reference/java/lang/Object.html">java.lang.Object</a></td>
+        <td colspan="3" class="jd-inheritance-class-cell"><a href="http://developer.android.com/reference/java/lang/Object.html">java.lang.Object</a></td>
     </tr>
     
 
@@ -322,7 +334,17 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.ndefexchange.NdefTcpPushHandover.TcpDuplexSocket</td>
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html">mobisocial.nfc.ConnectionHandoverManager</a></td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+         	
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.ndefexchange.NdefExchangeManager</td>
     </tr>
     
 
@@ -378,6 +400,130 @@ Summary:
 
 
 
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="inhconstants" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Constants</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-mobisocial.nfc.ConnectionHandoverManager" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-mobisocial.nfc.ConnectionHandoverManager-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+<a href="../../mobisocial/nfc/ConnectionHandoverManager.html">mobisocial.nfc.ConnectionHandoverManager</a>
+<div id="inherited-constants-mobisocial.nfc.ConnectionHandoverManager">
+  <div id="inherited-constants-mobisocial.nfc.ConnectionHandoverManager-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-mobisocial.nfc.ConnectionHandoverManager-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#HANDOVER_PRIORITY">HANDOVER_PRIORITY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><a href="http://developer.android.com/reference/java/lang/String.html">String</a></td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#TAG">TAG</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><a href="http://developer.android.com/reference/java/lang/String.html">String</a></td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#USER_HANDOVER_PREFIX">USER_HANDOVER_PREFIX</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-mobisocial.nfc.NdefHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-mobisocial.nfc.NdefHandler-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+<a href="../../mobisocial/nfc/NdefHandler.html">mobisocial.nfc.NdefHandler</a>
+<div id="inherited-constants-mobisocial.nfc.NdefHandler">
+  <div id="inherited-constants-mobisocial.nfc.NdefHandler-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-mobisocial.nfc.NdefHandler-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/NdefHandler.html#NDEF_CONSUME">NDEF_CONSUME</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/NdefHandler.html#NDEF_PROPAGATE">NDEF_PROPAGATE</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-mobisocial.nfc.PrioritizedHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-mobisocial.nfc.PrioritizedHandler-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+<a href="../../mobisocial/nfc/PrioritizedHandler.html">mobisocial.nfc.PrioritizedHandler</a>
+<div id="inherited-constants-mobisocial.nfc.PrioritizedHandler">
+  <div id="inherited-constants-mobisocial.nfc.PrioritizedHandler-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-mobisocial.nfc.PrioritizedHandler-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../mobisocial/nfc/PrioritizedHandler.html#DEFAULT_PRIORITY">DEFAULT_PRIORITY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
+
+
 
 
 
@@ -401,7 +547,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html#NdefTcpPushHandover.TcpDuplexSocket(java.lang.String, int)">NdefTcpPushHandover.TcpDuplexSocket</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> host, int port)</nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefExchangeManager.html#NdefExchangeManager(mobisocial.ndefexchange.NdefExchangeContract)">NdefExchangeManager</a></span>(<a href="../../mobisocial/ndefexchange/NdefExchangeContract.html">NdefExchangeContract</a> ndefExchange)</nobr>
         
   </td></tr>
 
@@ -412,79 +558,6 @@ Summary:
 
 
 
-
-
-<!-- ========== METHOD SUMMARY =========== -->
-<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
-
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html#close()">close</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html#connect()">connect</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html#getInputStream()">getInputStream</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefTcpPushHandover.TcpDuplexSocket.html#getOutputStream()">getOutputStream</a></span>()</nobr>
-        
-  </td></tr>
-
-
-
-</table>
 
 
 
@@ -496,6 +569,169 @@ Summary:
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.nfc.ConnectionHandoverManager" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.nfc.ConnectionHandoverManager-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../mobisocial/nfc/ConnectionHandoverManager.html">mobisocial.nfc.ConnectionHandoverManager</a>
+
+<div id="inherited-methods-mobisocial.nfc.ConnectionHandoverManager">
+  <div id="inherited-methods-mobisocial.nfc.ConnectionHandoverManager-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-mobisocial.nfc.ConnectionHandoverManager-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#addConnectionHandover(mobisocial.nfc.ConnectionHandover)">addConnectionHandover</a></span>(<a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a> handover)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#clearConnectionHandovers()">clearConnectionHandovers</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#doHandover(android.nfc.NdefMessage)">doHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverRequest)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="http://developer.android.com/reference/java/util/Set.html">Set</a>&lt;<a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a>&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#getConnectionHandoverResponders()">getConnectionHandoverResponders</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Returns the (mutable) set of active connection handover
+ responders.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#getPriority()">getPriority</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#handleNdef(android.nfc.NdefMessage[])">handleNdef</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage[]</a> handoverRequest)</nobr>
+        
+        <div class="jd-descrdiv">Callback issued after an NFC tag is read or an NDEF message is received
+ from a remote device.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#isHandoverRequest(android.nfc.NdefMessage)">isHandoverRequest</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
+        
+        <div class="jd-descrdiv">Returns true if the given Ndef message contains a connection
+ handover request.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#removeConnectionHandover(mobisocial.nfc.ConnectionHandover)">removeConnectionHandover</a></span>(<a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a> handover)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -702,19 +938,19 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.io.Closeable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-java.io.Closeable-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.nfc.NdefHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.nfc.NdefHandler-trigger"
           src="../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  <a href="http://developer.android.com/reference/java/io/Closeable.html">java.io.Closeable</a>
+  <a href="../../mobisocial/nfc/NdefHandler.html">mobisocial.nfc.NdefHandler</a>
 
-<div id="inherited-methods-java.io.Closeable">
-  <div id="inherited-methods-java.io.Closeable-list"
+<div id="inherited-methods-mobisocial.nfc.NdefHandler">
+  <div id="inherited-methods-mobisocial.nfc.NdefHandler-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-java.io.Closeable-summary" style="display: none;">
+  <div id="inherited-methods-mobisocial.nfc.NdefHandler-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -727,11 +963,14 @@ From interface
             
             
             
-            void</nobr>
+            int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">close</span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/NdefHandler.html#handleNdef(android.nfc.NdefMessage[])">handleNdef</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage[]</a> ndefMessages)</nobr>
         
+        <div class="jd-descrdiv">Callback issued after an NFC tag is read or an NDEF message is received
+ from a remote device.</div>
+  
   </td></tr>
 
 
@@ -744,19 +983,19 @@ From interface
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.ndefexchange.DuplexSocket" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-mobisocial.ndefexchange.DuplexSocket-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.nfc.PrioritizedHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.nfc.PrioritizedHandler-trigger"
           src="../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  <a href="../../mobisocial/ndefexchange/DuplexSocket.html">mobisocial.ndefexchange.DuplexSocket</a>
+  <a href="../../mobisocial/nfc/PrioritizedHandler.html">mobisocial.nfc.PrioritizedHandler</a>
 
-<div id="inherited-methods-mobisocial.ndefexchange.DuplexSocket">
-  <div id="inherited-methods-mobisocial.ndefexchange.DuplexSocket-list"
+<div id="inherited-methods-mobisocial.nfc.PrioritizedHandler">
+  <div id="inherited-methods-mobisocial.nfc.PrioritizedHandler-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-mobisocial.ndefexchange.DuplexSocket-summary" style="display: none;">
+  <div id="inherited-methods-mobisocial.nfc.PrioritizedHandler-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -769,42 +1008,10 @@ From interface
             
             
             
-            void</nobr>
+            int</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/DuplexSocket.html#connect()">connect</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/DuplexSocket.html#getInputStream()">getInputStream</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/DuplexSocket.html#getOutputStream()">getOutputStream</a></span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/PrioritizedHandler.html#getPriority()">getPriority</a></span>()</nobr>
         
   </td></tr>
 
@@ -849,7 +1056,7 @@ From interface
 
 
 
-<A NAME="NdefTcpPushHandover.TcpDuplexSocket(java.lang.String, int)"></A>
+<A NAME="NdefExchangeManager(mobisocial.ndefexchange.NdefExchangeContract)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -861,8 +1068,8 @@ From interface
          
         
       </span>
-      <span class="sympad">NdefTcpPushHandover.TcpDuplexSocket</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> host, int port)</span>
+      <span class="sympad">NdefExchangeManager</span>
+      <span class="normal">(<a href="../../mobisocial/ndefexchange/NdefExchangeContract.html">NdefExchangeContract</a> ndefExchange)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -875,15 +1082,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
 
     </div>
 </div>
@@ -899,171 +1097,6 @@ From interface
 
 <!-- ========= METHOD DETAIL ======== -->
 <!-- Public methdos -->
-
-<h2>Public Methods</h2>
-
-
-
-<A NAME="close()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">close</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="connect()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">connect</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="getInputStream()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a>
-      </span>
-      <span class="sympad">getInputStream</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="getOutputStream()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a>
-      </span>
-      <span class="sympad">getOutputStream</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 
 
 

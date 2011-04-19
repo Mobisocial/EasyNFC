@@ -590,6 +590,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<implements name="mobisocial.nfc.NdefHandler">
+</implements>
 <method name="getForegroundNdefMessage"
  return="android.nfc.NdefMessage"
  abstract="true"
@@ -601,20 +603,26 @@
  visibility="public"
 >
 </method>
-<method name="handleNdef"
- return="void"
- abstract="true"
- native="false"
- synchronized="false"
+</interface>
+<class name="NdefExchangeManager"
+ extends="mobisocial.nfc.ConnectionHandoverManager"
+ abstract="false"
  static="false"
  final="false"
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="ndef" type="android.nfc.NdefMessage">
+<constructor name="NdefExchangeManager"
+ type="mobisocial.ndefexchange.NdefExchangeManager"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefExchange" type="mobisocial.ndefexchange.NdefExchangeContract">
 </parameter>
-</method>
-</interface>
+</constructor>
+</class>
 <class name="NdefExchangeThread"
  extends="java.lang.Thread"
  abstract="false"
@@ -814,7 +822,7 @@
 >
 <parameter name="handover" type="android.nfc.NdefMessage">
 </parameter>
-<parameter name="nfcInterface" type="mobisocial.ndefexchange.NdefExchangeContract">
+<parameter name="ndefHandler" type="mobisocial.nfc.NdefHandler">
 </parameter>
 </constructor>
 <method name="exchangeNdef"
@@ -968,8 +976,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="nfc" type="mobisocial.ndefexchange.NdefExchangeContract">
-</parameter>
 </constructor>
 <method name="addConnectionHandover"
  return="void"
@@ -1006,8 +1012,6 @@
  visibility="public"
 >
 <parameter name="handoverRequest" type="android.nfc.NdefMessage">
-</parameter>
-<parameter name="outboundNdef" type="android.nfc.NdefMessage">
 </parameter>
 </method>
 <method name="getConnectionHandoverResponders"
@@ -1457,19 +1461,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-</method>
-<method name="isHandoverRequest"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="ndef" type="android.nfc.NdefMessage">
-</parameter>
 </method>
 <method name="isNativeNfcAvailable"
  return="boolean"
