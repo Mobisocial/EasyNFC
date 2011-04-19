@@ -19,7 +19,6 @@ package mobisocial.nfc;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -37,13 +36,13 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * <p>This class acts as an abstraction layer for Android's Nfc stack.
@@ -287,32 +286,6 @@ public class Nfc {
 	public boolean isConnectionHandoverEnabled() {
 		return mHandoverEnabled;
 	}
-	
-	/**
-	 * Returns true if the given Ndef message contains a connection
-	 * handover request.
-	 */
-	public static boolean isHandoverRequest(NdefMessage ndef) {
-		NdefRecord[] records = (ndef).getRecords();
-
-		// NFC Forum specification:
-		if (records.length >= 3
-			&& records[0].getTnf() == NdefRecord.TNF_WELL_KNOWN
-			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST)) {
-			return true;
-		}
-
-		// User-space handover:
-		// TODO: Support uri profile
-		if (records.length > 0
-				&& records[0].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
-				&& records[0].getPayload().length >= ConnectionHandoverManager.USER_HANDOVER_PREFIX.length()) {
-			String scheme = new String(records[0].getPayload(), 0,
-					ConnectionHandoverManager.USER_HANDOVER_PREFIX.length());
-			return ConnectionHandoverManager.USER_HANDOVER_PREFIX.equals(scheme);
-		}
-		return false;
-	}
 
 	/**
 	 * Sets a callback to call when an Nfc tag is written.
@@ -419,13 +392,14 @@ public class Nfc {
 	 * Call this method in your Activity's onResume() method body.
 	 */
 	public void onResume(Activity activity) {
+		// refresh mActivity
+		mActivity = activity;
+
 		mState = STATE_RESUMING;
 		if (mNfcAdapter == null) {
 			installNfcHandoverHandler();
 			enableNdefPush();
 		} else {
-			// refresh mActivity
-			mActivity = activity;
 			synchronized(this) {
 				if (mInterfaceMode != MODE_PASSTHROUGH) {
 					installNfcHandler();
@@ -442,13 +416,14 @@ public class Nfc {
 	 * Call this method in your Activity's onPause() method body.
 	 */
 	public void onPause(Activity activity) {
+		// refresh mActivity
+		mActivity = activity;
+
 		mState = STATE_PAUSING;
 		if (mNfcAdapter == null) {
 			uninstallNfcHandoverHandler();
 			notifyRemoteNfcInteface(null);
 		} else {
-			// refresh mActivity
-			mActivity = activity;
 			synchronized(this) {
 				mNfcAdapter.disableForegroundDispatch(mActivity);
 				mNfcAdapter.disableForegroundNdefPush(mActivity);
@@ -694,4 +669,13 @@ public class Nfc {
 			return 0;
 		}
 	};
+
+	private void toast(final String text) {
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(mActivity, text, Toast.LENGTH_LONG).show();
+			}
+		});
+	}
 }

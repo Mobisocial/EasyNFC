@@ -27,9 +27,11 @@ import mobisocial.ndefexchange.NdefBluetoothPushHandover;
 import mobisocial.ndefexchange.NdefExchangeContract;
 import mobisocial.ndefexchange.NdefTcpPushHandover;
 
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandler {
 	public static final String USER_HANDOVER_PREFIX = "ndef://wkt:hr/";
@@ -75,6 +77,12 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 			return NDEF_PROPAGATE;
 		}
 
+		if (isUserspaceHandoverRequest(handoverRequest)) {
+			// TODO: Move to NdefFactory or similar
+			Uri uri = Uri.parse(new String(handoverRequest.getRecords()[0].getPayload()));
+			handoverRequest = NdefFactory.fromNdefUri(uri);
+		}
+
 		NdefRecord[] records = handoverRequest.getRecords();
 		for (int i = 2; i < records.length; i++) {
 			Iterator<ConnectionHandover> handovers = mmConnectionHandovers.iterator();
@@ -82,6 +90,7 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 				ConnectionHandover handover = handovers.next();
 				if (handover.supportsRequest(records[i])) {
 					try {
+						Log.d(TAG, "Attempting handover " + handover);
 						handover.doConnectionHandover(handoverRequest, i);
 						return NDEF_CONSUME;
 					} catch (IOException e) {
@@ -114,8 +123,13 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 			return true;
 		}
 
-		// User-space handover:
-		// TODO: Support uri profile
+		return isUserspaceHandoverRequest(ndef);
+	}
+
+	// User-space handover:
+	// TODO: Support uri profile
+	private static boolean isUserspaceHandoverRequest(NdefMessage ndef) {
+		NdefRecord[] records = (ndef).getRecords();
 		if (records.length > 0
 				&& records[0].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
 				&& records[0].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
