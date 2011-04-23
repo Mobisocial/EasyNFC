@@ -41,6 +41,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
+import android.os.Build;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
@@ -107,7 +108,7 @@ import android.widget.Toast;
  * </p>
  */
 public class Nfc {
-	private static final String TAG = "libhotpotato";
+	private static final String TAG = "easynfc";
 
 	private Activity mActivity;
 	private NfcAdapter mNfcAdapter;
@@ -167,7 +168,7 @@ public class Nfc {
 		mIntentFilters = intentFilters;
 		mTechLists = techLists;
 
-		if (PackageManager.PERMISSION_GRANTED !=
+		if (Build.VERSION.SDK_INT >= NfcWrapper.SDK_NDEF_DEFINED  && PackageManager.PERMISSION_GRANTED !=
 			mActivity.checkCallingOrSelfPermission("android.permission.NFC")) {
 
 			throw new SecurityException("Application must hold android.permission.NFC to use libhotpotato.");
