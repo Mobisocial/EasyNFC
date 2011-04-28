@@ -45,8 +45,10 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="records" type="android.nfc.NdefRecord[]">
+<parameter name="data" type="byte[]">
 </parameter>
+<exception name="FormatException" type="android.nfc.FormatException">
+</exception>
 </constructor>
 <constructor name="NdefMessage"
  type="android.nfc.NdefMessage"
@@ -55,10 +57,8 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="data" type="byte[]">
+<parameter name="records" type="android.nfc.NdefRecord[]">
 </parameter>
-<exception name="FormatException" type="android.nfc.FormatException">
-</exception>
 </constructor>
 <method name="describeContents"
  return="int"
@@ -136,18 +136,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="data" type="byte[]">
-</parameter>
-<exception name="FormatException" type="android.nfc.FormatException">
-</exception>
-</constructor>
-<constructor name="NdefRecord"
- type="android.nfc.NdefRecord"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
 <parameter name="tnf" type="short">
 </parameter>
 <parameter name="type" type="byte[]">
@@ -156,6 +144,18 @@
 </parameter>
 <parameter name="payload" type="byte[]">
 </parameter>
+</constructor>
+<constructor name="NdefRecord"
+ type="android.nfc.NdefRecord"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="data" type="byte[]">
+</parameter>
+<exception name="FormatException" type="android.nfc.FormatException">
+</exception>
 </constructor>
 <method name="describeContents"
  return="int"
@@ -1204,7 +1204,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="uri" type="java.lang.String">
+<parameter name="uri" type="java.net.URI">
 </parameter>
 </method>
 <method name="fromUri"
@@ -1217,7 +1217,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="uri" type="java.net.URI">
+<parameter name="uri" type="java.lang.String">
 </parameter>
 </method>
 <method name="fromUrl"
@@ -1318,6 +1318,10 @@
 >
 <parameter name="activity" type="android.app.Activity">
 </parameter>
+<parameter name="intentFilters" type="android.content.IntentFilter[]">
+</parameter>
+<parameter name="techLists" type="java.lang.String[][]">
+</parameter>
 </constructor>
 <constructor name="Nfc"
  type="mobisocial.nfc.Nfc"
@@ -1328,11 +1332,20 @@
 >
 <parameter name="activity" type="android.app.Activity">
 </parameter>
-<parameter name="intentFilters" type="android.content.IntentFilter[]">
-</parameter>
-<parameter name="techLists" type="java.lang.String[][]">
-</parameter>
 </constructor>
+<method name="addNdefHandler"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handler" type="mobisocial.nfc.NdefHandler">
+</parameter>
+</method>
 <method name="addNdefHandler"
  return="void"
  abstract="false"
@@ -1345,19 +1358,6 @@
 >
 <parameter name="priority" type="java.lang.Integer">
 </parameter>
-<parameter name="handler" type="mobisocial.nfc.NdefHandler">
-</parameter>
-</method>
-<method name="addNdefHandler"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
 <parameter name="handler" type="mobisocial.nfc.NdefHandler">
 </parameter>
 </method>
@@ -1537,6 +1537,19 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<parameter name="ndefMessage" type="android.nfc.NdefMessage">
+</parameter>
+</method>
+<method name="share"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
 <parameter name="uri" type="android.net.Uri">
 </parameter>
 </method>
@@ -1550,7 +1563,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="ndefMessage" type="android.nfc.NdefMessage">
+<parameter name="url" type="java.net.URL">
 </parameter>
 </method>
 <method name="share"
@@ -1566,19 +1579,6 @@
 <parameter name="mimeType" type="java.lang.String">
 </parameter>
 <parameter name="data" type="byte[]">
-</parameter>
-</method>
-<method name="share"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="url" type="java.net.URL">
 </parameter>
 </method>
 <field name="ACTION_HANDLE_NDEF"

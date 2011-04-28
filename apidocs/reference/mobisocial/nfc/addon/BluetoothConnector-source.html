@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Javadoc API documentation for EasyNfc." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../../../favicon.ico" />
+<title>
+
+  BluetoothConnector
+
+
+| EasyNfc
+
+</title>
+<link href="../../../../assets/doclava-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../../assets/customizations.css" rel="stylesheet" type="text/css" />
+<script src="../../../../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../assets/doclava-developer-docs.js" type="text/javascript"></script>
+<script src="../../../../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../../../", "../../../../assets/");
+</script>
+<script src="../../../../assets/doclava-developer-reference.js" type="text/javascript"></script>
+<script src="../../../../assets/navtree_data.js" type="text/javascript"></script>
+<script src="../../../../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">EasyNfc</span>
+    
+    </div>
+    <div id="headerRight">
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../../../')"
+                      onkeyup="return search_changed(event, false, '../../../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links"><nobr>
+                <a href="../../../packages.html"  >Package Index</a> | 
+                <a href="../../../classes.html" >Class Index</a></nobr>
+              </div>
+              <ul>
+                
+    <li class="api apilevel-">
+  <a href="../../../android/nfc/package-summary.html">android.nfc</a></li>
+    <li class="api apilevel-">
+  <a href="../../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
+    <li class="api apilevel-">
+  <a href="../../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
+    <li class="selected api apilevel-">
+  <a href="../../../mobisocial/nfc/addon/package-summary.html">mobisocial.nfc.addon</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+            <ul>
+              
+    <li><h2>Interfaces</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a></li>
+      </ul>
+    </li>
+              
+    <li><h2>Classes</h2>
+      <ul>
+          <li class="selected api apilevel-"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.html">BluetoothConnector</a></li>
+      </ul>
+    </li>
+              
+              
+              
+              
+            </ul><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links"><nobr>
+            <a href="../../../packages.html"  >Package Index</a> | 
+            <a href="../../../classes.html" >Class Index</a></nobr>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("../../../");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="api-info-block">
+
+
+
+  
+   
+  
+  
+  
+  
+
+
+<div class="sum-details-links">
+
+<div>
+<a href="BluetoothConnector.html">View Documentation</a>
+</div>
+
+
+</div><!-- end sum-details-links -->
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF CLASS DATA ======== -->
+
+<div id="jd-header">
+    public
+     
+     
+    abstract
+    class
+<h1>BluetoothConnector</h1>
+
+
+
+  
+    extends <a href="http://developer.android.com/reference/java/lang/Object.html">Object</a><br/>
+  
+  
+  
+
+  
+  
+  
+
+
+</div><!-- end header -->
+<div id="jd-content">
+  <pre class="prettyprint">
+/*
+ * Copyright (C) 2011 Stanford University MobiSocial Lab
+ * http://mobisocial.stanford.edu
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package mobisocial.nfc.addon;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URI;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.UUID;
+
+import mobisocial.nfc.ConnectionHandover;
+import mobisocial.nfc.Nfc;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
+import android.util.Log;
+
+/**
+ * Allows two devices to establish a Bluetooth connection after exchanging an NFC
+ * Connection Handover Request. The socket is returned via callback. Example usage:
+ * 
+ * &lt;pre class="prettyprint"&gt;
+ * MyActivity extends Activity {
+ *   Nfc mNfc;
+ *   
+ *   BluetoothConnector.OnConnectedListener mBtListener =
+ *           new BluetoothConnector.OnConnectedListener() {
+ *       
+ *       public void onConnectionEstablished(BluetoothSocket socket, 
+ *               boolean isServer) {
+ *          Log.d(TAG, "Connected over Bluetooth as " +
+ *              (isServer ? "server" : "client"));
+ *       }
+ *   }
+ *   
+ *   public void onCreate(Bundle bundle) {
+ *     super.onCreate(bundle);
+ *     mNfc = new Nfc(this);
+ *     BluetoothConnector.prepare(mNfc, mBtListener);
+ *   }
+ *
+ *   public void onResume() {
+ *     super.onResume();
+ *     mNfc.onResume(this);
+ *   }
+ *   
+ *   public void onPause() {
+ *     super.onPause();
+ *     mNfc.onPause();
+ *   }
+ *   
+ *   public void onNewInent(Intent intent) {
+ *     if (mNfc.onNewIntent(this, intent)) return;
+ *   }
+ * }
+ * &lt;/pre&gt;
+ *
+ */
+public abstract class BluetoothConnector {
+	private static final String SERVICE_NAME = "NfcBtHandover";
+	private static final String BT_SOCKET_SCHEMA = "btsocket://";
+	private static final String TAG = "btconnect";
+
+	/**
+	 * Configures the {@link Nfc} interface to set up a bluetooth socket with
+	 * another device. The method both sets the foreground ndef message and
+	 * registers an {@link NdefHandler} to look for incoming pairing requests.
+	 */
+	public static void prepare(Nfc nfc, OnConnectedListener conn) {
+		BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
+		nfc.getConnectionHandoverManager().addConnectionHandover(btConnecting);
+		nfc.share(btConnecting.getHandoverRequestMessage());
+	}
+
+	private static class BluetoothConnecting implements ConnectionHandover {
+		private final byte[] mCollisionResolution;
+		private final OnConnectedListener mmBtConnected;
+		private final BluetoothAdapter mBluetoothAdapter;
+		private final UUID mServiceUuid;
+
+		public BluetoothConnecting(OnConnectedListener onBtConnected) {
+			mmBtConnected = onBtConnected;
+			mServiceUuid = UUID.randomUUID();
+			mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+			if (mBluetoothAdapter == null) {
+				throw new IllegalStateException("No Bluetooth adapter found.");
+			}
+			Random random = new Random();
+			mCollisionResolution = new byte[2];
+			random.nextBytes(mCollisionResolution);
+		}
+
+		private NdefMessage getHandoverRequestMessage() {
+			NdefRecord[] records = new NdefRecord[3];
+
+			/* Handover Request */
+			byte[] version = new byte[] { (0x1 &lt;&lt; 4) | (0x2) };
+			records[0] = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+					NdefRecord.RTD_HANDOVER_REQUEST, new byte[0], version);
+
+			/* Collision Resolution */
+			records[1] = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, new byte[] {
+					0x63, 0x72 }, new byte[0], mCollisionResolution);
+
+			/* Handover record */
+			String btRequest = BT_SOCKET_SCHEMA
+					+ mBluetoothAdapter.getAddress() + "/" + mServiceUuid;
+			records[2] = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI,
+					NdefRecord.RTD_URI, new byte[0], btRequest.getBytes());
+
+			NdefMessage ndef = new NdefMessage(records);
+			return ndef;
+		}
+
+		@Override
+		public void doConnectionHandover(NdefMessage handoverRequest, int record) throws IOException {
+
+			byte[] remoteCollision = handoverRequest.getRecords()[1]
+					.getPayload();
+			if (remoteCollision[0] == mCollisionResolution[0]
+					&amp;&amp; remoteCollision[1] == mCollisionResolution[1]) {
+				return; // They'll have to try again.
+			}
+			boolean amServer = (remoteCollision[0] &lt; mCollisionResolution[0] || (remoteCollision[0] == mCollisionResolution[0] &amp;&amp; remoteCollision[1] &lt; mCollisionResolution[1]));
+
+			if (amServer) {
+				new AcceptThread().start();
+			} else {
+				URI uri = URI.create(new String(handoverRequest.getRecords()[record].getPayload()));
+				UUID serviceUuid = UUID.fromString(uri.getPath().substring(1));
+				BluetoothDevice remoteDevice = mBluetoothAdapter.getRemoteDevice(uri.getAuthority());
+				new ConnectThread(remoteDevice, serviceUuid).start();
+			}
+		}
+
+		@Override
+		public boolean supportsRequest(NdefRecord handoverRequest) {
+			if (handoverRequest.getTnf() != NdefRecord.TNF_ABSOLUTE_URI
+					|| !Arrays.equals(handoverRequest.getType(),
+							NdefRecord.RTD_URI)) {
+				return false;
+			}
+
+			String uriString = new String(handoverRequest.getPayload());
+			if (uriString.startsWith(BT_SOCKET_SCHEMA)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		private class ConnectThread extends Thread {
+			private final BluetoothSocket mmSocket;
+			private final BluetoothDevice mmDevice;
+
+			public ConnectThread(BluetoothDevice device, UUID uuid) {
+				mmDevice = device;
+
+				BluetoothSocket tmp = null;
+				try {
+					tmp = createBluetoothSocket(mmDevice, uuid);
+				} catch (IOException e) {
+					Log.e(TAG, "create() failed", e);
+				}
+				mmSocket = tmp;
+			}
+
+			public void run() {
+				setName("ConnectThread");
+
+				try {
+					mmSocket.connect();
+				} catch (IOException e) {
+					Log.e(TAG, "failed to connect to bluetooth socket", e);
+					try {
+						mmSocket.close();
+					} catch (IOException e2) {
+						Log.e(TAG, "unable to close() socket during connection failure", e2);
+					}
+
+					return;
+				}
+
+				mmBtConnected.onConnectionEstablished(mmSocket, false);
+			}
+		}
+
+		private class AcceptThread extends Thread {
+			// The local server socket
+			private final BluetoothServerSocket mmServerSocket;
+
+			public AcceptThread() {
+				BluetoothServerSocket tmp = null;
+
+				// Create a new listening server socket
+				try {
+					tmp = getListeningBluetoothServerSocket();
+				} catch (IOException e) {
+					Log.e(TAG, "listen() failed", e);
+				}
+				mmServerSocket = tmp;
+			}
+
+			public void run() {
+				setName("AcceptThread");
+				BluetoothSocket socket = null;
+
+				// Wait for one connection.
+				try {
+					// This is a blocking call and will only return on a
+					// successful connection or an exception
+					socket = mmServerSocket.accept();
+				} catch (IOException e) {
+					Log.e(TAG, "accept() failed", e);
+					return;
+				}
+
+				if (socket == null) {
+					return;
+				}
+
+				try {
+					mmServerSocket.close();
+				} catch (IOException e) {}
+				mmBtConnected.onConnectionEstablished(socket, true);
+			}
+		}
+
+		private BluetoothServerSocket getListeningBluetoothServerSocket()
+				throws IOException {
+			BluetoothServerSocket tmp;
+			if (VERSION.SDK_INT &lt; VERSION_CODES.GINGERBREAD_MR1) {
+				tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(
+						SERVICE_NAME, mServiceUuid);
+				Log.d(TAG, "Using secure bluetooth server socket");
+			} else {
+				try {
+					// compatibility with pre SDK 10 devices
+					Method listener = mBluetoothAdapter.getClass().getMethod(
+							"listenUsingInsecureRfcommWithServiceRecord",
+							String.class, UUID.class);
+					tmp = (BluetoothServerSocket) listener.invoke(
+							mBluetoothAdapter, SERVICE_NAME, mServiceUuid);
+					Log.d(TAG, "Using insecure bluetooth server socket");
+				} catch (NoSuchMethodException e) {
+					Log.wtf(TAG,
+							"listenUsingInsecureRfcommWithServiceRecord not found");
+					throw new IOException(e);
+				} catch (InvocationTargetException e) {
+					Log.wtf(TAG,
+							"listenUsingInsecureRfcommWithServiceRecord not available on mBtAdapter");
+					throw new IOException(e);
+				} catch (IllegalAccessException e) {
+					Log.wtf(TAG,
+							"listenUsingInsecureRfcommWithServiceRecord not available on mBtAdapter");
+					throw new IOException(e);
+				}
+			}
+			return tmp;
+		}
+
+		private BluetoothSocket createBluetoothSocket(BluetoothDevice device,
+				UUID uuid) throws IOException {
+
+			BluetoothSocket tmp;
+			if (VERSION.SDK_INT &lt; VERSION_CODES.GINGERBREAD_MR1) {
+				tmp = device.createRfcommSocketToServiceRecord(uuid);
+				Log.d(TAG, "Using secure bluetooth socket");
+			} else {
+				try {
+					// compatibility with pre SDK 10 devices
+					Method listener = device.getClass().getMethod(
+							"createInsecureRfcommSocketToServiceRecord",
+							UUID.class);
+					tmp = (BluetoothSocket) listener.invoke(device, uuid);
+					Log.d(TAG, "Using insecure bluetooth socket");
+				} catch (NoSuchMethodException e) {
+					Log.wtf(TAG,
+							"createInsecureRfcommSocketToServiceRecord not found");
+					throw new IOException(e);
+				} catch (InvocationTargetException e) {
+					Log.wtf(TAG,
+							"createInsecureRfcommSocketToServiceRecord not available on mBtAdapter");
+					throw new IOException(e);
+				} catch (IllegalAccessException e) {
+					Log.wtf(TAG,
+							"createInsecureRfcommSocketToServiceRecord not available on mBtAdapter");
+					throw new IOException(e);
+				}
+			}
+			return tmp;
+		}
+	}
+
+	/**
+	 * A callback used when a Bluetooth connection has been established.
+	 * 
+	 */
+	public interface OnConnectedListener {
+		/**
+		 * The method called when a Bluetooth connection has been established.
+		 * @param socket The connected Bluetooth socket.
+		 * @param isServer True if this connection is the "host" of this connection.
+		 * Useful in establishing an asymmetric relationship between otherwise
+		 * symmetric devices.
+		 */
+		public void onConnectionEstablished(BluetoothSocket socket, boolean isServer);
+	}
+}
+
+  </pre>
+</div>
+<div id="footer">
+Generated by <a href="http://code.google.com/p/doclava/">Doclava</a>.
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize doclava-developer-docs.js */
+</script>
+
+</body>
+</html>

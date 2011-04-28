@@ -48,10 +48,12 @@
 
 
 
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Javadoc API documentation for EasyNfc." />
+
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
@@ -61,16 +63,16 @@
 | EasyNfc
 
 </title>
-<link href="../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../assets/doclava-developer-docs.css" rel="stylesheet" type="text/css" />
 <link href="../../../assets/customizations.css" rel="stylesheet" type="text/css" />
 <script src="../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
-<script src="../../../assets/android-developer-docs.js" type="text/javascript"></script>
+<script src="../../../assets/doclava-developer-docs.js" type="text/javascript"></script>
 <script src="../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
   setToRoot("../../", "../../../assets/");
 </script>
-<script src="../../../assets/android-developer-reference.js" type="text/javascript"></script>
+<script src="../../../assets/doclava-developer-reference.js" type="text/javascript"></script>
 <script src="../../../assets/navtree_data.js" type="text/javascript"></script>
 <script src="../../../assets/customizations.js" type="text/javascript"></script>
 <noscript>
@@ -222,6 +224,11 @@
 
 
 <div class="sum-details-links">
+
+<div>
+<a href="Nfc-source.html">View Source</a>
+</div>
+
 
 Summary:
 
@@ -515,7 +522,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#Nfc(android.app.Activity)">Nfc</a></span>(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#Nfc(android.app.Activity, android.content.IntentFilter[], java.lang.String[][])">Nfc</a></span>(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity, <a href="http://developer.android.com/reference/android/content/IntentFilter.html">IntentFilter[]</a> intentFilters, <a href="http://developer.android.com/reference/java/lang/String.html">String[][]</a> techLists)</nobr>
         
   </td></tr>
 
@@ -531,7 +538,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#Nfc(android.app.Activity, android.content.IntentFilter[], java.lang.String[][])">Nfc</a></span>(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity, <a href="http://developer.android.com/reference/android/content/IntentFilter.html">IntentFilter[]</a> intentFilters, <a href="http://developer.android.com/reference/java/lang/String.html">String[][]</a> techLists)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#Nfc(android.app.Activity)">Nfc</a></span>(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity)</nobr>
         
   </td></tr>
 
@@ -877,7 +884,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#share(java.lang.String, byte[])">share</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#share(java.net.URL)">share</a></span>(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</nobr>
         
   </td></tr>
 
@@ -893,7 +900,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#share(java.net.URL)">share</a></span>(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/Nfc.html#share(java.lang.String, byte[])">share</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</nobr>
         
   </td></tr>
 
@@ -1087,7 +1094,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0)</nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
         
   </td></tr>
 
@@ -1103,7 +1110,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
         
   </td></tr>
 
@@ -1366,7 +1373,7 @@ From class
 
 
 
-<A NAME="Nfc(android.app.Activity)"></A>
+<A NAME="Nfc(android.app.Activity, android.content.IntentFilter[], java.lang.String[][])"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1379,7 +1386,7 @@ From class
         
       </span>
       <span class="sympad">Nfc</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity)</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity, <a href="http://developer.android.com/reference/android/content/IntentFilter.html">IntentFilter[]</a> intentFilters, <a href="http://developer.android.com/reference/java/lang/String.html">String[][]</a> techLists)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1397,7 +1404,7 @@ From class
 </div>
 
 
-<A NAME="Nfc(android.app.Activity, android.content.IntentFilter[], java.lang.String[][])"></A>
+<A NAME="Nfc(android.app.Activity)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1410,7 +1417,7 @@ From class
         
       </span>
       <span class="sympad">Nfc</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity, <a href="http://developer.android.com/reference/android/content/IntentFilter.html">IntentFilter[]</a> intentFilters, <a href="http://developer.android.com/reference/java/lang/String.html">String[][]</a> techLists)</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/android/app/Activity.html">Activity</a> activity)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2042,7 +2049,7 @@ From class
 </div>
 
 
-<A NAME="share(java.lang.String, byte[])"></A>
+<A NAME="share(java.net.URL)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2055,7 +2062,7 @@ From class
         void
       </span>
       <span class="sympad">share</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2073,7 +2080,7 @@ From class
 </div>
 
 
-<A NAME="share(java.net.URL)"></A>
+<A NAME="share(java.lang.String, byte[])"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2086,7 +2093,7 @@ From class
         void
       </span>
       <span class="sympad">share</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/net/URL.html">URL</a> url)</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> mimeType, byte[] data)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2125,7 +2132,7 @@ Generated by <a href="http://code.google.com/p/doclava/">Doclava</a>.
 </div> <!-- end body-content --> 
 
 <script type="text/javascript">
-init(); /* initialize android-developer-docs.js */
+init(); /* initialize doclava-developer-docs.js */
 </script>
 
 </body>

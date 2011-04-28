@@ -48,10 +48,12 @@
 
 
 
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Javadoc API documentation for EasyNfc." />
+
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
@@ -61,16 +63,16 @@
 | EasyNfc
 
 </title>
-<link href="../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../assets/doclava-developer-docs.css" rel="stylesheet" type="text/css" />
 <link href="../../../assets/customizations.css" rel="stylesheet" type="text/css" />
 <script src="../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
-<script src="../../../assets/android-developer-docs.js" type="text/javascript"></script>
+<script src="../../../assets/doclava-developer-docs.js" type="text/javascript"></script>
 <script src="../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
   setToRoot("../../", "../../../assets/");
 </script>
-<script src="../../../assets/android-developer-reference.js" type="text/javascript"></script>
+<script src="../../../assets/doclava-developer-reference.js" type="text/javascript"></script>
 <script src="../../../assets/navtree_data.js" type="text/javascript"></script>
 <script src="../../../assets/customizations.js" type="text/javascript"></script>
 <noscript>
@@ -228,19 +230,24 @@
 
 <div class="sum-details-links">
 
+<div>
+<a href="NdefMessage-source.html">View Source</a>
+</div>
+
+
 Summary:
 
 
 
 
 
-  <a href="#constants">Constants</a>
+
+  <a href="#inhconstants">Inherited Constants</a>
   
 
 
-  &#124; <a href="#inhconstants">Inherited Constants</a>
+  &#124; <a href="#lfields">Fields</a>
   
-
 
 
 
@@ -384,22 +391,6 @@ Summary:
 
 
 
-<!-- =========== ENUM CONSTANT SUMMARY =========== -->
-<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
-
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><a href="http://developer.android.com/reference/android/os/Parcelable.Creator.html">Creator</a>&lt;<a href="../../android/nfc/NdefMessage.html">NdefMessage</a>&gt;</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefMessage.html#CREATOR">CREATOR</a></td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-
-</table>
-
-
 
 
 
@@ -453,6 +444,26 @@ android.os.Parcelable
 
 
 
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          <a href="http://developer.android.com/reference/android/os/Parcelable.Creator.html">Creator</a>&lt;<a href="../../android/nfc/NdefMessage.html">NdefMessage</a>&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefMessage.html#CREATOR">CREATOR</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+
+</table>
+
+
 
 
 
@@ -474,9 +485,9 @@ android.os.Parcelable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../android/nfc/NdefMessage.html#NdefMessage(android.nfc.NdefRecord[])">NdefMessage</a></span>(<a href="../../android/nfc/NdefRecord.html">NdefRecord[]</a> records)</nobr>
+        <span class="sympad"><a href="../../android/nfc/NdefMessage.html#NdefMessage(byte[])">NdefMessage</a></span>(byte[] data)</nobr>
         
-        <div class="jd-descrdiv">Create an NDEF message from NDEF records.</div>
+        <div class="jd-descrdiv">Create an NDEF message from raw bytes.</div>
   
   </td></tr>
 
@@ -492,9 +503,9 @@ android.os.Parcelable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../android/nfc/NdefMessage.html#NdefMessage(byte[])">NdefMessage</a></span>(byte[] data)</nobr>
+        <span class="sympad"><a href="../../android/nfc/NdefMessage.html#NdefMessage(android.nfc.NdefRecord[])">NdefMessage</a></span>(<a href="../../android/nfc/NdefRecord.html">NdefRecord[]</a> records)</nobr>
         
-        <div class="jd-descrdiv">Create an NDEF message from raw bytes.</div>
+        <div class="jd-descrdiv">Create an NDEF message from NDEF records.</div>
   
   </td></tr>
 
@@ -769,7 +780,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0)</nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
         
   </td></tr>
 
@@ -785,7 +796,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
         
   </td></tr>
 
@@ -877,8 +888,11 @@ From interface
 <!-- Constants -->
 
 
-<!-- ========= ENUM CONSTANTS DETAIL ======== -->
-<h2>Constants</h2>
+<!-- Fields -->
+
+
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
 
 
 
@@ -921,54 +935,12 @@ From interface
 
 
 
-<!-- Fields -->
-
-
 <!-- Public ctors -->
 
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <h2>Public Constructors</h2>
 
-
-
-<A NAME="NdefMessage(android.nfc.NdefRecord[])"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        
-      </span>
-      <span class="sympad">NdefMessage</span>
-      <span class="normal">(<a href="../../android/nfc/NdefRecord.html">NdefRecord[]</a> records)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html#NdefMessage(android.nfc.NdefRecord[])">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Create an NDEF message from NDEF records.
-</p></div>
-
-    </div>
-</div>
 
 
 <A NAME="NdefMessage(byte[])"></A>
@@ -1016,6 +988,45 @@ From interface
         </tr>
       </table>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="NdefMessage(android.nfc.NdefRecord[])"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        
+      </span>
+      <span class="sympad">NdefMessage</span>
+      <span class="normal">(<a href="../../android/nfc/NdefRecord.html">NdefRecord[]</a> records)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefMessage.html#NdefMessage(android.nfc.NdefRecord[])">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create an NDEF message from NDEF records.
+</p></div>
 
     </div>
 </div>
@@ -1215,7 +1226,7 @@ Generated by <a href="http://code.google.com/p/doclava/">Doclava</a>.
 </div> <!-- end body-content --> 
 
 <script type="text/javascript">
-init(); /* initialize android-developer-docs.js */
+init(); /* initialize doclava-developer-docs.js */
 </script>
 
 </body>

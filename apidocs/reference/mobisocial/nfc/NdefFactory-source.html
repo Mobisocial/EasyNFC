@@ -57,7 +57,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  PrioritizedHandler
+  NdefFactory
 
 
 | EasyNfc
@@ -163,14 +163,14 @@
           <li class="api apilevel-"><a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.OnTagWriteListener.html">Nfc.OnTagWriteListener</a></li>
-          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/PrioritizedHandler.html">PrioritizedHandler</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/nfc/PrioritizedHandler.html">PrioritizedHandler</a></li>
       </ul>
     </li>
               
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a></li>
-          <li class="api apilevel-"><a href="../../mobisocial/nfc/NdefFactory.html">NdefFactory</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/nfc/NdefFactory.html">NdefFactory</a></li>
           <li class="api apilevel-"><a href="../../mobisocial/nfc/Nfc.html">Nfc</a></li>
       </ul>
     </li>
@@ -215,35 +215,20 @@
 
 
 
+  
+   
+  
+  
+  
+  
+
 
 <div class="sum-details-links">
 
 <div>
-<a href="PrioritizedHandler-source.html">View Source</a>
+<a href="NdefFactory.html">View Documentation</a>
 </div>
 
-
-Summary:
-
-
-
-
-
-  <a href="#constants">Constants</a>
-  
-
-
-
-
-
-
-
-  &#124; <a href="#pubmethods">Methods</a>
-  
-
-
-
-&#124; <a href="#" onclick="return toggleAllClassInherited()" id="toggleAllClassInherited">[Expand All]</a>
 
 </div><!-- end sum-details-links -->
 <div class="api-level">
@@ -264,10 +249,16 @@ Summary:
      
      
     
-    interface
-<h1>PrioritizedHandler</h1>
+    class
+<h1>NdefFactory</h1>
 
 
+
+  
+    extends <a href="http://developer.android.com/reference/java/lang/Object.html">Object</a><br/>
+  
+  
+  
 
   
   
@@ -275,297 +266,180 @@ Summary:
 
 
 </div><!-- end header -->
-
-<div id="naMessage"></div>
-
-<div id="jd-content" class="api apilevel-">
-<table class="jd-inheritance-table">
-
-
-    <tr>
-         	
-        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.nfc.PrioritizedHandler</td>
-    </tr>
-    
-
-</table>
-
-
-
-
-
-
-<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
-          ><img id="subclasses-indirect-trigger"
-          src="../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
-
-  <div id="subclasses-indirect">
-      <div id="subclasses-indirect-list"
-              class="jd-inheritedlinks"
-              
-              >
-          
-            
-              <a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a>,
-            
-              <a href="../../mobisocial/ndefexchange/NdefExchangeManager.html">NdefExchangeManager</a>
-            
-          
-      </div>
-      <div id="subclasses-indirect-summary"
-              style="display: none;"
-              >
-  <table class="jd-sumtable-expando">
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html">ConnectionHandoverManager</a></td>
-              <td class="jd-descrcol" width="100%">&nbsp;</td>
-          </tr>
-        <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../mobisocial/ndefexchange/NdefExchangeManager.html">NdefExchangeManager</a></td>
-              <td class="jd-descrcol" width="100%">&nbsp;</td>
-          </tr>
-  </table>
-      </div>
-  </div>
-</td></tr></table>
-
-
-<div class="jd-descr">
-
-
-<h2>Class Overview</h2>
-<p>Specifies the priority used to determine the order in which
- handlers are executed.
-</p>
-
-
-
-
-
-</div><!-- jd-descr -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="jd-descr">
-
-
-<h2>Summary</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- =========== ENUM CONSTANT SUMMARY =========== -->
-<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
-
-
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../mobisocial/nfc/PrioritizedHandler.html#DEFAULT_PRIORITY">DEFAULT_PRIORITY</a></td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ========== METHOD SUMMARY =========== -->
-<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
-
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            int</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/PrioritizedHandler.html#getPriority()">getPriority</a></span>()</nobr>
-        
-  </td></tr>
-
-
-
-</table>
-
-
-
-
-
-
-
-</div><!-- jd-descr (summary) -->
-
-<!-- Details -->
-
-
-
-
-
-
-
-
-<!-- XML Attributes -->
-
-
-<!-- Enum Values -->
-
-
-<!-- Constants -->
-
-
-<!-- ========= ENUM CONSTANTS DETAIL ======== -->
-<h2>Constants</h2>
-
-
-
-
-<A NAME="DEFAULT_PRIORITY"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        int
-      </span>
-        DEFAULT_PRIORITY
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-        <div class="jd-tagdata">
-        <span class="jd-tagtitle">Constant Value: </span>
-        <span>
-            
-                50
-                (0x00000032)
-            
-        </span>
-        </div>
-    
-    </div>
+<div id="jd-content">
+  <pre class="prettyprint">
+/*
+ * Copyright (C) 2011 Stanford University MobiSocial Lab
+ * http://mobisocial.stanford.edu
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package mobisocial.nfc;
+
+import java.net.URI;
+import java.net.URL;
+
+import android.net.Uri;
+import android.nfc.FormatException;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.util.Base64;
+
+/**
+ * A utility class for generating NDEF messages.
+ * @see NdefMessage
+ */
+public class NdefFactory {
+	public static NdefMessage fromUri(Uri uri) {
+		try {
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, 
+					new byte[0], uri.toString().getBytes());
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+	
+	public static NdefMessage fromUri(URI uri) {
+		try {
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, 
+					new byte[0], uri.toString().getBytes());
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+
+	public static NdefMessage fromUri(String uri) {
+		try {
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, 
+					new byte[0], uri.getBytes());
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+
+	public static NdefMessage fromUrl(URL url) {
+		try {
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI,
+					NdefRecord.RTD_URI, new byte[0], url.toString().getBytes());
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+	
+	public static NdefMessage fromMime(String mimeType, byte[] data) {
+		try {
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
+					mimeType.getBytes(), new byte[0], data);
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Creates an NDEF message with a single text record, with language
+	 * code "en" and the given text, encoded using UTF-8.
+	 */
+	public static NdefMessage fromText(String text) {
+		try {
+			byte[] textBytes = text.getBytes();
+			byte[] textPayload = new byte[textBytes.length + 3];
+			textPayload[0] = 0x02; // Status byte; UTF-8 and "en" encoding.
+			textPayload[1] = 'e';
+			textPayload[2] = 'n';
+			System.arraycopy(textBytes, 0, textPayload, 3, textBytes.length);
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+					NdefRecord.RTD_TEXT, new byte[0], textPayload);
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Creates an NDEF message with a single text record, with the given
+	 * text content (UTF-8 encoded) and language code. 
+	 */
+	public static NdefMessage fromText(String text, String languageCode) {
+		try {
+			int languageCodeLength = languageCode.length();
+			int textLength = text.length();
+			byte[] textPayload = new byte[textLength + 1 + languageCodeLength];
+			textPayload[0] = (byte)(0x3F &amp; languageCodeLength); // UTF-8 with the given language code length.
+			System.arraycopy(languageCode.getBytes(), 0, textPayload, 1, languageCodeLength);
+			System.arraycopy(text.getBytes(), 0, textPayload, 1 + languageCodeLength, textLength);
+			NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+					NdefRecord.RTD_TEXT, new byte[0], textPayload);
+			NdefRecord[] records = new NdefRecord[] { record };
+			return new NdefMessage(records);
+		} catch (NoClassDefFoundError e) {
+			return null;
+		}
+	}
+
+	public static final NdefMessage getEmptyNdef() {
+		byte[] empty = new byte[] {};
+		NdefRecord[] records = new NdefRecord[1];
+		records[0] = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, empty, empty, empty);
+		NdefMessage ndef = new NdefMessage(records);
+		return ndef;
+	}
+
+	public static final boolean isEmpty(NdefMessage ndef) {
+		return  (ndef == null || ndef.equals(getEmptyNdef()));
+	}
+
+	/**
+	 * Converts an Ndef message encoded in uri format to an NdefMessage.
+	 */
+	public static final NdefMessage fromNdefUri(Uri uri) {
+		if (!"ndef".equals(uri.getScheme())) {
+			throw new IllegalArgumentException("Not an ndef:// uri. did you want NdefFactory.fromUri()?");
+		}
+		NdefMessage wrappedNdef;
+		try {
+			wrappedNdef = new NdefMessage(android.util.Base64.decode(
+         	    uri.getPath().substring(1), Base64.URL_SAFE));
+		} catch (FormatException e) {
+			throw new IllegalArgumentException("Format error.");
+		}
+		return wrappedNdef;
+	}
+
+	/**
+	 * Converts an Ndef message to its uri encoding, using the
+	 * {code ndef://} scheme.
+	 */
+	// TODO Switch for the appropriate type
+	/*
+	public static final Uri toNdefUri(NdefMessage ndef) {
+		return Uri.parse("ndef://url/" + Base64.encodeToString(ndef.toByteArray(), Base64.URL_SAFE));
+	}*/
+}
+
+  </pre>
 </div>
-
-
-
-
-<!-- Fields -->
-
-
-<!-- Public ctors -->
-
-
-
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<!-- Protected ctors -->
-
-
-
-<!-- ========= METHOD DETAIL ======== -->
-<!-- Public methdos -->
-
-<h2>Public Methods</h2>
-
-
-
-<A NAME="getPriority()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-        abstract 
-         
-        int
-      </span>
-      <span class="sympad">getPriority</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-
-
-
-<!-- ========= METHOD DETAIL ======== -->
-
-
-
-<!-- ========= END OF CLASS DATA ========= -->
-<A NAME="navbar_top"></A>
-
 <div id="footer">
 Generated by <a href="http://code.google.com/p/doclava/">Doclava</a>.
 </div> <!-- end footer -->

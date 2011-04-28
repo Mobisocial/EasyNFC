@@ -48,10 +48,12 @@
 
 
 
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Javadoc API documentation for EasyNfc." />
+
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
@@ -61,16 +63,16 @@
 | EasyNfc
 
 </title>
-<link href="../../../assets/android-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../../../assets/doclava-developer-docs.css" rel="stylesheet" type="text/css" />
 <link href="../../../assets/customizations.css" rel="stylesheet" type="text/css" />
 <script src="../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
-<script src="../../../assets/android-developer-docs.js" type="text/javascript"></script>
+<script src="../../../assets/doclava-developer-docs.js" type="text/javascript"></script>
 <script src="../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
   setToRoot("../../", "../../../assets/");
 </script>
-<script src="../../../assets/android-developer-reference.js" type="text/javascript"></script>
+<script src="../../../assets/doclava-developer-reference.js" type="text/javascript"></script>
 <script src="../../../assets/navtree_data.js" type="text/javascript"></script>
 <script src="../../../assets/customizations.js" type="text/javascript"></script>
 <noscript>
@@ -228,6 +230,11 @@
 
 <div class="sum-details-links">
 
+<div>
+<a href="NdefRecord-source.html">View Source</a>
+</div>
+
+
 Summary:
 
 
@@ -241,6 +248,9 @@ Summary:
   &#124; <a href="#inhconstants">Inherited Constants</a>
   
 
+
+  &#124; <a href="#lfields">Fields</a>
+  
 
 
 
@@ -397,62 +407,6 @@ Summary:
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><a href="http://developer.android.com/reference/android/os/Parcelable.Creator.html">Creator</a>&lt;<a href="../../android/nfc/NdefRecord.html">NdefRecord</a>&gt;</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#CREATOR">CREATOR</a></td>
-        <td class="jd-descrcol" width="100%"></td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_ALTERNATIVE_CARRIER">RTD_ALTERNATIVE_CARRIER</a></td>
-        <td class="jd-descrcol" width="100%">RTD Alternative Carrier type.</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_HANDOVER_CARRIER">RTD_HANDOVER_CARRIER</a></td>
-        <td class="jd-descrcol" width="100%">RTD Handover Carrier type.</td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_HANDOVER_REQUEST">RTD_HANDOVER_REQUEST</a></td>
-        <td class="jd-descrcol" width="100%">RTD Handover Request type.</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_HANDOVER_SELECT">RTD_HANDOVER_SELECT</a></td>
-        <td class="jd-descrcol" width="100%">RTD Handover Select type.</td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_SMART_POSTER">RTD_SMART_POSTER</a></td>
-        <td class="jd-descrcol" width="100%">RTD Smart Poster type.</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_TEXT">RTD_TEXT</a></td>
-        <td class="jd-descrcol" width="100%">RTD Text type.</td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">byte[]</td>
-        <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_URI">RTD_URI</a></td>
-        <td class="jd-descrcol" width="100%">RTD URI type.</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">short</td>
         <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#TNF_ABSOLUTE_URI">TNF_ABSOLUTE_URI</a></td>
         <td class="jd-descrcol" width="100%">Indicates the type field contains a value that follows the absolute-URI
@@ -562,6 +516,103 @@ android.os.Parcelable
 
 
 
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          <a href="http://developer.android.com/reference/android/os/Parcelable.Creator.html">Creator</a>&lt;<a href="../../android/nfc/NdefRecord.html">NdefRecord</a>&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#CREATOR">CREATOR</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_ALTERNATIVE_CARRIER">RTD_ALTERNATIVE_CARRIER</a></td>
+          <td class="jd-descrcol" width="100%">RTD Alternative Carrier type.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_HANDOVER_CARRIER">RTD_HANDOVER_CARRIER</a></td>
+          <td class="jd-descrcol" width="100%">RTD Handover Carrier type.</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_HANDOVER_REQUEST">RTD_HANDOVER_REQUEST</a></td>
+          <td class="jd-descrcol" width="100%">RTD Handover Request type.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_HANDOVER_SELECT">RTD_HANDOVER_SELECT</a></td>
+          <td class="jd-descrcol" width="100%">RTD Handover Select type.</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_SMART_POSTER">RTD_SMART_POSTER</a></td>
+          <td class="jd-descrcol" width="100%">RTD Smart Poster type.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_TEXT">RTD_TEXT</a></td>
+          <td class="jd-descrcol" width="100%">RTD Text type.</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          public
+          static
+          final
+          byte[]</nobr></td>
+          <td class="jd-linkcol"><a href="../../android/nfc/NdefRecord.html#RTD_URI">RTD_URI</a></td>
+          <td class="jd-descrcol" width="100%">RTD URI type.</td>
+      </tr>
+      
+    
+
+</table>
+
+
 
 
 
@@ -583,9 +634,9 @@ android.os.Parcelable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../android/nfc/NdefRecord.html#NdefRecord(byte[])">NdefRecord</a></span>(byte[] data)</nobr>
+        <span class="sympad"><a href="../../android/nfc/NdefRecord.html#NdefRecord(short, byte[], byte[], byte[])">NdefRecord</a></span>(short tnf, byte[] type, byte[] id, byte[] payload)</nobr>
         
-        <div class="jd-descrdiv">Construct an NDEF Record from raw bytes.</div>
+        <div class="jd-descrdiv">Construct an NDEF Record.</div>
   
   </td></tr>
 
@@ -601,9 +652,9 @@ android.os.Parcelable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../android/nfc/NdefRecord.html#NdefRecord(short, byte[], byte[], byte[])">NdefRecord</a></span>(short tnf, byte[] type, byte[] id, byte[] payload)</nobr>
+        <span class="sympad"><a href="../../android/nfc/NdefRecord.html#NdefRecord(byte[])">NdefRecord</a></span>(byte[] data)</nobr>
         
-        <div class="jd-descrdiv">Construct an NDEF Record.</div>
+        <div class="jd-descrdiv">Construct an NDEF Record from raw bytes.</div>
   
   </td></tr>
 
@@ -932,7 +983,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0)</nobr>
+        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
         
   </td></tr>
 
@@ -948,7 +999,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">wait</span>(long arg0, int arg1)</nobr>
+        <span class="sympad">wait</span>(long arg0)</nobr>
         
   </td></tr>
 
@@ -1043,309 +1094,6 @@ From interface
 <!-- ========= ENUM CONSTANTS DETAIL ======== -->
 <h2>Constants</h2>
 
-
-
-
-<A NAME="CREATOR"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="http://developer.android.com/reference/android/os/Parcelable.Creator.html">Creator</a>&lt;<a href="../../android/nfc/NdefRecord.html">NdefRecord</a>&gt;
-      </span>
-        CREATOR
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#CREATOR">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_ALTERNATIVE_CARRIER"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_ALTERNATIVE_CARRIER
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_ALTERNATIVE_CARRIER">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD Alternative Carrier type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_HANDOVER_CARRIER"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_HANDOVER_CARRIER
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_HANDOVER_CARRIER">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD Handover Carrier type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_HANDOVER_REQUEST"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_HANDOVER_REQUEST
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_HANDOVER_REQUEST">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD Handover Request type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_HANDOVER_SELECT"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_HANDOVER_SELECT
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_HANDOVER_SELECT">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD Handover Select type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_SMART_POSTER"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_SMART_POSTER
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_SMART_POSTER">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD Smart Poster type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_TEXT"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_TEXT
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_TEXT">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD Text type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="RTD_URI"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        byte[]
-      </span>
-        RTD_URI
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_URI">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>RTD URI type. For use with TNF_WELL_KNOWN.
-</p></div>
-
-    
-    </div>
-</div>
 
 
 
@@ -1710,39 +1458,34 @@ From interface
 <!-- Fields -->
 
 
-<!-- Public ctors -->
-
-
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<h2>Public Constructors</h2>
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
 
 
 
-<A NAME="NdefRecord(byte[])"></A>
+
+<A NAME="CREATOR"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-         
-         
-         
-         
-        
+        static 
+        final 
+        <a href="http://developer.android.com/reference/android/os/Parcelable.Creator.html">Creator</a>&lt;<a href="../../android/nfc/NdefRecord.html">NdefRecord</a>&gt;
       </span>
-      <span class="sympad">NdefRecord</span>
-      <span class="normal">(byte[] data)</span>
+        CREATOR
     </h4>
       <div class="api-level">
-        <div>
+        
 
-</div>
+
         
   
     <div>
     Also: 
     
-      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#NdefRecord(byte[])">Android</a>
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#CREATOR">Android</a>
     
     </div>
   
@@ -1750,23 +1493,287 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Construct an NDEF Record from raw bytes.
- <p>
- Validation is performed to make sure the header is valid, and that
- the id, type and payload sizes appear to be valid.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../android/nfc/FormatException.html">FormatException</a></td>
-            <td>if the data is not a valid NDEF record
-</td>
-        </tr>
-      </table>
-  </div>
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
+    
     </div>
 </div>
+
+
+
+<A NAME="RTD_ALTERNATIVE_CARRIER"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_ALTERNATIVE_CARRIER
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_ALTERNATIVE_CARRIER">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD Alternative Carrier type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="RTD_HANDOVER_CARRIER"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_HANDOVER_CARRIER
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_HANDOVER_CARRIER">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD Handover Carrier type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="RTD_HANDOVER_REQUEST"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_HANDOVER_REQUEST
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_HANDOVER_REQUEST">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD Handover Request type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="RTD_HANDOVER_SELECT"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_HANDOVER_SELECT
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_HANDOVER_SELECT">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD Handover Select type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="RTD_SMART_POSTER"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_SMART_POSTER
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_SMART_POSTER">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD Smart Poster type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="RTD_TEXT"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_TEXT
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_TEXT">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD Text type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="RTD_URI"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        byte[]
+      </span>
+        RTD_URI
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#RTD_URI">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>RTD URI type. For use with TNF_WELL_KNOWN.
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+
+<!-- Public ctors -->
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<h2>Public Constructors</h2>
+
 
 
 <A NAME="NdefRecord(short, byte[], byte[], byte[])"></A>
@@ -1826,6 +1833,57 @@ From interface
           <th>payload</td>
           <td>byte array, containing zero to (2 ** 32 - 1) bytes,
                 must not be null
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="NdefRecord(byte[])"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        
+      </span>
+      <span class="sympad">NdefRecord</span>
+      <span class="normal">(byte[] data)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+    <div>
+    Also: 
+    
+      <a href="http://developer.android.com/reference/android/nfc/NdefRecord.html#NdefRecord(byte[])">Android</a>
+    
+    </div>
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Construct an NDEF Record from raw bytes.
+ <p>
+ Validation is performed to make sure the header is valid, and that
+ the id, type and payload sizes appear to be valid.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../android/nfc/FormatException.html">FormatException</a></td>
+            <td>if the data is not a valid NDEF record
 </td>
         </tr>
       </table>
@@ -2147,7 +2205,7 @@ Generated by <a href="http://code.google.com/p/doclava/">Doclava</a>.
 </div> <!-- end body-content --> 
 
 <script type="text/javascript">
-init(); /* initialize android-developer-docs.js */
+init(); /* initialize doclava-developer-docs.js */
 </script>
 
 </body>
