@@ -53,7 +53,7 @@
           <docletArtifact>
             <groupId>com.google.doclava</groupId>
             <artifactId>doclava</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.4-SNAPSHOT</version>
           </docletArtifact>
           <doclet>com.google.doclava.Doclava</doclet>
           <!--
@@ -66,6 +66,7 @@
              -federationxml Android http://doclava.googlecode.com/svn/static/api/android-10.xml
              -hdf project.name "${project.name}"
              -d ${project.build.directory}/apidocs
+             -generatesources
            </additionalparam>
           <useStandardDocletOptions>false</useStandardDocletOptions>
           <!--
