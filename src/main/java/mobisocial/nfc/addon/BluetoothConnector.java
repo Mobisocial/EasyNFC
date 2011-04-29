@@ -37,6 +37,8 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.util.Log;
 
+import mobisocial.nfc.ConnectionHandoverManager;
+
 /**
  * Allows two devices to establish a Bluetooth connection after exchanging an NFC
  * Connection Handover Request. The socket is returned via callback. Example usage:
@@ -94,22 +96,65 @@ public abstract class BluetoothConnector {
 		nfc.share(btConnecting.getHandoverRequestMessage());
 	}
 
+	/**
+     * Configures the {@link Nfc} interface to set up a bluetooth socket with
+     * another device. The method both sets the foreground ndef message and
+     * registers an {@link NdefHandler} to look for incoming pairing requests.
+     * 
+     * 
+     */
+    public static void prepare(Nfc nfc, OnConnectedListener conn, NdefMessage ndef) {
+        BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
+        NdefMessage handoverRequest = btConnecting.getHandoverRequestMessage();
+        NdefRecord[] combinedRecords = new NdefRecord[ndef.getRecords().length + handoverRequest.getRecords().length];
+        
+        int i = 0;
+        for (NdefRecord r : ndef.getRecords()) {
+            combinedRecords[i++] = r;
+        }
+        for (NdefRecord r : handoverRequest.getRecords()) {
+            combinedRecords[i++] = r;
+        }
+    
+        NdefMessage outbound = new NdefMessage(combinedRecords);
+        
+        nfc.getConnectionHandoverManager().addConnectionHandover(btConnecting);
+        nfc.share(outbound);
+    }
+
+    public static void join(Nfc nfc, OnConnectedListener conn, NdefMessage ndef) {
+        BluetoothConnecting btConnecting = new BluetoothConnecting(conn, true);
+        ConnectionHandoverManager manager = new ConnectionHandoverManager();
+        manager.addConnectionHandover(btConnecting);
+        manager.doHandover(ndef);
+    }
+
 	private static class BluetoothConnecting implements ConnectionHandover {
+	    private final AcceptThread mAcceptThread;
 		private final byte[] mCollisionResolution;
 		private final OnConnectedListener mmBtConnected;
 		private final BluetoothAdapter mBluetoothAdapter;
 		private final UUID mServiceUuid;
+		private final boolean mAlwaysClient;
+
+		public BluetoothConnecting(OnConnectedListener onBtConnected, boolean alwaysClient) {
+		    mAlwaysClient = alwaysClient;
+		    mmBtConnected = onBtConnected;
+            mServiceUuid = UUID.randomUUID();
+            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (mBluetoothAdapter == null) {
+                throw new IllegalStateException("No Bluetooth adapter found.");
+            }
+            Random random = new Random();
+            mCollisionResolution = new byte[2];
+            random.nextBytes(mCollisionResolution);
+
+            mAcceptThread = new AcceptThread();
+            mAcceptThread.start();
+		}
 
 		public BluetoothConnecting(OnConnectedListener onBtConnected) {
-			mmBtConnected = onBtConnected;
-			mServiceUuid = UUID.randomUUID();
-			mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-			if (mBluetoothAdapter == null) {
-				throw new IllegalStateException("No Bluetooth adapter found.");
-			}
-			Random random = new Random();
-			mCollisionResolution = new byte[2];
-			random.nextBytes(mCollisionResolution);
+			this(onBtConnected, false);
 		}
 
 		private NdefMessage getHandoverRequestMessage() {
@@ -143,11 +188,15 @@ public abstract class BluetoothConnector {
 					&& remoteCollision[1] == mCollisionResolution[1]) {
 				return; // They'll have to try again.
 			}
-			boolean amServer = (remoteCollision[0] < mCollisionResolution[0] || (remoteCollision[0] == mCollisionResolution[0] && remoteCollision[1] < mCollisionResolution[1]));
+			boolean amServer = (remoteCollision[0] < mCollisionResolution[0] || 
+			        (remoteCollision[0] == mCollisionResolution[0] && remoteCollision[1] < mCollisionResolution[1]));
+			if (mAlwaysClient) {
+			    amServer = false;
+			}
 
-			if (amServer) {
-				new AcceptThread().start();
-			} else {
+			if (!amServer) {
+			    // Not waiting for a connection:
+			    mAcceptThread.cancel();
 				URI uri = URI.create(new String(handoverRequest.getRecords()[record].getPayload()));
 				UUID serviceUuid = UUID.fromString(uri.getPath().substring(1));
 				BluetoothDevice remoteDevice = mBluetoothAdapter.getRemoteDevice(uri.getAuthority());
@@ -245,6 +294,12 @@ public abstract class BluetoothConnector {
 					mmServerSocket.close();
 				} catch (IOException e) {}
 				mmBtConnected.onConnectionEstablished(socket, true);
+			}
+
+			public void cancel() {
+			    try {
+                    mmServerSocket.close();
+                } catch (IOException e) { }
 			}
 		}
 

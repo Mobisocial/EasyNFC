@@ -70,18 +70,20 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 	}
 
 	public final int doHandover(NdefMessage handoverRequest) {
-		if (!isHandoverRequest(handoverRequest)) {
+	    int handoverRecordPos = findHandoverRequest(handoverRequest);
+		if (handoverRecordPos == -1) {
 			return NDEF_PROPAGATE;
 		}
 
-		if (isUserspaceHandoverRequest(handoverRequest)) {
+		if (findUserspaceHandoverRequest(handoverRequest) != -1) {
 			// TODO: Move to NdefFactory or similar
 			Uri uri = Uri.parse(new String(handoverRequest.getRecords()[0].getPayload()));
 			handoverRequest = NdefFactory.fromNdefUri(uri);
+			handoverRecordPos = 0;
 		}
 
 		NdefRecord[] records = handoverRequest.getRecords();
-		for (int i = 2; i < records.length; i++) {
+		for (int i = handoverRecordPos + 2; i < records.length; i++) {
 			Iterator<ConnectionHandover> handovers = mmConnectionHandovers.iterator();
 			while (handovers.hasNext()) {
 				ConnectionHandover handover = handovers.next();
@@ -110,29 +112,32 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 	 * Returns true if the given Ndef message contains a connection
 	 * handover request.
 	 */
-	public static boolean isHandoverRequest(NdefMessage ndef) {
+	public static int findHandoverRequest(NdefMessage ndef) {
 		NdefRecord[] records = (ndef).getRecords();
 
-		// NFC Forum specification:
-		if (records.length >= 3
-			&& records[0].getTnf() == NdefRecord.TNF_WELL_KNOWN
-			&& Arrays.equals(records[0].getType(), NdefRecord.RTD_HANDOVER_REQUEST)) {
-			return true;
+		for (int i = 0; i < records.length; i++) {
+    		if (records[i].getTnf() == NdefRecord.TNF_WELL_KNOWN
+    			&& Arrays.equals(records[i].getType(), NdefRecord.RTD_HANDOVER_REQUEST)) {
+    			return i;
+    		}
 		}
 
-		return isUserspaceHandoverRequest(ndef);
+		return findUserspaceHandoverRequest(ndef);
 	}
 
 	// User-space handover:
 	// TODO: Support uri profile
-	private static boolean isUserspaceHandoverRequest(NdefMessage ndef) {
+	private static int findUserspaceHandoverRequest(NdefMessage ndef) {
 		NdefRecord[] records = (ndef).getRecords();
-		if (records.length > 0
-				&& records[0].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
-				&& records[0].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
-			String scheme = new String(records[0].getPayload(), 0, USER_HANDOVER_PREFIX.length());
-			return USER_HANDOVER_PREFIX.equals(scheme);
+		for (int i = 0; i < records.length; i++) {
+    		if (records[i].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
+    				&& records[i].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
+    			String scheme = new String(records[0].getPayload(), 0, USER_HANDOVER_PREFIX.length());
+    			if (USER_HANDOVER_PREFIX.equals(scheme)) {
+    			    return i;
+    			}
+    		}
 		}
-		return false;
+		return -1;
 	}
 }

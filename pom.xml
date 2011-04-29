@@ -11,9 +11,9 @@
   <description>An abstraction layer for Nfc on Android</description>
   <dependencies>
     <dependency>
-      <groupId>android</groupId>
+      <groupId>com.google.android</groupId>
       <artifactId>android</artifactId>
-      <version>10</version>
+      <version>2.3.3</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
