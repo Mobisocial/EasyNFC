@@ -103,13 +103,13 @@ public abstract class BluetoothConnector {
      * 
      * 
      */
-    public static void prepare(Nfc nfc, OnConnectedListener conn, NdefMessage ndef) {
+    public static void prepare(Nfc nfc, OnConnectedListener conn, NdefRecord[] ndef) {
         BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
         NdefMessage handoverRequest = btConnecting.getHandoverRequestMessage();
-        NdefRecord[] combinedRecords = new NdefRecord[ndef.getRecords().length + handoverRequest.getRecords().length];
+        NdefRecord[] combinedRecords = new NdefRecord[ndef.length + handoverRequest.getRecords().length];
         
         int i = 0;
-        for (NdefRecord r : ndef.getRecords()) {
+        for (NdefRecord r : ndef) {
             combinedRecords[i++] = r;
         }
         for (NdefRecord r : handoverRequest.getRecords()) {
