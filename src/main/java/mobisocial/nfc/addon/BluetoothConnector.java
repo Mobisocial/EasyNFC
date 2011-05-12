@@ -27,6 +27,7 @@ import java.util.UUID;
 
 import mobisocial.nfc.ConnectionHandover;
 import mobisocial.nfc.Nfc;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -40,8 +41,11 @@ import android.util.Log;
 import mobisocial.nfc.ConnectionHandoverManager;
 
 /**
- * Allows two devices to establish a Bluetooth connection after exchanging an NFC
- * Connection Handover Request. The socket is returned via callback. Example usage:
+ * <p>Allows two devices to establish a Bluetooth connection after exchanging an NFC
+ * Connection Handover Request. The socket is returned via callback.
+ *
+ * <p>A simple example for establishing a Bluetooth connection when both phones
+ * are in the same activity:
  * 
  * <pre class="prettyprint">
  * MyActivity extends Activity {
@@ -79,17 +83,120 @@ import mobisocial.nfc.ConnectionHandoverManager;
  * }
  * </pre>
  *
+ * <p>A more complex example, which supports:
+ * <ul>
+ *   <li>Pairing when both phones are in the same activity
+ *   <li>Pairing when only one phone is in the activity
+ *   <li>Providing a download link if your application is not yet installed.
+ * </ul>
+ *
+ * <p>You should also ensure that Bluetooth and Nfc are enabled on the device.
+ *
+ * <pre class="prettyprint">
+ * public class MyActivity extends Activity {
+ *  private Nfc mNfc;
+ *  private Long mLastPausedMillis = 0L;
+ *
+ *  public void onCreate(Bundle savedInstanceState) {
+ *      super.onCreate(savedInstanceState);
+ *      setContentView(R.layout.main);
+ *      mNfc = new Nfc(this);
+ *
+ *      // If this activity was launched from an NFC interaction, start the
+ *      // Bluetooth connection process.
+ *      if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+ *          BluetoothConnector.join(mNfc, mBluetoothConnected, getNdefMessages(getIntent())[0]);
+ *      } else {
+ *          // If both phones are running this activity, or to allow remote
+ *          // device to join from home screen.
+ *          BluetoothConnector.prepare(mNfc, mBluetoothConnected, getAppReference());
+ *      }
+ *  }
+ *
+ *  protected void onResume() {
+ *      super.onResume();
+ *      mNfc.onResume(this);
+ *  }
+ *
+ *  protected void onPause() {
+ *      super.onPause();
+ *      mLastPausedMillis = System.currentTimeMillis();
+ *      mNfc.onPause(this);
+ *  }
+ *
+ *  protected void onNewIntent(Intent intent) {
+ *      // Check for "warm boot" if the activity uses singleInstance launch mode:
+ *      if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+ *          Long ms = System.currentTimeMillis() - mLastPausedMillis;
+ *          if (ms > 150) {
+ *              BluetoothConnector.join(mNfc, mBluetoothConnected, getNdefMessages(intent)[0]);
+ *              return;
+ *          }
+ *      }
+ *      if (mNfc.onNewIntent(this, intent)) {
+ *          return;
+ *      }
+ *  }
+ *
+ *  public NdefRecord[] getAppReference() {
+ *      byte[] urlBytes = "http://example.com/funapp".getBytes();
+ *      NdefRecord ref = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[]{}, urlBytes);
+ *      return new NdefRecord[] { ref };
+ *  }
+ *
+ *  OnConnectedListener mBluetoothConnected = new OnConnectedListener() {
+ *      public void onConnectionEstablished(BluetoothSocket socket, boolean isServer) {
+ *          toast("connected! server: " + isServer);
+ *      }
+ *  };
+ *
+ *  private void toast(final String text) {
+ *      runOnUiThread(new Runnable() {
+ *          public void run() {
+ *              Toast.makeText(MyActivity.this, text, Toast.LENGTH_SHORT).show();
+ *          }
+ *      });
+ *  }
+ *
+ *  private NdefMessage[] getNdefMessages(Intent intent) {
+ *      if (!intent.hasExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)) {
+ *          return null;
+ *      }
+ *      Parcelable[] msgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+ *      NdefMessage[] ndef = new NdefMessage[msgs.length];
+ *      for (int i = 0; i < msgs.length; i++) {
+ *          ndef[i] = (NdefMessage) msgs[i];
+ *      }
+ *      return ndef;
+ *  }
+ * }
+ * </pre>
+ *
+ * You will also need to add an intent filter to your application's manifest:
+ * <pre class="prettyprint">
+ *   &lt;activity android:name=".MyActivity"&gt;
+ *        &lt;intent-filter&gt;
+ *            &lt;action android:name="android.nfc.action.NDEF_DISCOVERED" /&gt;
+ *            &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+ *            &lt;data android:scheme="http"
+ *                  android:host="example.com"
+ *                  android:path="/funapp" /&gt;
+ *        &lt;/intent-filter&gt;
+ *   &lt;/activity&gt;
+ * </pre>
+ *
  */
 public abstract class BluetoothConnector {
 	private static final String SERVICE_NAME = "NfcBtHandover";
 	private static final String BT_SOCKET_SCHEMA = "btsocket://";
 	private static final String TAG = "btconnect";
 
-	/**
-	 * Configures the {@link Nfc} interface to set up a bluetooth socket with
-	 * another device. The method both sets the foreground ndef message and
-	 * registers an {@link NdefHandler} to look for incoming pairing requests.
-	 */
+    /**
+     * Configures the {@link mobisocial.nfc.Nfc} interface to set up a Bluetooth
+     * socket with another device. The method both sets the foreground ndef
+     * messages and registers an {@link mobisocial.nfc.NdefHandler} to look for
+     * incoming pairing requests.
+     */
 	public static void prepare(Nfc nfc, OnConnectedListener conn) {
 		BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
 		nfc.getConnectionHandoverManager().addConnectionHandover(btConnecting);
@@ -97,11 +204,10 @@ public abstract class BluetoothConnector {
 	}
 
 	/**
-     * Configures the {@link Nfc} interface to set up a bluetooth socket with
-     * another device. The method both sets the foreground ndef message and
-     * registers an {@link NdefHandler} to look for incoming pairing requests.
-     * 
-     * 
+     * Configures the {@link mobisocial.nfc.Nfc} interface to set up a Bluetooth
+     * socket with another device. The method both sets the foreground ndef
+     * messages and registers an {@link mobisocial.nfc.NdefHandler} to look for
+     * incoming pairing requests.
      */
     public static void prepare(Nfc nfc, OnConnectedListener conn, NdefRecord[] ndef) {
         BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
@@ -122,6 +228,10 @@ public abstract class BluetoothConnector {
         nfc.share(outbound);
     }
 
+    /**
+     * Extracts the Bluetooth socket information from an ndef message and
+     * connects as a client.
+     */
     public static void join(Nfc nfc, OnConnectedListener conn, NdefMessage ndef) {
         BluetoothConnecting btConnecting = new BluetoothConnecting(conn, true);
         ConnectionHandoverManager manager = new ConnectionHandoverManager();
