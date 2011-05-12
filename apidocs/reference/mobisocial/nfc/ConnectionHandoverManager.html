@@ -629,6 +629,25 @@ Summary:
             
             
             
+            static
+            
+            int</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#findHandoverRequest(android.nfc.NdefMessage)">findHandoverRequest</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
+        
+        <div class="jd-descrdiv">Returns true if the given Ndef message contains a connection
+ handover request.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
             
             
             <a href="http://developer.android.com/reference/java/util/Set.html">Set</a>&lt;<a href="../../mobisocial/nfc/ConnectionHandover.html">ConnectionHandover</a>&gt;</nobr>
@@ -643,7 +662,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -659,7 +678,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -673,25 +692,6 @@ Summary:
         
         <div class="jd-descrdiv">Callback issued after an NFC tag is read or an NDEF message is received
  from a remote device.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandoverManager.html#isHandoverRequest(android.nfc.NdefMessage)">isHandoverRequest</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
-        
-        <div class="jd-descrdiv">Returns true if the given Ndef message contains a connection
- handover request.</div>
   
   </td></tr>
 
@@ -1313,6 +1313,39 @@ From interface
 </div>
 
 
+<A NAME="findHandoverRequest(android.nfc.NdefMessage)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        int
+      </span>
+      <span class="sympad">findHandoverRequest</span>
+      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns true if the given Ndef message contains a connection
+ handover request.
+</p></div>
+
+    </div>
+</div>
+
+
 <A NAME="getConnectionHandoverResponders()"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1412,39 +1445,6 @@ From interface
          handler.
 </li></ul>
   </div>
-
-    </div>
-</div>
-
-
-<A NAME="isHandoverRequest(android.nfc.NdefMessage)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-         
-         
-         
-        boolean
-      </span>
-      <span class="sympad">isHandoverRequest</span>
-      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Returns true if the given Ndef message contains a connection
- handover request.
-</p></div>
 
     </div>
 </div>

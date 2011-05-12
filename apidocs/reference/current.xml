@@ -1014,6 +1014,19 @@
 <parameter name="handoverRequest" type="android.nfc.NdefMessage">
 </parameter>
 </method>
+<method name="findHandoverRequest"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
 <method name="getConnectionHandoverResponders"
  return="java.util.Set&lt;mobisocial.nfc.ConnectionHandover&gt;"
  abstract="false"
@@ -1047,19 +1060,6 @@
  visibility="public"
 >
 <parameter name="handoverRequest" type="android.nfc.NdefMessage[]">
-</parameter>
-</method>
-<method name="isHandoverRequest"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="ndef" type="android.nfc.NdefMessage">
 </parameter>
 </method>
 <method name="removeConnectionHandover"
@@ -1762,6 +1762,23 @@
  visibility="public"
 >
 </constructor>
+<method name="join"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="nfc" type="mobisocial.nfc.Nfc">
+</parameter>
+<parameter name="conn" type="mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener">
+</parameter>
+<parameter name="ndef" type="android.nfc.NdefMessage">
+</parameter>
+</method>
 <method name="prepare"
  return="void"
  abstract="false"
@@ -1775,6 +1792,23 @@
 <parameter name="nfc" type="mobisocial.nfc.Nfc">
 </parameter>
 <parameter name="conn" type="mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener">
+</parameter>
+</method>
+<method name="prepare"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="nfc" type="mobisocial.nfc.Nfc">
+</parameter>
+<parameter name="conn" type="mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener">
+</parameter>
+<parameter name="ndef" type="android.nfc.NdefRecord[]">
 </parameter>
 </method>
 </class>

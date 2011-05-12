@@ -321,8 +321,11 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>Allows two devices to establish a Bluetooth connection after exchanging an NFC
- Connection Handover Request. The socket is returned via callback. Example usage:
+<p><p>Allows two devices to establish a Bluetooth connection after exchanging an NFC
+ Connection Handover Request. The socket is returned via callback.
+ 
+ <p>A simple example for establishing a Bluetooth connection when both phones
+ are in the same activity:
  
  <pre class="prettyprint">
  MyActivity extends Activity {
@@ -358,6 +361,108 @@ Summary:
      if (mNfc.onNewIntent(this, intent)) return;
    }
  }
+ </pre>
+
+ <p>A more complex example, which supports:
+ <ul>
+   <li>Pairing when both phones are in the same activity
+   <li>Pairing when only one phone is in the activity
+   <li>Providing a download link if your application is not yet installed.
+ </ul>
+ 
+ <p>You should also ensure that Bluetooth and Nfc are enabled on the device.
+
+ <pre class="prettyprint">
+ public class MyActivity extends Activity {
+  private Nfc mNfc;
+  private Long mLastPausedMillis = 0L;
+
+  public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.main);
+      mNfc = new Nfc(this);
+      
+      // If this activity was launched from an NFC interaction, start the
+      // Bluetooth connection process.
+      if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+          BluetoothConnector.join(mNfc, mBluetoothConnected, getNdefMessages(getIntent())[0]);
+      } else {
+          // If both phones are running this activity, or to allow remote
+          // device to join from home screen.
+          BluetoothConnector.prepare(mNfc, mBluetoothConnected, getAppReference());
+      }
+  }
+  
+  protected void onResume() {
+      super.onResume();
+      mNfc.onResume(this);
+  }
+  
+  protected void onPause() {
+      super.onPause();
+      mLastPausedMillis = System.currentTimeMillis();
+      mNfc.onPause(this);
+  }
+
+  protected void onNewIntent(Intent intent) {
+      // Check for "warm boot" if the activity uses singleInstance launch mode:
+      if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+          Long ms = System.currentTimeMillis() - mLastPausedMillis;
+          if (ms > 150) {
+              BluetoothConnector.join(mNfc, mBluetoothConnected, getNdefMessages(intent)[0]);
+              return;
+          }
+      }
+      if (mNfc.onNewIntent(this, intent)) {
+          return;
+      }
+  }
+
+  public NdefRecord[] getAppReference() {
+      byte[] urlBytes = "http://example.com/funapp".getBytes();
+      NdefRecord ref = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[]{}, urlBytes);
+      return new NdefRecord[] { ref };
+  }
+  
+  OnConnectedListener mBluetoothConnected = new OnConnectedListener() {
+      public void onConnectionEstablished(BluetoothSocket socket, boolean isServer) {
+          toast("connected! server: " + isServer);
+      }
+  };
+  
+  private void toast(final String text) {
+      runOnUiThread(new Runnable() {
+          public void run() {
+              Toast.makeText(MyActivity.this, text, Toast.LENGTH_SHORT).show();
+          }
+      });
+  }
+
+  private NdefMessage[] getNdefMessages(Intent intent) {
+      if (!intent.hasExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)) {
+          return null;
+      }
+      Parcelable[] msgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+      NdefMessage[] ndef = new NdefMessage[msgs.length];
+      for (int i = 0; i < msgs.length; i++) {
+          ndef[i] = (NdefMessage) msgs[i];
+      }
+      return ndef;
+  }
+ }
+ </pre>
+
+ You will also need to add an intent filter to your application's manifest:
+ <pre class="prettyprint">
+   &lt;activity android:name=".MyActivity"&gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name="android.nfc.action.NDEF_DISCOVERED" /&gt;
+            &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+            &lt;data android:scheme="http"
+                  android:host="example.com"
+                  android:path="/funapp" /&gt;
+        &lt;/intent-filter&gt;
+   &lt;/activity&gt;
  </pre>
 
 </p>
@@ -475,10 +580,48 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.html#join(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener, android.nfc.NdefMessage)">join</a></span>(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn, <a href="../../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</nobr>
+        
+        <div class="jd-descrdiv">Extracts the Bluetooth socket information from an ndef message and
+ connects as a client.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.html#prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener)">prepare</a></span>(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn)</nobr>
         
-        <div class="jd-descrdiv">Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a bluetooth socket with
- another device.</div>
+        <div class="jd-descrdiv">Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a Bluetooth
+ socket with another device.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            static
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.html#prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener, android.nfc.NdefRecord[])">prepare</a></span>(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn, <a href="../../../android/nfc/NdefRecord.html">NdefRecord[]</a> ndef)</nobr>
+        
+        <div class="jd-descrdiv">Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a Bluetooth
+ socket with another device.</div>
   
   </td></tr>
 
@@ -779,6 +922,39 @@ From class
 
 
 
+<A NAME="join(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener, android.nfc.NdefMessage)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">join</span>
+      <span class="normal">(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn, <a href="../../../android/nfc/NdefMessage.html">NdefMessage</a> ndef)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Extracts the Bluetooth socket information from an ndef message and
+ connects as a client.
+</p></div>
+
+    </div>
+</div>
+
+
 <A NAME="prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -804,9 +980,45 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a bluetooth socket with
- another device. The method both sets the foreground ndef message and
- registers an NdefHandler to look for incoming pairing requests.
+  <div class="jd-tagdata jd-tagdescr"><p>Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a Bluetooth
+ socket with another device. The method both sets the foreground ndef
+ messages and registers an <code><a href="../../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></code> to look for
+ incoming pairing requests.
+</p></div>
+
+    </div>
+</div>
+
+
+<A NAME="prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener, android.nfc.NdefRecord[])"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">prepare</span>
+      <span class="normal">(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn, <a href="../../../android/nfc/NdefRecord.html">NdefRecord[]</a> ndef)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Configures the <code><a href="../../../mobisocial/nfc/Nfc.html">Nfc</a></code> interface to set up a Bluetooth
+ socket with another device. The method both sets the foreground ndef
+ messages and registers an <code><a href="../../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></code> to look for
+ incoming pairing requests.
 </p></div>
 
     </div>
