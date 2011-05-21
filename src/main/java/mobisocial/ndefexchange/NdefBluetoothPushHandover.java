@@ -66,7 +66,7 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 	}
 	
 	@Override
-	public void doConnectionHandover(NdefMessage handoverMessage, int record) throws IOException {
+	public void doConnectionHandover(NdefMessage handoverMessage, int handover, int record) throws IOException {
 		NdefRecord handoverRequest = handoverMessage.getRecords()[record];
 		String uriString = new String(handoverRequest.getPayload());
 		Uri target = Uri.parse(uriString);

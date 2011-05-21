@@ -63,7 +63,7 @@ public class NdefTcpPushHandover implements ConnectionHandover {
 	}
 
 	@Override
-	public void doConnectionHandover(NdefMessage handoverMessage, int record) throws IOException {
+	public void doConnectionHandover(NdefMessage handoverMessage, int handover, int record) throws IOException {
 		NdefRecord handoverRequest = handoverMessage.getRecords()[record];
 		NdefMessage outboundNdef = mNdefExchange.getForegroundNdefMessage();
 		if (outboundNdef == null) return;

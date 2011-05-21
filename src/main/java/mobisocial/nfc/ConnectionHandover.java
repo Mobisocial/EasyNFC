@@ -31,9 +31,11 @@ public interface ConnectionHandover {
 	/**
 	 * Issues a connection handover of the given type.
 	 * @param handoverRequest The connection handover request message.
+	 * @param handoverRecordNumber The index of th first record in the connection handover.
 	 * @param recordNumber The index of the handover record entry being attempted.
 	 * @throws IOException
 	 */
-	public void doConnectionHandover(NdefMessage handoverRequest, int recordNumber) throws IOException;
+	public void doConnectionHandover(NdefMessage handoverRequest, int handoverRecordNumber,
+			int recordNumber) throws IOException;
 	public boolean supportsRequest(NdefRecord record);
 }

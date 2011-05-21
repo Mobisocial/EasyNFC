@@ -23,15 +23,10 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mobisocial.ndefexchange.NdefBluetoothPushHandover;
-import mobisocial.ndefexchange.NdefExchangeContract;
-import mobisocial.ndefexchange.NdefTcpPushHandover;
-
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.util.Log;
-import android.widget.Toast;
 
 public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandler {
 	public static final String USER_HANDOVER_PREFIX = "ndef://wkt:hr/";
@@ -90,7 +85,7 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 				if (handover.supportsRequest(records[i])) {
 					try {
 						Log.d(TAG, "Attempting handover " + handover);
-						handover.doConnectionHandover(handoverRequest, i);
+						handover.doConnectionHandover(handoverRequest, handoverRecordPos, i);
 						return NDEF_CONSUME;
 					} catch (IOException e) {
 						Log.w(TAG, "Handover failed.", e);
@@ -125,6 +120,11 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 		return findUserspaceHandoverRequest(ndef);
 	}
 
+	public static boolean isHandoverRequest(NdefMessage ndefMessage) {
+	    NdefRecord ndef = ndefMessage.getRecords()[0];
+            return (ndef.getTnf() == NdefRecord.TNF_WELL_KNOWN
+                && Arrays.equals(ndef.getType(), NdefRecord.RTD_HANDOVER_REQUEST));
+	}
 	// User-space handover:
 	// TODO: Support uri profile
 	private static int findUserspaceHandoverRequest(NdefMessage ndef) {
@@ -132,7 +132,7 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 		for (int i = 0; i < records.length; i++) {
     		if (records[i].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
     				&& records[i].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
-    			String scheme = new String(records[0].getPayload(), 0, USER_HANDOVER_PREFIX.length());
+    			String scheme = new String(records[i].getPayload(), 0, USER_HANDOVER_PREFIX.length());
     			if (USER_HANDOVER_PREFIX.equals(scheme)) {
     			    return i;
     			}
