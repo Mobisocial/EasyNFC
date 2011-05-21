@@ -463,7 +463,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.html#doConnectionHandover(android.nfc.NdefMessage, int)">doConnectionHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverMessage, int record)</nobr>
+        <span class="sympad"><a href="../../mobisocial/ndefexchange/NdefBluetoothPushHandover.html#doConnectionHandover(android.nfc.NdefMessage, int, int)">doConnectionHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverMessage, int handover, int record)</nobr>
         
         <div class="jd-descrdiv">Issues a connection handover of the given type.</div>
   
@@ -733,7 +733,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandover.html#doConnectionHandover(android.nfc.NdefMessage, int)">doConnectionHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverRequest, int recordNumber)</nobr>
+        <span class="sympad"><a href="../../mobisocial/nfc/ConnectionHandover.html#doConnectionHandover(android.nfc.NdefMessage, int, int)">doConnectionHandover</a></span>(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverRequest, int handoverRecordNumber, int recordNumber)</nobr>
         
         <div class="jd-descrdiv">Issues a connection handover of the given type.</div>
   
@@ -842,7 +842,7 @@ From interface
 
 
 
-<A NAME="doConnectionHandover(android.nfc.NdefMessage, int)"></A>
+<A NAME="doConnectionHandover(android.nfc.NdefMessage, int, int)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -855,7 +855,7 @@ From interface
         void
       </span>
       <span class="sympad">doConnectionHandover</span>
-      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverMessage, int record)</span>
+      <span class="normal">(<a href="../../android/nfc/NdefMessage.html">NdefMessage</a> handoverMessage, int handover, int record)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -874,6 +874,10 @@ From interface
         <tr>
           <th>handoverMessage</td>
           <td>The connection handover request message.</td>
+        </tr>
+        <tr>
+          <th>handover</td>
+          <td>The index of th first record in the connection handover.</td>
         </tr>
         <tr>
           <th>record</td>

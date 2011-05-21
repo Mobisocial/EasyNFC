@@ -485,6 +485,8 @@
 >
 <parameter name="handoverMessage" type="android.nfc.NdefMessage">
 </parameter>
+<parameter name="handover" type="int">
+</parameter>
 <parameter name="record" type="int">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
@@ -708,6 +710,8 @@
  visibility="public"
 >
 <parameter name="handoverMessage" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="handover" type="int">
 </parameter>
 <parameter name="record" type="int">
 </parameter>
@@ -938,6 +942,8 @@
 >
 <parameter name="handoverRequest" type="android.nfc.NdefMessage">
 </parameter>
+<parameter name="handoverRecordNumber" type="int">
+</parameter>
 <parameter name="recordNumber" type="int">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
@@ -1060,6 +1066,19 @@
  visibility="public"
 >
 <parameter name="handoverRequest" type="android.nfc.NdefMessage[]">
+</parameter>
+</method>
+<method name="isHandoverRequest"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefMessage" type="android.nfc.NdefMessage">
 </parameter>
 </method>
 <method name="removeConnectionHandover"
@@ -1780,7 +1799,7 @@
 </parameter>
 </method>
 <method name="prepare"
- return="void"
+ return="android.bluetooth.BluetoothServerSocket"
  abstract="false"
  native="false"
  synchronized="false"
@@ -1795,7 +1814,7 @@
 </parameter>
 </method>
 <method name="prepare"
- return="void"
+ return="android.bluetooth.BluetoothServerSocket"
  abstract="false"
  native="false"
  synchronized="false"
@@ -1819,6 +1838,19 @@
  deprecated="not deprecated"
  visibility="public"
 >
+<method name="beforeConnect"
+ return="void"
+ abstract="true"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="isServer" type="boolean">
+</parameter>
+</method>
 <method name="onConnectionEstablished"
  return="void"
  abstract="true"

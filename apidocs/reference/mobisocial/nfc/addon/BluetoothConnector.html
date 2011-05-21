@@ -323,7 +323,7 @@ Summary:
 <h2>Class Overview</h2>
 <p><p>Allows two devices to establish a Bluetooth connection after exchanging an NFC
  Connection Handover Request. The socket is returned via callback.
- 
+
  <p>A simple example for establishing a Bluetooth connection when both phones
  are in the same activity:
  
@@ -369,7 +369,7 @@ Summary:
    <li>Pairing when only one phone is in the activity
    <li>Providing a download link if your application is not yet installed.
  </ul>
- 
+
  <p>You should also ensure that Bluetooth and Nfc are enabled on the device.
 
  <pre class="prettyprint">
@@ -381,7 +381,7 @@ Summary:
       super.onCreate(savedInstanceState);
       setContentView(R.layout.main);
       mNfc = new Nfc(this);
-      
+
       // If this activity was launched from an NFC interaction, start the
       // Bluetooth connection process.
       if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
@@ -392,12 +392,12 @@ Summary:
           BluetoothConnector.prepare(mNfc, mBluetoothConnected, getAppReference());
       }
   }
-  
+
   protected void onResume() {
       super.onResume();
       mNfc.onResume(this);
   }
-  
+
   protected void onPause() {
       super.onPause();
       mLastPausedMillis = System.currentTimeMillis();
@@ -423,13 +423,13 @@ Summary:
       NdefRecord ref = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[]{}, urlBytes);
       return new NdefRecord[] { ref };
   }
-  
+
   OnConnectedListener mBluetoothConnected = new OnConnectedListener() {
       public void onConnectionEstablished(BluetoothSocket socket, boolean isServer) {
           toast("connected! server: " + isServer);
       }
   };
-  
+
   private void toast(final String text) {
       runOnUiThread(new Runnable() {
           public void run() {
@@ -596,7 +596,7 @@ Summary:
             
             static
             
-            void</nobr>
+            <a href="http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html">BluetoothServerSocket</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.html#prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener)">prepare</a></span>(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn)</nobr>
@@ -615,7 +615,7 @@ Summary:
             
             static
             
-            void</nobr>
+            <a href="http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html">BluetoothServerSocket</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.html#prepare(mobisocial.nfc.Nfc, mobisocial.nfc.addon.BluetoothConnector.OnConnectedListener, android.nfc.NdefRecord[])">prepare</a></span>(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn, <a href="../../../android/nfc/NdefRecord.html">NdefRecord[]</a> ndef)</nobr>
@@ -965,7 +965,7 @@ From class
          
          
          
-        void
+        <a href="http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html">BluetoothServerSocket</a>
       </span>
       <span class="sympad">prepare</span>
       <span class="normal">(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn)</span>
@@ -984,7 +984,15 @@ From class
  socket with another device. The method both sets the foreground ndef
  messages and registers an <code><a href="../../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></code> to look for
  incoming pairing requests.
-</p></div>
+ 
+ <p>When this method is called, a Bluetooth server socket is created,
+ and the socket is closed after a successful connection. You must call
+ prepare() again to reinitiate the server socket.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The server socket listening for peers.
+</li></ul>
+  </div>
 
     </div>
 </div>
@@ -1000,7 +1008,7 @@ From class
          
          
          
-        void
+        <a href="http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html">BluetoothServerSocket</a>
       </span>
       <span class="sympad">prepare</span>
       <span class="normal">(<a href="../../../mobisocial/nfc/Nfc.html">Nfc</a> nfc, <a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html">BluetoothConnector.OnConnectedListener</a> conn, <a href="../../../android/nfc/NdefRecord.html">NdefRecord[]</a> ndef)</span>
@@ -1019,7 +1027,15 @@ From class
  socket with another device. The method both sets the foreground ndef
  messages and registers an <code><a href="../../../mobisocial/nfc/NdefHandler.html">NdefHandler</a></code> to look for
  incoming pairing requests.
-</p></div>
+ 
+ <p>When this method is called, a Bluetooth server socket is created,
+ and the socket is closed after a successful connection. You must call
+ prepare() again to reinitiate the server socket.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The server socket listening for peers.
+</li></ul>
+  </div>
 
     </div>
 </div>

@@ -274,7 +274,6 @@
 
 <h2>Class Overview</h2>
 <p>A callback used when a Bluetooth connection has been established.
- 
 </p>
 
 
@@ -345,6 +344,24 @@
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html#beforeConnect(boolean)">beforeConnect</a></span>(boolean isServer)</nobr>
+        
+        <div class="jd-descrdiv">Called before an attempt to set up a Bluetooth connection.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../mobisocial/nfc/addon/BluetoothConnector.OnConnectedListener.html#onConnectionEstablished(android.bluetooth.BluetoothSocket, boolean)">onConnectionEstablished</a></span>(<a href="http://developer.android.com/reference/android/bluetooth/BluetoothSocket.html">BluetoothSocket</a> socket, boolean isServer)</nobr>
         
         <div class="jd-descrdiv">The method called when a Bluetooth connection has been established.</div>
@@ -400,6 +417,49 @@
 
 
 
+<A NAME="beforeConnect(boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+        abstract 
+         
+        void
+      </span>
+      <span class="sympad">beforeConnect</span>
+      <span class="normal">(boolean isServer)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Called before an attempt to set up a Bluetooth connection.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>isServer</td>
+          <td>True if this connection is the "host" of this
+            connection. Useful in establishing an asymmetric
+            relationship between otherwise symmetric devices.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <A NAME="onConnectionEstablished(android.bluetooth.BluetoothSocket, boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -435,9 +495,9 @@
         </tr>
         <tr>
           <th>isServer</td>
-          <td>True if this connection is the "host" of this connection.
- Useful in establishing an asymmetric relationship between otherwise
- symmetric devices.
+          <td>True if this connection is the "host" of this
+            connection. Useful in establishing an asymmetric
+            relationship between otherwise symmetric devices.
 </td>
         </tr>
       </table>
