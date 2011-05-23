@@ -18,9 +18,9 @@
 package mobisocial.nfc.addon;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URI;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
@@ -31,6 +31,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.os.Build.VERSION;
@@ -190,6 +191,7 @@ public abstract class BluetoothConnector {
     private static final String SERVICE_NAME = "NfcBtHandover";
     private static final String BT_SOCKET_SCHEMA = "btsocket://";
     private static final String TAG = "btconnect";
+    private static final boolean DBG = false;
 
     /**
      * Configures the {@link mobisocial.nfc.Nfc} interface to set up a Bluetooth
@@ -225,8 +227,7 @@ public abstract class BluetoothConnector {
     public static BluetoothServerSocket prepare(Nfc nfc, OnConnectedListener conn, NdefRecord[] ndef) {
         BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
         NdefMessage handoverRequest = btConnecting.getHandoverRequestMessage();
-        NdefRecord[] combinedRecords = new NdefRecord[ndef.length
-                + handoverRequest.getRecords().length];
+        NdefRecord[] combinedRecords = new NdefRecord[ndef.length + handoverRequest.getRecords().length];
 
         int i = 0;
         for (NdefRecord r : ndef) {
@@ -259,6 +260,7 @@ public abstract class BluetoothConnector {
         private final OnConnectedListener mmBtConnected;
         private final BluetoothAdapter mBluetoothAdapter;
         private final UUID mServiceUuid;
+        private final int mChannel;
         private final boolean mAlwaysClient;
         private boolean mConnectionStarted;
 
@@ -275,6 +277,7 @@ public abstract class BluetoothConnector {
             random.nextBytes(mCollisionResolution);
 
             mAcceptThread = new AcceptThread();
+            mChannel = mAcceptThread.getListeningPort();
             mAcceptThread.start();
         }
 
@@ -298,10 +301,15 @@ public abstract class BluetoothConnector {
             }, new byte[0], mCollisionResolution);
 
             /* Handover record */
-            String btRequest = BT_SOCKET_SCHEMA + mBluetoothAdapter.getAddress() + "/"
-                    + mServiceUuid;
+            StringBuilder btRequest = new StringBuilder(BT_SOCKET_SCHEMA)
+                .append(mBluetoothAdapter.getAddress())
+                .append("/")
+                .append(mServiceUuid);
+            if (mChannel != -1) {
+                btRequest.append("?channel=" + mChannel);
+            }
             records[2] = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI,
-                    new byte[0], btRequest.getBytes());
+                    new byte[0], btRequest.toString().getBytes());
 
             NdefMessage ndef = new NdefMessage(records);
             return ndef;
@@ -316,7 +324,9 @@ public abstract class BluetoothConnector {
                     && remoteCollision[1] == mCollisionResolution[1]) {
                 return; // They'll have to try again.
             }
-            boolean amServer = (remoteCollision[0] < mCollisionResolution[0] || (remoteCollision[0] == mCollisionResolution[0] && remoteCollision[1] < mCollisionResolution[1]));
+            boolean amServer = (remoteCollision[0] < mCollisionResolution[0] ||
+                    (remoteCollision[0] == mCollisionResolution[0] && remoteCollision[1] < mCollisionResolution[1]));
+
             if (mAlwaysClient) {
                 amServer = false;
             }
@@ -332,10 +342,16 @@ public abstract class BluetoothConnector {
             if (!amServer) {
                 // Not waiting for a connection:
                 mAcceptThread.cancel();
-                URI uri = URI.create(new String(handoverRequest.getRecords()[record].getPayload()));
+                Uri uri = Uri.parse(new String(handoverRequest.getRecords()[record].getPayload()));
                 UUID serviceUuid = UUID.fromString(uri.getPath().substring(1));
+                int channel = -1;
+                String channelStr = uri.getQueryParameter("channel");
+                if (null != channelStr) {
+                    channel = Integer.parseInt(channelStr);
+                }
+
                 BluetoothDevice remoteDevice = mBluetoothAdapter.getRemoteDevice(uri.getAuthority());
-                new ConnectThread(remoteDevice, serviceUuid).start();
+                new ConnectThread(remoteDevice, serviceUuid, channel).start();
             }
         }
 
@@ -358,12 +374,12 @@ public abstract class BluetoothConnector {
             private final BluetoothSocket mmSocket;
             private final BluetoothDevice mmDevice;
 
-            public ConnectThread(BluetoothDevice device, UUID uuid) {
+            public ConnectThread(BluetoothDevice device, UUID uuid, int channel) {
                 mmDevice = device;
 
                 BluetoothSocket tmp = null;
                 try {
-                    tmp = createBluetoothSocket(mmDevice, uuid);
+                    tmp = createBluetoothSocket(mmDevice, uuid, channel);
                 } catch (IOException e) {
                     Log.e(TAG, "create() failed", e);
                 }
@@ -393,16 +409,20 @@ public abstract class BluetoothConnector {
         private class AcceptThread extends Thread {
             // The local server socket
             private final BluetoothServerSocket mmServerSocket;
+            private final int mmListeningPort;
 
             private AcceptThread() {
                 BluetoothServerSocket tmp = null;
 
                 // Create a new listening server socket
+                int listeningPort = -1;
                 try {
-                    tmp = getListeningBluetoothServerSocket();
+                    tmp = getBluetoothServerSocket();
+                    listeningPort = getBluetoothListeningPort(tmp);
                 } catch (IOException e) {
                     Log.e(TAG, "listen() failed", e);
                 }
+                mmListeningPort = listeningPort;
                 mmServerSocket = tmp;
             }
 
@@ -424,7 +444,7 @@ public abstract class BluetoothConnector {
                         }
                     }
                 } catch (IOException e) {
-                    Log.e(TAG, "accept() failed", e);
+                    if (DBG) Log.e(TAG, "accept() failed", e);
                     return;
                 }
 
@@ -445,22 +465,26 @@ public abstract class BluetoothConnector {
                 } catch (IOException e) {
                 }
             }
+
+            public int getListeningPort() {
+                return mmListeningPort;
+            }
         }
 
-        private BluetoothServerSocket getListeningBluetoothServerSocket() throws IOException {
+        private BluetoothServerSocket getBluetoothServerSocket() throws IOException {
             BluetoothServerSocket tmp;
+
             if (VERSION.SDK_INT < VERSION_CODES.GINGERBREAD_MR1) {
                 tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME,
                         mServiceUuid);
-                Log.d(TAG, "Using secure bluetooth server socket");
+                if (DBG) Log.d(TAG, "Using secure bluetooth server socket");
             } else {
                 try {
                     // compatibility with pre SDK 10 devices
                     Method listener = mBluetoothAdapter.getClass().getMethod(
                             "listenUsingInsecureRfcommWithServiceRecord", String.class, UUID.class);
-                    tmp = (BluetoothServerSocket) listener.invoke(mBluetoothAdapter, SERVICE_NAME,
-                            mServiceUuid);
-                    Log.d(TAG, "Using insecure bluetooth server socket");
+                    tmp = (BluetoothServerSocket) listener.invoke(mBluetoothAdapter, SERVICE_NAME, mServiceUuid);
+                    if (DBG) Log.d(TAG, "Using insecure bluetooth server socket");
                 } catch (NoSuchMethodException e) {
                     Log.wtf(TAG, "listenUsingInsecureRfcommWithServiceRecord not found");
                     throw new IOException(e);
@@ -477,20 +501,31 @@ public abstract class BluetoothConnector {
             return tmp;
         }
 
-        private BluetoothSocket createBluetoothSocket(BluetoothDevice device, UUID uuid)
+        private BluetoothSocket createBluetoothSocket(BluetoothDevice device, UUID uuid, int channel)
                 throws IOException {
 
             BluetoothSocket tmp;
+
+            if (channel != -1) {
+                try {
+                    if (DBG) Log.d(TAG, "trying to connect to channel " + channel);
+                    Method listener = device.getClass().getMethod("createInsecureRfcommSocket", int.class);
+                    return (BluetoothSocket) listener.invoke(device, channel);
+                } catch (Exception e) {
+                    if (DBG) Log.w(TAG, "Could not connect to channel.", e);
+                }
+            }
+
             if (VERSION.SDK_INT < VERSION_CODES.GINGERBREAD_MR1) {
                 tmp = device.createRfcommSocketToServiceRecord(uuid);
-                Log.d(TAG, "Using secure bluetooth socket");
+                if (DBG) Log.d(TAG, "Using secure bluetooth socket");
             } else {
                 try {
                     // compatibility with pre SDK 10 devices
                     Method listener = device.getClass().getMethod(
                             "createInsecureRfcommSocketToServiceRecord", UUID.class);
                     tmp = (BluetoothSocket) listener.invoke(device, uuid);
-                    Log.d(TAG, "Using insecure bluetooth socket");
+                    if (DBG) Log.d(TAG, "Using insecure bluetooth socket");
                 } catch (NoSuchMethodException e) {
                     Log.wtf(TAG, "createInsecureRfcommSocketToServiceRecord not found");
                     throw new IOException(e);
@@ -505,6 +540,22 @@ public abstract class BluetoothConnector {
                 }
             }
             return tmp;
+        }
+
+        private static int getBluetoothListeningPort(BluetoothServerSocket serverSocket) {
+            try {
+                Field socketField = BluetoothServerSocket.class.getDeclaredField("mSocket");
+                socketField.setAccessible(true);
+                BluetoothSocket socket = (BluetoothSocket)socketField.get(serverSocket);
+
+                Field portField = BluetoothSocket.class.getDeclaredField("mPort");
+                portField.setAccessible(true);
+                int port = (Integer)portField.get(socket);
+                return port;
+            } catch (Exception e) {
+                Log.d(TAG, "Error getting port from socket", e);
+                return -1;
+            }
         }
     }
 
