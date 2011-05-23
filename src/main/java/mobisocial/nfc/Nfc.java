@@ -410,10 +410,12 @@ public class Nfc {
 		mActivity = activity;
 
 		mState = STATE_RESUMING;
-		if (mNfcAdapter == null) {
+		if (isConnectionHandoverEnabled()) {
 			installNfcHandoverHandler();
 			enableNdefPush();
-		} else {
+		}
+
+		if (mNfcAdapter != null) {
 			synchronized(this) {
 				if (mInterfaceMode != MODE_PASSTHROUGH) {
 					installNfcHandler();
@@ -434,10 +436,12 @@ public class Nfc {
 		mActivity = activity;
 
 		mState = STATE_PAUSING;
-		if (mNfcAdapter == null) {
-			uninstallNfcHandoverHandler();
-			notifyRemoteNfcInteface(null);
-		} else {
+		if (isConnectionHandoverEnabled()) {
+		    uninstallNfcHandoverHandler();
+            notifyRemoteNfcInteface(null);
+		}
+
+		if (mNfcAdapter != null) {
 			synchronized(this) {
 				mNfcAdapter.disableForegroundDispatch(mActivity);
 				mNfcAdapter.disableForegroundNdefPush(mActivity);
@@ -560,19 +564,19 @@ public class Nfc {
 				}
 			});
 			return;
+		} else {		
+    		mActivity.runOnUiThread(new Runnable() {
+    			@Override
+    			public void run() {
+    				synchronized (Nfc.this) {
+    					if (mState < STATE_RESUMING) {
+    						return;
+    					}
+    					mNfcAdapter.enableForegroundNdefPush(mActivity, ndef);
+    				}
+    			}
+    		});
 		}
-		
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				synchronized (Nfc.this) {
-					if (mState < STATE_RESUMING) {
-						return;
-					}
-					mNfcAdapter.enableForegroundNdefPush(mActivity, ndef);
-				}
-			}
-		});
 	}
 
 	private void notifyRemoteNfcInteface(NdefMessage ndef) {
