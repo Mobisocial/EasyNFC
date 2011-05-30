@@ -23,7 +23,6 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
-import mobisocial.bluetooth.InsecureBluetooth;
 import mobisocial.nfc.ConnectionHandover;
 
 import android.bluetooth.BluetoothAdapter;
@@ -32,8 +31,6 @@ import android.bluetooth.BluetoothSocket;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 
 /**
  * <p>Implements an Ndef push handover request in which a static tag
@@ -95,11 +92,7 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 		@Override
 		public void connect() throws IOException {
 			BluetoothDevice device = mmBluetoothAdapter.getRemoteDevice(mmMac);
-			if (VERSION.SDK_INT < VERSION_CODES.GINGERBREAD_MR1) {
-			    InsecureBluetooth.createRfcommSocketToServiceRecord(device, mmServiceUuid, false);
-			} else {
-			    mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
-			}
+			mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
 			mmSocket.connect();
 		}
 		

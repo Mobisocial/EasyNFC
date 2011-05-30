@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-import mobisocial.bluetooth.InsecureBluetooth;
 import mobisocial.nfc.ConnectionHandover;
 import mobisocial.nfc.Nfc;
 import android.bluetooth.BluetoothAdapter;
@@ -79,7 +78,7 @@ import mobisocial.nfc.ConnectionHandoverManager;
  *     mNfc.onPause();
  *   }
  *   
- *   public void onNewIntent(Intent intent) {
+ *   public void onNewInent(Intent intent) {
  *     if (mNfc.onNewIntent(this, intent)) return;
  *   }
  * }
@@ -473,14 +472,37 @@ public abstract class BluetoothConnector {
         }
 
         private BluetoothServerSocket getBluetoothServerSocket() throws IOException {
+            BluetoothServerSocket tmp;
+
             if (VERSION.SDK_INT < VERSION_CODES.GINGERBREAD_MR1) {
-                return InsecureBluetooth.listenUsingRfcommWithServiceRecord(mBluetoothAdapter, SERVICE_NAME, mServiceUuid, false);
+                tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME,
+                        mServiceUuid);
+                if (DBG) Log.d(TAG, "Using secure bluetooth server socket");
+            } else {
+                try {
+                    // compatibility with pre SDK 10 devices
+                    Method listener = mBluetoothAdapter.getClass().getMethod(
+                            "listenUsingInsecureRfcommWithServiceRecord", String.class, UUID.class);
+                    tmp = (BluetoothServerSocket) listener.invoke(mBluetoothAdapter, SERVICE_NAME, mServiceUuid);
+                    if (DBG) Log.d(TAG, "Using insecure bluetooth server socket");
+                } catch (NoSuchMethodException e) {
+                    Log.wtf(TAG, "listenUsingInsecureRfcommWithServiceRecord not found");
+                    throw new IOException(e);
+                } catch (InvocationTargetException e) {
+                    Log.wtf(TAG,
+                            "listenUsingInsecureRfcommWithServiceRecord not available on mBtAdapter");
+                    throw new IOException(e);
+                } catch (IllegalAccessException e) {
+                    Log.wtf(TAG,
+                            "listenUsingInsecureRfcommWithServiceRecord not available on mBtAdapter");
+                    throw new IOException(e);
+                }
             }
-            return mBluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(SERVICE_NAME, mServiceUuid);
+            return tmp;
         }
 
         private BluetoothSocket createBluetoothSocket(BluetoothDevice device, UUID uuid, int channel)
-            throws IOException {
+                throws IOException {
 
             BluetoothSocket tmp;
 
