@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>edu.stanford.mobisocial</groupId>
-  <artifactId>EasyNfc</artifactId>
+  <groupId>org.mobisocial</groupId>
+  <artifactId>easynfc</artifactId>
   <version>0.3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>EasyNfc</name>
