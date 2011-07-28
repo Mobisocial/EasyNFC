@@ -402,6 +402,10 @@ public class Nfc {
 	}
 
 
+	public void onCreate(Activity activity) {
+	    onNewIntent(activity, activity.getIntent());
+	}
+
 	/**
 	 * Call this method in your Activity's onResume() method body.
 	 */
