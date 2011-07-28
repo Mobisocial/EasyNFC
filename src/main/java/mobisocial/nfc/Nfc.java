@@ -68,6 +68,7 @@ import android.widget.Toast;
  *   public void onCreate(Bundle savedInstanceState) {
  *     super.onCreate(savedInstanceState);
  *     mNfc = new Nfc(this);
+ *     mNfc.onCreate(this);
  *   }
  * 
  *   public void onResume() {
