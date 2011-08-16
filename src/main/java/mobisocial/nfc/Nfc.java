@@ -602,8 +602,9 @@ public class Nfc {
 		Intent activityIntent = new Intent(mActivity, mActivity.getClass());
 		activityIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		
-		PendingIntent intent = PendingIntent.getActivity(mActivity, 0, activityIntent, 0);
-		mNfcAdapter.enableForegroundDispatch(mActivity, intent, mIntentFilters, mTechLists);
+        PendingIntent intent = PendingIntent.getActivity(mActivity, 0,
+                activityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        mNfcAdapter.enableForegroundDispatch(mActivity, intent, mIntentFilters, mTechLists);
 	}
 	
 	private BroadcastReceiver mHandoverReceiver = new BroadcastReceiver() {
