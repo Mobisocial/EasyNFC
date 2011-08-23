@@ -24,6 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import android.net.Uri;
+import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.util.Log;
@@ -71,8 +72,13 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 		}
 
 		if (findUserspaceHandoverRequest(handoverRequest) != -1) {
-			// TODO: Move to NdefFactory or similar
-			Uri uri = Uri.parse(new String(handoverRequest.getRecords()[0].getPayload()));
+		    Uri uri;
+		    try {
+		        uri = NdefFactory.parseUri(handoverRequest.getRecords()[0]);
+		    } catch (FormatException e) {
+		        Log.e(TAG, "Bad handover record.", e);
+		        return NDEF_PROPAGATE;
+		    }
 			handoverRequest = NdefFactory.fromNdefUri(uri);
 			handoverRecordPos = 0;
 		}
@@ -116,7 +122,6 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
     			return i;
     		}
 		}
-
 		return findUserspaceHandoverRequest(ndef);
 	}
 
@@ -130,13 +135,12 @@ public class ConnectionHandoverManager implements NdefHandler, PrioritizedHandle
 	private static int findUserspaceHandoverRequest(NdefMessage ndef) {
 		NdefRecord[] records = (ndef).getRecords();
 		for (int i = 0; i < records.length; i++) {
-    		if (records[i].getTnf() == NdefRecord.TNF_ABSOLUTE_URI
-    				&& records[i].getPayload().length >= USER_HANDOVER_PREFIX.length()) {
-    			String scheme = new String(records[i].getPayload(), 0, USER_HANDOVER_PREFIX.length());
-    			if (USER_HANDOVER_PREFIX.equals(scheme)) {
-    			    return i;
-    			}
-    		}
+		    try {
+		        String uriStr = NdefFactory.parseUri(records[i]).toString();
+		        if (uriStr.startsWith(USER_HANDOVER_PREFIX)) {
+		            return i;
+		        }
+		    } catch (FormatException e)  { }
 		}
 		return -1;
 	}

@@ -20,6 +20,7 @@ package mobisocial.nfc;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
 
 import android.net.Uri;
 import android.nfc.FormatException;
@@ -189,6 +190,27 @@ public class NdefFactory {
             throw new IllegalArgumentException("Format error.");
         }
         return wrappedNdef;
+    }
+
+    public static final Uri parseUri(NdefRecord record) throws FormatException {
+        int tnf = record.getTnf();
+        if (tnf == NdefRecord.TNF_ABSOLUTE_URI) {
+            return Uri.parse(new String(record.getType()));
+        }
+        if (tnf == NdefRecord.TNF_WELL_KNOWN &&
+                Arrays.equals(NdefRecord.RTD_URI, record.getType())) {
+            byte[] payload = record.getPayload();
+            int pre = (int)payload[0];
+            if (!(pre >= 0 && pre < URI_PREFIXES.length)) {
+                throw new FormatException("Unknown uri prefix: " + pre);
+            }
+            String prefix = URI_PREFIXES[pre];
+            String uriStr = new StringBuilder()
+                .append(prefix).append(new String(payload, 1, payload.length - 1))
+                .toString();
+            return Uri.parse(uriStr);
+        }
+        throw new FormatException("NdefRecord is not a uri.");
     }
 
     /**

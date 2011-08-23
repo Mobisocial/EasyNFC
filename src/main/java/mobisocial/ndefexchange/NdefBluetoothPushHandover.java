@@ -24,13 +24,16 @@ import java.util.Arrays;
 import java.util.UUID;
 
 import mobisocial.nfc.ConnectionHandover;
+import mobisocial.nfc.NdefFactory;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.net.Uri;
+import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
+import android.util.Log;
 
 /**
  * <p>Implements an Ndef push handover request in which a static tag
@@ -52,17 +55,19 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 
 	@Override
 	public boolean supportsRequest(NdefRecord handoverRequest) {
-		if (handoverRequest.getTnf() != NdefRecord.TNF_ABSOLUTE_URI
-				|| !Arrays.equals(handoverRequest.getType(), NdefRecord.RTD_URI)) {
+	    short tnf = handoverRequest.getTnf();
+		if (tnf != NdefRecord.TNF_ABSOLUTE_URI && (tnf != NdefRecord.TNF_WELL_KNOWN &&
+		        !Arrays.equals(handoverRequest.getType(), NdefRecord.RTD_URI))) {
 			return false;
 		}
-
-		String uriString = new String(handoverRequest.getPayload());
-		if (uriString.startsWith("ndef+bluetooth://")) {
-			return true;
+		Uri uri;
+		try {
+		    uri= NdefFactory.parseUri(handoverRequest);
+		} catch (FormatException e) {
+		    return false;
 		}
-		
-		return false;
+		String scheme = uri.getScheme();
+		return (scheme != null && scheme.equals("ndef+bluetooth"));
 	}
 	
 	@Override
