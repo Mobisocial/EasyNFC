@@ -24,6 +24,8 @@ import java.net.Socket;
 import java.net.URI;
 import java.util.Arrays;
 
+import mobisocial.comm.DuplexSocket;
+import mobisocial.comm.TcpDuplexSocket;
 import mobisocial.nfc.ConnectionHandover;
 import mobisocial.nfc.NdefFactory;
 
@@ -92,33 +94,5 @@ public class NdefTcpPushHandover implements ConnectionHandover {
 
 		DuplexSocket socket = new TcpDuplexSocket(host, port);
 		new NdefExchangeThread(socket, ndefProxy).start();
-	}
-
-	public class TcpDuplexSocket implements DuplexSocket {
-		final Socket mSocket;
-
-		public TcpDuplexSocket(String host, int port) throws IOException {
-			mSocket = new Socket(host, port);
-		}
-		
-		//@Override
-		public void connect() throws IOException {
-			
-		}
-		
-		//@Override
-		public InputStream getInputStream() throws IOException {
-			return mSocket.getInputStream();
-		}
-		
-		//@Override
-		public OutputStream getOutputStream() throws IOException {
-			return mSocket.getOutputStream();
-		}
-		
-		//@Override
-		public void close() throws IOException {
-			mSocket.close();
-		}
 	}
 }

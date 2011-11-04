@@ -23,6 +23,8 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
+import mobisocial.comm.BluetoothDuplexSocket;
+import mobisocial.comm.DuplexSocket;
 import mobisocial.nfc.ConnectionHandover;
 import mobisocial.nfc.NdefFactory;
 
@@ -80,42 +82,5 @@ public class NdefBluetoothPushHandover implements ConnectionHandover {
 		UUID uuid = UUID.fromString(target.getPath().substring(1));
 		DuplexSocket socket = new BluetoothDuplexSocket(mmBluetoothAdapter, mac, uuid);
 		new NdefExchangeThread(socket, mNdefExchange).start();
-	}
-
-	public class BluetoothDuplexSocket implements DuplexSocket {
-		final String mmMac;
-		final UUID mmServiceUuid;
-		final BluetoothAdapter mmBluetoothAdapter;
-		BluetoothSocket mmSocket;
-
-		public BluetoothDuplexSocket(BluetoothAdapter adapter, String mac, UUID serviceUuid) throws IOException {
-			mmBluetoothAdapter = adapter;
-			mmMac = mac;
-			mmServiceUuid = serviceUuid;
-		}
-		
-		@Override
-		public void connect() throws IOException {
-			BluetoothDevice device = mmBluetoothAdapter.getRemoteDevice(mmMac);
-			mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
-			mmSocket.connect();
-		}
-		
-		@Override
-		public InputStream getInputStream() throws IOException {
-			return mmSocket.getInputStream();
-		}
-		
-		@Override
-		public OutputStream getOutputStream() throws IOException {
-			return mmSocket.getOutputStream();
-		}
-		
-		@Override
-		public void close() throws IOException {
-			if (mmSocket != null) {
-				mmSocket.close();
-			}
-		}
 	}
 }

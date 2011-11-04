@@ -15,19 +15,40 @@
  * limitations under the License.
  */
 
-package mobisocial.ndefexchange;
+package mobisocial.comm;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * A wrapper for the standard Socket implementation.
- *
- */
-public interface DuplexSocket extends Closeable {
-	public InputStream getInputStream() throws IOException;
-	public OutputStream getOutputStream() throws IOException;
-	public void connect() throws IOException;
-}
+
+public class StreamDuplexSocket implements DuplexSocket {
+		final InputStream mInputStream;
+		final OutputStream mOutputStream;
+
+		public StreamDuplexSocket(InputStream in, OutputStream out) throws IOException {
+			mInputStream = in;
+			mOutputStream = out;
+		}
+
+		@Override
+		public void connect() throws IOException {
+
+		}
+
+		@Override
+		public InputStream getInputStream() throws IOException {
+			return mInputStream;
+		}
+
+		@Override
+		public OutputStream getOutputStream() throws IOException {
+			return mOutputStream;
+		}
+
+		@Override
+		public void close() throws IOException {
+			mInputStream.close();
+			mOutputStream.close();
+		}
+	}

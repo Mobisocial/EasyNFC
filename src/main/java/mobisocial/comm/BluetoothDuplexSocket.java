@@ -15,39 +15,50 @@
  * limitations under the License.
  */
 
-package mobisocial.ndefexchange;
+package mobisocial.comm;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 
-public class StreamDuplexSocket implements DuplexSocket {
-		final InputStream mInputStream;
-		final OutputStream mOutputStream;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 
-		public StreamDuplexSocket(InputStream in, OutputStream out) throws IOException {
-			mInputStream = in;
-			mOutputStream = out;
+public class BluetoothDuplexSocket implements DuplexSocket {
+		final String mmMac;
+		final UUID mmServiceUuid;
+		final BluetoothAdapter mmBluetoothAdapter;
+		BluetoothSocket mmSocket;
+
+		public BluetoothDuplexSocket(BluetoothAdapter adapter, String mac, UUID serviceUuid) throws IOException {
+			mmBluetoothAdapter = adapter;
+			mmMac = mac;
+			mmServiceUuid = serviceUuid;
 		}
-
+		
 		@Override
 		public void connect() throws IOException {
-
+			BluetoothDevice device = mmBluetoothAdapter.getRemoteDevice(mmMac);
+			mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
+			mmSocket.connect();
 		}
-
+		
 		@Override
 		public InputStream getInputStream() throws IOException {
-			return mInputStream;
+			return mmSocket.getInputStream();
 		}
-
+		
 		@Override
 		public OutputStream getOutputStream() throws IOException {
-			return mOutputStream;
+			return mmSocket.getOutputStream();
 		}
-
+		
 		@Override
 		public void close() throws IOException {
-			mInputStream.close();
-			mOutputStream.close();
+			if (mmSocket != null) {
+				mmSocket.close();
+			}
 		}
 	}

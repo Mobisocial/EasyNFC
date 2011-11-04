@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import mobisocial.comm.DuplexSocket;
+
 import android.nfc.NdefMessage;
 import android.util.Log;
 

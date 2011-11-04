@@ -5,7 +5,7 @@
 
   <groupId>org.mobisocial</groupId>
   <artifactId>easynfc</artifactId>
-  <version>0.3-SNAPSHOT</version>
+  <version>0.3.2-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>EasyNfc</name>
   <description>An abstraction layer for Nfc on Android</description>
@@ -26,7 +26,7 @@
         <configuration>
           <sdk>
             <path>/usr/share/android-sdk-linux_86</path>
-            <platform>9</platform>
+            <platform>10</platform>
           </sdk>
           <deleteConflictingFiles>true</deleteConflictingFiles>
         </configuration>
