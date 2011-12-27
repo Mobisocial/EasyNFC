@@ -182,6 +182,7 @@ public class NdefFactory {
 
     /**
      * Converts an Ndef message encoded in uri format to an NdefMessage.
+     * {@hide}
      */
     public static final NdefMessage fromNdefUri(Uri uri) {
         if (!"ndef".equals(uri.getScheme())) {
