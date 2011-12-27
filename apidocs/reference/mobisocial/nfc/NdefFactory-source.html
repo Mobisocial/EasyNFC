@@ -454,6 +454,7 @@ public class NdefFactory {
 
     /**
      * Converts an Ndef message encoded in uri format to an NdefMessage.
+     * {@hide}
      */
     public static final NdefMessage fromNdefUri(Uri uri) {
         if (!"ndef".equals(uri.getScheme())) {
@@ -500,34 +501,31 @@ public class NdefFactory {
         return Uri.parse("ndef://url/" + Base64.encodeToString(ndef.toByteArray(), Base64.URL_SAFE));
     }*/
 
-    /**                   
-     * &lt;p&gt;From Android SDK, version 14.
-     * (C) 2010 The Android Open Source Project
-     *                                                                                                                    
-     * &lt;p&gt;Creates an Android application NDEF record.                                                                                                   
-     * &lt;p&gt;                                                                                                                                           
-     * This record indicates to other Android devices the package                                                                                    
-     * that should be used to handle the rest of the NDEF message.                                                                                   
-     * You can embed this record anywhere into your NDEF message                                                                                     
-     * to ensure that the intended package receives the message.                                                                                     
-     * &lt;p&gt;                                                                                                                                           
-     * When an Android device dispatches an {@link NdefMessage}                                                                                      
-     * containing one or more Android application records,                                                                                           
-     * the applications contained in those records will be the                                                                                       
-     * preferred target for the NDEF_DISCOVERED intent, in                                                                                           
-     * the order in which they appear in the {@link NdefMessage}.                                                                                    
-     * This dispatch behavior was first added to Android in                                                                                          
-     * Ice Cream Sandwich.                                                                                                                           
-     * &lt;p&gt;                                                                                                                                           
-     * If none of the applications are installed on the device,                                                                                      
-     * a Market link will be opened to the first application.                                                                                        
-     * &lt;p&gt;                                                                                                                                           
-     * Note that Android application records do not overrule                                                                                         
-     * applications that have called                                                                                                                 
-     * {@link NfcAdapter#enableForegroundDispatch}.                                                                                                  
-     *                                                                                                                                               
-     * @param packageName Android package name                                                                                                       
-     * @return Android application NDEF record                                                                                                       
+    /**
+     * &lt;p&gt;
+     * From Android SDK, version 14. (C) 2010 The Android Open Source Project
+     * &lt;p&gt;
+     * Creates an Android application NDEF record.
+     * &lt;p&gt;
+     * This record indicates to other Android devices the package that should be
+     * used to handle the rest of the NDEF message. You can embed this record
+     * anywhere into your NDEF message to ensure that the intended package
+     * receives the message.
+     * &lt;p&gt;
+     * When an Android device dispatches an {@link NdefMessage} containing one
+     * or more Android application records, the applications contained in those
+     * records will be the preferred target for the NDEF_DISCOVERED intent, in
+     * the order in which they appear in the {@link NdefMessage}. This dispatch
+     * behavior was first added to Android in Ice Cream Sandwich.
+     * &lt;p&gt;
+     * If none of the applications are installed on the device, a Market link
+     * will be opened to the first application.
+     * &lt;p&gt;
+     * Note that Android application records do not overrule applications that
+     * have called {@link NfcAdapter#enableForegroundDispatch}.
+     * 
+     * @param packageName Android package name
+     * @return Android application NDEF record
      */
     public static NdefRecord createApplicationRecord(String packageName) {
         try {

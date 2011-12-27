@@ -450,7 +450,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../mobisocial/nfc/NdefFactory.html#createApplicationRecord(java.lang.String)">createApplicationRecord</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> packageName)</nobr>
         
-        <div class="jd-descrdiv"><p>From Android SDK, version 14.</div>
+        <div class="jd-descrdiv"><p>
+ From Android SDK, version 14.</div>
   
   </td></tr>
 
@@ -476,24 +477,6 @@ Summary:
         <td class="jd-typecol"><nobr>
             
             
-            final
-            static
-            
-            <a href="../../android/nfc/NdefMessage.html">NdefMessage</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../mobisocial/nfc/NdefFactory.html#fromNdefUri(android.net.Uri)">fromNdefUri</a></span>(<a href="http://developer.android.com/reference/android/net/Uri.html">Uri</a> uri)</nobr>
-        
-        <div class="jd-descrdiv">Converts an Ndef message encoded in uri format to an NdefMessage.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
             
             static
             
@@ -509,7 +492,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -528,7 +511,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -544,7 +527,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -560,7 +543,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -576,7 +559,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -592,7 +575,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -608,7 +591,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -624,7 +607,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -998,42 +981,39 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p><p>From Android SDK, version 14.
- (C) 2010 The Android Open Source Project
-                                                                                                                    
- <p>Creates an Android application NDEF record.                                                                                                   
- <p>                                                                                                                                           
- This record indicates to other Android devices the package                                                                                    
- that should be used to handle the rest of the NDEF message.                                                                                   
- You can embed this record anywhere into your NDEF message                                                                                     
- to ensure that the intended package receives the message.                                                                                     
- <p>                                                                                                                                           
- When an Android device dispatches an <code><a href="../../android/nfc/NdefMessage.html">NdefMessage</a></code>                                                                                      
- containing one or more Android application records,                                                                                           
- the applications contained in those records will be the                                                                                       
- preferred target for the NDEF_DISCOVERED intent, in                                                                                           
- the order in which they appear in the <code><a href="../../android/nfc/NdefMessage.html">NdefMessage</a></code>.                                                                                    
- This dispatch behavior was first added to Android in                                                                                          
- Ice Cream Sandwich.                                                                                                                           
- <p>                                                                                                                                           
- If none of the applications are installed on the device,                                                                                      
- a Market link will be opened to the first application.                                                                                        
- <p>                                                                                                                                           
- Note that Android application records do not overrule                                                                                         
- applications that have called                                                                                                                 
- NfcAdapter#enableForegroundDispatch.                                                                                                  </p></div>
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ From Android SDK, version 14. (C) 2010 The Android Open Source Project
+ <p>
+ Creates an Android application NDEF record.
+ <p>
+ This record indicates to other Android devices the package that should be
+ used to handle the rest of the NDEF message. You can embed this record
+ anywhere into your NDEF message to ensure that the intended package
+ receives the message.
+ <p>
+ When an Android device dispatches an <code><a href="../../android/nfc/NdefMessage.html">NdefMessage</a></code> containing one
+ or more Android application records, the applications contained in those
+ records will be the preferred target for the NDEF_DISCOVERED intent, in
+ the order in which they appear in the <code><a href="../../android/nfc/NdefMessage.html">NdefMessage</a></code>. This dispatch
+ behavior was first added to Android in Ice Cream Sandwich.
+ <p>
+ If none of the applications are installed on the device, a Market link
+ will be opened to the first application.
+ <p>
+ Note that Android application records do not overrule applications that
+ have called NfcAdapter#enableForegroundDispatch.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>packageName</td>
-          <td>Android package name                                                                                                       </td>
+          <td>Android package name</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>Android application NDEF record                                                                                                       
+      <ul class="nolist"><li>Android application NDEF record
 </li></ul>
   </div>
 
@@ -1067,38 +1047,6 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="fromNdefUri(android.net.Uri)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-         
-         
-        <a href="../../android/nfc/NdefMessage.html">NdefMessage</a>
-      </span>
-      <span class="sympad">fromNdefUri</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/android/net/Uri.html">Uri</a> uri)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Converts an Ndef message encoded in uri format to an NdefMessage.
-</p></div>
 
     </div>
 </div>

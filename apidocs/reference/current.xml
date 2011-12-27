@@ -1185,19 +1185,6 @@
 <parameter name="data" type="byte[]">
 </parameter>
 </method>
-<method name="fromNdefUri"
- return="android.nfc.NdefMessage"
- abstract="false"
- native="false"
- synchronized="false"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="uri" type="android.net.Uri">
-</parameter>
-</method>
 <method name="fromText"
  return="android.nfc.NdefMessage"
  abstract="false"
