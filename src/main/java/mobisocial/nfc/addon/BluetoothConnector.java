@@ -26,11 +26,13 @@ import java.util.Random;
 import java.util.UUID;
 
 import mobisocial.nfc.ConnectionHandover;
+import mobisocial.nfc.NdefFactory;
 import mobisocial.nfc.Nfc;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -186,6 +188,11 @@ import mobisocial.nfc.ConnectionHandoverManager;
  *   &lt;/activity&gt;
  * </pre>
  *
+ * For devices supporting SDK 14 and above, the handover record also includes
+ * an Android Application Record, allowing your application to be discovered in
+ * the market if it is not yet installed. Otherwise, the uri provided by
+ * getAppReference() should direct the user to a web page relevant to your
+ * application.
  */
 public abstract class BluetoothConnector {
     private static final String SERVICE_NAME = "NfcBtHandover";
@@ -208,7 +215,7 @@ public abstract class BluetoothConnector {
     public static BluetoothServerSocket prepare(Nfc nfc, OnConnectedListener conn) {
         BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
         nfc.getConnectionHandoverManager().addConnectionHandover(btConnecting);
-        nfc.share(btConnecting.getHandoverRequestMessage());
+        nfc.share(btConnecting.getHandoverRequestMessage(nfc.getContext()));
         return btConnecting.mAcceptThread.mmServerSocket;
     }
 
@@ -226,7 +233,7 @@ public abstract class BluetoothConnector {
      */
     public static BluetoothServerSocket prepare(Nfc nfc, OnConnectedListener conn, NdefRecord[] ndef) {
         BluetoothConnecting btConnecting = new BluetoothConnecting(conn);
-        NdefMessage handoverRequest = btConnecting.getHandoverRequestMessage();
+        NdefMessage handoverRequest = btConnecting.getHandoverRequestMessage(nfc.getContext());
         NdefRecord[] combinedRecords = new NdefRecord[ndef.length + handoverRequest.getRecords().length];
 
         int i = 0;
@@ -248,7 +255,7 @@ public abstract class BluetoothConnector {
      * connects as a client.
      */
     public static void join(Nfc nfc, OnConnectedListener conn, NdefMessage ndef) {
-        BluetoothConnecting btConnecting = new BluetoothConnecting(conn, true);
+        BluetoothConnecting btConnecting = new BluetoothConnecting(conn, true, UUID.randomUUID());
         ConnectionHandoverManager manager = new ConnectionHandoverManager();
         manager.addConnectionHandover(btConnecting);
         manager.doHandover(ndef);
@@ -264,10 +271,11 @@ public abstract class BluetoothConnector {
         private final boolean mAlwaysClient;
         private boolean mConnectionStarted;
 
-        public BluetoothConnecting(OnConnectedListener onBtConnected, boolean alwaysClient) {
+        public BluetoothConnecting(OnConnectedListener onBtConnected, boolean alwaysClient,
+                UUID serviceUuid) {
             mAlwaysClient = alwaysClient;
             mmBtConnected = onBtConnected;
-            mServiceUuid = UUID.randomUUID();
+            mServiceUuid = serviceUuid;
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (mBluetoothAdapter == null) {
                 throw new IllegalStateException("No Bluetooth adapter found.");
@@ -282,11 +290,11 @@ public abstract class BluetoothConnector {
         }
 
         public BluetoothConnecting(OnConnectedListener onBtConnected) {
-            this(onBtConnected, false);
+            this(onBtConnected, false, UUID.randomUUID());
         }
 
-        private NdefMessage getHandoverRequestMessage() {
-            NdefRecord[] records = new NdefRecord[3];
+        private NdefMessage getHandoverRequestMessage(Context context) {
+            NdefRecord[] records = new NdefRecord[4];
 
             /* Handover Request */
             byte[] version = new byte[] {
@@ -311,6 +319,7 @@ public abstract class BluetoothConnector {
             records[2] = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI,
                     new byte[0], btRequest.toString().getBytes());
 
+            records[3] = NdefFactory.createApplicationRecord(context.getPackageName());
             NdefMessage ndef = new NdefMessage(records);
             return ndef;
         }

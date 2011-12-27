@@ -680,6 +680,13 @@ public class Nfc {
 		}
 	};
 
+	/**
+	 * @hide
+	 */
+	public Activity getContext() {
+	    return mActivity;
+	}
+
 	private void toast(final String text) {
 		mActivity.runOnUiThread(new Runnable() {
 			@Override

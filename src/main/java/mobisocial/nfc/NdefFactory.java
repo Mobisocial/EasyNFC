@@ -33,6 +33,11 @@ import android.util.Base64;
  * @see NdefMessage
  */
 public class NdefFactory {
+    /**
+     * An RTD indicating an Android Application Record.
+     */
+    public static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes();
+
     private static final String[] URI_PREFIXES = new String[] {
         "",
         "http://www.",
@@ -222,4 +227,39 @@ public class NdefFactory {
     public static final Uri toNdefUri(NdefMessage ndef) {
         return Uri.parse("ndef://url/" + Base64.encodeToString(ndef.toByteArray(), Base64.URL_SAFE));
     }*/
+
+    /**
+     * <p>
+     * From Android SDK, version 14. (C) 2010 The Android Open Source Project
+     * <p>
+     * Creates an Android application NDEF record.
+     * <p>
+     * This record indicates to other Android devices the package that should be
+     * used to handle the rest of the NDEF message. You can embed this record
+     * anywhere into your NDEF message to ensure that the intended package
+     * receives the message.
+     * <p>
+     * When an Android device dispatches an {@link NdefMessage} containing one
+     * or more Android application records, the applications contained in those
+     * records will be the preferred target for the NDEF_DISCOVERED intent, in
+     * the order in which they appear in the {@link NdefMessage}. This dispatch
+     * behavior was first added to Android in Ice Cream Sandwich.
+     * <p>
+     * If none of the applications are installed on the device, a Market link
+     * will be opened to the first application.
+     * <p>
+     * Note that Android application records do not overrule applications that
+     * have called {@link NfcAdapter#enableForegroundDispatch}.
+     * 
+     * @param packageName Android package name
+     * @return Android application NDEF record
+     */
+    public static NdefRecord createApplicationRecord(String packageName) {
+        try {
+            return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[] {},
+                    packageName.getBytes("US-ASCII"));
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
+    }
 }

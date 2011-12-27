@@ -37,12 +37,22 @@ public class BluetoothDuplexSocket implements DuplexSocket {
 			mmMac = mac;
 			mmServiceUuid = serviceUuid;
 		}
+
+		public BluetoothDuplexSocket(BluetoothSocket socket) {
+		    mmBluetoothAdapter = null;
+            mmMac = null;
+            mmServiceUuid = null;
+
+		    mmSocket = socket;
+		}
 		
 		@Override
 		public void connect() throws IOException {
-			BluetoothDevice device = mmBluetoothAdapter.getRemoteDevice(mmMac);
-			mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
-			mmSocket.connect();
+		    if (mmSocket == null) {
+    			BluetoothDevice device = mmBluetoothAdapter.getRemoteDevice(mmMac);
+    			mmSocket = device.createInsecureRfcommSocketToServiceRecord(mmServiceUuid);
+    			mmSocket.connect();
+		    }
 		}
 		
 		@Override
