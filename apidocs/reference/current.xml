@@ -404,8 +404,97 @@
 </field>
 </class>
 </package>
-<package name="mobisocial.ndefexchange"
+<package name="mobisocial.comm"
 >
+<class name="BluetoothDuplexSocket"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.comm.DuplexSocket">
+</implements>
+<constructor name="BluetoothDuplexSocket"
+ type="mobisocial.comm.BluetoothDuplexSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="adapter" type="android.bluetooth.BluetoothAdapter">
+</parameter>
+<parameter name="mac" type="java.lang.String">
+</parameter>
+<parameter name="serviceUuid" type="java.util.UUID">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</constructor>
+<constructor name="BluetoothDuplexSocket"
+ type="mobisocial.comm.BluetoothDuplexSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="socket" type="android.bluetooth.BluetoothSocket">
+</parameter>
+</constructor>
+<method name="close"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="connect"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getOutputStream"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
 <interface name="DuplexSocket"
  abstract="true"
  static="false"
@@ -453,7 +542,7 @@
 </exception>
 </method>
 </interface>
-<class name="NdefBluetoothPushHandover"
+<class name="StreamDuplexSocket"
  extends="java.lang.Object"
  abstract="false"
  static="false"
@@ -461,73 +550,18 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<implements name="mobisocial.nfc.ConnectionHandover">
+<implements name="mobisocial.comm.DuplexSocket">
 </implements>
-<constructor name="NdefBluetoothPushHandover"
- type="mobisocial.ndefexchange.NdefBluetoothPushHandover"
+<constructor name="StreamDuplexSocket"
+ type="mobisocial.comm.StreamDuplexSocket"
  static="false"
  final="false"
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="ndefExchange" type="mobisocial.ndefexchange.NdefExchangeContract">
+<parameter name="in" type="java.io.InputStream">
 </parameter>
-</constructor>
-<method name="doConnectionHandover"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverMessage" type="android.nfc.NdefMessage">
-</parameter>
-<parameter name="handover" type="int">
-</parameter>
-<parameter name="record" type="int">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="supportsRequest"
- return="boolean"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="handoverRequest" type="android.nfc.NdefRecord">
-</parameter>
-</method>
-</class>
-<class name="NdefBluetoothPushHandover.BluetoothDuplexSocket"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.ndefexchange.DuplexSocket">
-</implements>
-<constructor name="NdefBluetoothPushHandover.BluetoothDuplexSocket"
- type="mobisocial.ndefexchange.NdefBluetoothPushHandover.BluetoothDuplexSocket"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="adapter" type="android.bluetooth.BluetoothAdapter">
-</parameter>
-<parameter name="mac" type="java.lang.String">
-</parameter>
-<parameter name="serviceUuid" type="java.util.UUID">
+<parameter name="out" type="java.io.OutputStream">
 </parameter>
 <exception name="IOException" type="java.io.IOException">
 </exception>
@@ -585,6 +619,139 @@
 </exception>
 </method>
 </class>
+<class name="TcpDuplexSocket"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.comm.DuplexSocket">
+</implements>
+<constructor name="TcpDuplexSocket"
+ type="mobisocial.comm.TcpDuplexSocket"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="host" type="java.lang.String">
+</parameter>
+<parameter name="port" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</constructor>
+<method name="close"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="connect"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getInputStream"
+ return="java.io.InputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="getOutputStream"
+ return="java.io.OutputStream"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+</class>
+</package>
+<package name="mobisocial.ndefexchange"
+>
+<class name="NdefBluetoothPushHandover"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<implements name="mobisocial.nfc.ConnectionHandover">
+</implements>
+<constructor name="NdefBluetoothPushHandover"
+ type="mobisocial.ndefexchange.NdefBluetoothPushHandover"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="ndefExchange" type="mobisocial.ndefexchange.NdefExchangeContract">
+</parameter>
+</constructor>
+<method name="doConnectionHandover"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverMessage" type="android.nfc.NdefMessage">
+</parameter>
+<parameter name="handover" type="int">
+</parameter>
+<parameter name="record" type="int">
+</parameter>
+<exception name="IOException" type="java.io.IOException">
+</exception>
+</method>
+<method name="supportsRequest"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="handoverRequest" type="android.nfc.NdefRecord">
+</parameter>
+</method>
+</class>
 <interface name="NdefExchangeContract"
  abstract="true"
  static="false"
@@ -640,7 +807,7 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="socket" type="mobisocial.ndefexchange.DuplexSocket">
+<parameter name="socket" type="mobisocial.comm.DuplexSocket">
 </parameter>
 <parameter name="nfcInterface" type="mobisocial.ndefexchange.NdefExchangeContract">
 </parameter>
@@ -732,83 +899,6 @@
 </parameter>
 </method>
 </class>
-<class name="NdefTcpPushHandover.TcpDuplexSocket"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.ndefexchange.DuplexSocket">
-</implements>
-<constructor name="NdefTcpPushHandover.TcpDuplexSocket"
- type="mobisocial.ndefexchange.NdefTcpPushHandover.TcpDuplexSocket"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="host" type="java.lang.String">
-</parameter>
-<parameter name="port" type="int">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</constructor>
-<method name="close"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="connect"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="getInputStream"
- return="java.io.InputStream"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="getOutputStream"
- return="java.io.OutputStream"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-</class>
 <class name="PendingNdefExchange"
  extends="java.lang.Object"
  abstract="false"
@@ -841,83 +931,6 @@
 >
 <parameter name="ndef" type="android.nfc.NdefMessage">
 </parameter>
-</method>
-</class>
-<class name="StreamDuplexSocket"
- extends="java.lang.Object"
- abstract="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<implements name="mobisocial.ndefexchange.DuplexSocket">
-</implements>
-<constructor name="StreamDuplexSocket"
- type="mobisocial.ndefexchange.StreamDuplexSocket"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="in" type="java.io.InputStream">
-</parameter>
-<parameter name="out" type="java.io.OutputStream">
-</parameter>
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</constructor>
-<method name="close"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="connect"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="getInputStream"
- return="java.io.InputStream"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
-</method>
-<method name="getOutputStream"
- return="java.io.OutputStream"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<exception name="IOException" type="java.io.IOException">
-</exception>
 </method>
 </class>
 </package>
@@ -1144,6 +1157,19 @@
  visibility="public"
 >
 </constructor>
+<method name="createApplicationRecord"
+ return="android.nfc.NdefRecord"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="packageName" type="java.lang.String">
+</parameter>
+</method>
 <method name="fromMime"
  return="android.nfc.NdefMessage"
  abstract="false"
@@ -1276,6 +1302,32 @@
 <parameter name="ndef" type="android.nfc.NdefMessage">
 </parameter>
 </method>
+<method name="parseUri"
+ return="android.net.Uri"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="record" type="android.nfc.NdefRecord">
+</parameter>
+<exception name="FormatException" type="android.nfc.FormatException">
+</exception>
+</method>
+<field name="RTD_ANDROID_APP"
+ type="byte[]"
+ transient="false"
+ volatile="false"
+ value="null"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 </class>
 <interface name="NdefHandler"
  abstract="true"
@@ -1491,6 +1543,19 @@
  deprecated="not deprecated"
  visibility="public"
 >
+</method>
+<method name="onCreate"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="activity" type="android.app.Activity">
+</parameter>
 </method>
 <method name="onNewIntent"
  return="boolean"

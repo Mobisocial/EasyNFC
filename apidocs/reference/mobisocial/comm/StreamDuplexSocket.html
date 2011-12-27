@@ -57,7 +57,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
 <title>
 
-  FormatException
+  StreamDuplexSocket
 
 
 | EasyNfc
@@ -144,9 +144,9 @@
               </div>
               <ul>
                 
-    <li class="selected api apilevel-">
-  <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
     <li class="api apilevel-">
+  <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
+    <li class="selected api apilevel-">
   <a href="../../mobisocial/comm/package-summary.html">mobisocial.comm</a></li>
     <li class="api apilevel-">
   <a href="../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
@@ -160,21 +160,22 @@
           <div id="classes-nav">
             <ul>
               
+    <li><h2>Interfaces</h2>
+      <ul>
+          <li class="api apilevel-"><a href="../../mobisocial/comm/DuplexSocket.html">DuplexSocket</a></li>
+      </ul>
+    </li>
               
     <li><h2>Classes</h2>
       <ul>
-          <li class="api apilevel-"><a href="../../android/nfc/NdefMessage.html">NdefMessage</a></li>
-          <li class="api apilevel-"><a href="../../android/nfc/NdefRecord.html">NdefRecord</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/comm/BluetoothDuplexSocket.html">BluetoothDuplexSocket</a></li>
+          <li class="selected api apilevel-"><a href="../../mobisocial/comm/StreamDuplexSocket.html">StreamDuplexSocket</a></li>
+          <li class="api apilevel-"><a href="../../mobisocial/comm/TcpDuplexSocket.html">TcpDuplexSocket</a></li>
       </ul>
     </li>
               
               
               
-    <li><h2>Exceptions</h2>
-      <ul>
-          <li class="selected api apilevel-"><a href="../../android/nfc/FormatException.html">FormatException</a></li>
-      </ul>
-    </li>
               
             </ul><br/>
           </div><!-- end classes -->
@@ -214,11 +215,6 @@
 
 
   
-  
-  
-  
-
-  
    
   
   
@@ -232,6 +228,8 @@
   
   
 
+  
+   
   
   
   
@@ -241,7 +239,7 @@
 <div class="sum-details-links">
 
 <div>
-<a href="FormatException-source.html">View Source</a>
+<a href="StreamDuplexSocket-source.html">View Source</a>
 </div>
 
 
@@ -260,6 +258,9 @@ Summary:
 
 
 
+  &#124; <a href="#pubmethods">Methods</a>
+  
+
 
 
   &#124; <a href="#inhmethods">Inherited Methods</a>
@@ -272,13 +273,6 @@ Summary:
 
 
   
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/FormatException.html">Android</a>
-    
-    </div>
   
 
 </div>
@@ -293,25 +287,22 @@ Summary:
      
     
     class
-<h1>FormatException</h1>
+<h1>StreamDuplexSocket</h1>
 
 
 
   
-  
-  
-
+    extends <a href="http://developer.android.com/reference/java/lang/Object.html">Object</a><br/>
   
   
   
 
   
-    extends <a href="http://developer.android.com/reference/java/lang/Exception.html">Exception</a><br/>
   
-  
-  
-
-  
+      implements 
+      
+        <a href="../../mobisocial/comm/DuplexSocket.html">DuplexSocket</a> 
+      
   
   
 
@@ -326,7 +317,7 @@ Summary:
 
     <tr>
          	
-        <td colspan="4" class="jd-inheritance-class-cell"><a href="http://developer.android.com/reference/java/lang/Object.html">java.lang.Object</a></td>
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="http://developer.android.com/reference/java/lang/Object.html">java.lang.Object</a></td>
     </tr>
     
 
@@ -334,29 +325,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
          	
-        <td colspan="3" class="jd-inheritance-class-cell"><a href="http://developer.android.com/reference/java/lang/Throwable.html">java.lang.Throwable</a></td>
-    </tr>
-    
-
-    <tr>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
-         	
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="http://developer.android.com/reference/java/lang/Exception.html">java.lang.Exception</a></td>
-    </tr>
-    
-
-    <tr>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;</td>
-        
-            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
-         	
-        <td colspan="1" class="jd-inheritance-class-cell">android.nfc.FormatException</td>
+        <td colspan="1" class="jd-inheritance-class-cell">mobisocial.comm.StreamDuplexSocket</td>
     </tr>
     
 
@@ -435,7 +404,36 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../android/nfc/FormatException.html#FormatException()">FormatException</a></span>()</nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/StreamDuplexSocket.html#StreamDuplexSocket(java.io.InputStream, java.io.OutputStream)">StreamDuplexSocket</a></span>(<a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a> in, <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a> out)</nobr>
+        
+  </td></tr>
+
+
+
+</table>
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/StreamDuplexSocket.html#close()">close</a></span>()</nobr>
         
   </td></tr>
 
@@ -448,20 +446,48 @@ Summary:
             
             
             
-            </nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../android/nfc/FormatException.html#FormatException(java.lang.String)">FormatException</a></span>(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> message)</nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/StreamDuplexSocket.html#connect()">connect</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/StreamDuplexSocket.html#getInputStream()">getInputStream</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/StreamDuplexSocket.html#getOutputStream()">getOutputStream</a></span>()</nobr>
         
   </td></tr>
 
 
 
 </table>
-
-
-
-
 
 
 
@@ -473,210 +499,6 @@ Summary:
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
-
-
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Throwable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-java.lang.Throwable-trigger"
-          src="../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From class
-
-  <a href="http://developer.android.com/reference/java/lang/Throwable.html">java.lang.Throwable</a>
-
-<div id="inherited-methods-java.lang.Throwable">
-  <div id="inherited-methods-java.lang.Throwable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-java.lang.Throwable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            synchronized
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/Throwable.html">Throwable</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">fillInStackTrace</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/Throwable.html">Throwable</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getCause</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/String.html">String</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getLocalizedMessage</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/String.html">String</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getMessage</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/StackTraceElement.html">StackTraceElement[]</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getStackTrace</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            synchronized
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/Throwable.html">Throwable</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">initCause</span>(<a href="http://developer.android.com/reference/java/lang/Throwable.html">Throwable</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">printStackTrace</span>(<a href="http://developer.android.com/reference/java/io/PrintWriter.html">PrintWriter</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">printStackTrace</span>(<a href="http://developer.android.com/reference/java/io/PrintStream.html">PrintStream</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">printStackTrace</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setStackTrace</span>(<a href="http://developer.android.com/reference/java/lang/StackTraceElement.html">StackTraceElement[]</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://developer.android.com/reference/java/lang/String.html">String</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">toString</span>()</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
 
 
 <tr class="api apilevel-" >
@@ -881,6 +703,120 @@ From class
 
 
 
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.io.Closeable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-java.io.Closeable-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="http://developer.android.com/reference/java/io/Closeable.html">java.io.Closeable</a>
+
+<div id="inherited-methods-java.io.Closeable">
+  <div id="inherited-methods-java.io.Closeable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-java.io.Closeable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">close</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-mobisocial.comm.DuplexSocket" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-mobisocial.comm.DuplexSocket-trigger"
+          src="../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  <a href="../../mobisocial/comm/DuplexSocket.html">mobisocial.comm.DuplexSocket</a>
+
+<div id="inherited-methods-mobisocial.comm.DuplexSocket">
+  <div id="inherited-methods-mobisocial.comm.DuplexSocket-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-mobisocial.comm.DuplexSocket-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/DuplexSocket.html#connect()">connect</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/DuplexSocket.html#getInputStream()">getInputStream</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../mobisocial/comm/DuplexSocket.html#getOutputStream()">getOutputStream</a></span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 </table>
 
@@ -916,7 +852,7 @@ From class
 
 
 
-<A NAME="FormatException()"></A>
+<A NAME="StreamDuplexSocket(java.io.InputStream, java.io.OutputStream)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -928,8 +864,8 @@ From class
          
         
       </span>
-      <span class="sympad">FormatException</span>
-      <span class="normal">()</span>
+      <span class="sympad">StreamDuplexSocket</span>
+      <span class="normal">(<a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a> in, <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a> out)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -937,56 +873,20 @@ From class
 </div>
         
   
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/FormatException.html#FormatException()">Android</a>
-    
-    </div>
-  
 
       </div>
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="FormatException(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        
-      </span>
-      <span class="sympad">FormatException</span>
-      <span class="normal">(<a href="http://developer.android.com/reference/java/lang/String.html">String</a> message)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-    <div>
-    Also: 
-    
-      <a href="http://developer.android.com/reference/android/nfc/FormatException.html#FormatException(java.lang.String)">Android</a>
-    
-    </div>
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>
@@ -1002,6 +902,171 @@ From class
 
 <!-- ========= METHOD DETAIL ======== -->
 <!-- Public methdos -->
+
+<h2>Public Methods</h2>
+
+
+
+<A NAME="close()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">close</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="connect()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">connect</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getInputStream()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="http://developer.android.com/reference/java/io/InputStream.html">InputStream</a>
+      </span>
+      <span class="sympad">getInputStream</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getOutputStream()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="http://developer.android.com/reference/java/io/OutputStream.html">OutputStream</a>
+      </span>
+      <span class="sympad">getOutputStream</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="http://developer.android.com/reference/java/io/IOException.html">IOException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 
 
 

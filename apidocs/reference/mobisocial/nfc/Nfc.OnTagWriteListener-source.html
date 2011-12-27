@@ -147,6 +147,8 @@
     <li class="api apilevel-">
   <a href="../../android/nfc/package-summary.html">android.nfc</a></li>
     <li class="api apilevel-">
+  <a href="../../mobisocial/comm/package-summary.html">mobisocial.comm</a></li>
+    <li class="api apilevel-">
   <a href="../../mobisocial/ndefexchange/package-summary.html">mobisocial.ndefexchange</a></li>
     <li class="selected api apilevel-">
   <a href="../../mobisocial/nfc/package-summary.html">mobisocial.nfc</a></li>
@@ -325,6 +327,7 @@ import android.widget.Toast;
  *   public void onCreate(Bundle savedInstanceState) {
  *     super.onCreate(savedInstanceState);
  *     mNfc = new Nfc(this);
+ *     mNfc.onCreate(this);
  *   }
  * 
  *   public void onResume() {
@@ -659,6 +662,10 @@ public class Nfc {
 	}
 
 
+	public void onCreate(Activity activity) {
+	    onNewIntent(activity, activity.getIntent());
+	}
+
 	/**
 	 * Call this method in your Activity's onResume() method body.
 	 */
@@ -667,10 +674,12 @@ public class Nfc {
 		mActivity = activity;
 
 		mState = STATE_RESUMING;
-		if (mNfcAdapter == null) {
+		if (isConnectionHandoverEnabled()) {
 			installNfcHandoverHandler();
 			enableNdefPush();
-		} else {
+		}
+
+		if (mNfcAdapter != null) {
 			synchronized(this) {
 				if (mInterfaceMode != MODE_PASSTHROUGH) {
 					installNfcHandler();
@@ -691,10 +700,12 @@ public class Nfc {
 		mActivity = activity;
 
 		mState = STATE_PAUSING;
-		if (mNfcAdapter == null) {
-			uninstallNfcHandoverHandler();
-			notifyRemoteNfcInteface(null);
-		} else {
+		if (isConnectionHandoverEnabled()) {
+		    uninstallNfcHandoverHandler();
+            notifyRemoteNfcInteface(null);
+		}
+
+		if (mNfcAdapter != null) {
 			synchronized(this) {
 				mNfcAdapter.disableForegroundDispatch(mActivity);
 				mNfcAdapter.disableForegroundNdefPush(mActivity);
@@ -817,19 +828,19 @@ public class Nfc {
 				}
 			});
 			return;
+		} else {		
+    		mActivity.runOnUiThread(new Runnable() {
+    			@Override
+    			public void run() {
+    				synchronized (Nfc.this) {
+    					if (mState &lt; STATE_RESUMING) {
+    						return;
+    					}
+    					mNfcAdapter.enableForegroundNdefPush(mActivity, ndef);
+    				}
+    			}
+    		});
 		}
-		
-		mActivity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				synchronized (Nfc.this) {
-					if (mState &lt; STATE_RESUMING) {
-						return;
-					}
-					mNfcAdapter.enableForegroundNdefPush(mActivity, ndef);
-				}
-			}
-		});
 	}
 
 	private void notifyRemoteNfcInteface(NdefMessage ndef) {
@@ -850,8 +861,9 @@ public class Nfc {
 		Intent activityIntent = new Intent(mActivity, mActivity.getClass());
 		activityIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		
-		PendingIntent intent = PendingIntent.getActivity(mActivity, 0, activityIntent, 0);
-		mNfcAdapter.enableForegroundDispatch(mActivity, intent, mIntentFilters, mTechLists);
+        PendingIntent intent = PendingIntent.getActivity(mActivity, 0,
+                activityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        mNfcAdapter.enableForegroundDispatch(mActivity, intent, mIntentFilters, mTechLists);
 	}
 	
 	private BroadcastReceiver mHandoverReceiver = new BroadcastReceiver() {
@@ -926,6 +938,13 @@ public class Nfc {
 			return 0;
 		}
 	};
+
+	/**
+	 * @hide
+	 */
+	public Activity getContext() {
+	    return mActivity;
+	}
 
 	private void toast(final String text) {
 		mActivity.runOnUiThread(new Runnable() {
