@@ -81,12 +81,12 @@
     <repository>
       <id>mobisocial-releases</id>
       <name>Internal Releases</name>
-      <url>http://mobisocial.stanford.edu:8081/nexus/content/repositories/releases</url>
+      <url>https://mobisocial.stanford.edu:8081/nexus/content/repositories/releases</url>
     </repository>
     <snapshotRepository>
       <id>mobisocial-snapshots</id>
       <name>Internal Snapshots</name>
-      <url>http://mobisocial.stanford.edu:8081/nexus/content/repositories/snapshots</url>
+      <url>https://mobisocial.stanford.edu:8081/nexus/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
